@@ -33,4 +33,14 @@ class ArchiveController extends Controller
     {
         return view('archive.create');
     }
+
+    /**
+     * Add a archive.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function detail()
+    {
+        return view('archive.detail');
+    }
 }

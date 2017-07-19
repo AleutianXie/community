@@ -14,4 +14,6 @@
 Auth::routes();
 
 Route::get('/', 'ArchiveController@index')->name('home');
-Route::get('/create', 'ArchiveController@create')->name('create');
+Route::match(['get', 'post'], '/create', 'ArchiveController@create')->name('create');
+Route::get('/{id}', 'ArchiveController@detail')->where('id', '[0-9]+')->name('detail');
+Route::post('/edit', 'ArchiveController@edit');

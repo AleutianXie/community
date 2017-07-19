@@ -26,5 +26,6 @@ return [
     'shape_area' => 'SHAPE_AREA',
     'submit' => '提交',
     'reset' => '重置',
-    'sidebar' => ['list' => '档案列表', 'add' => '新建档案'],
+    'sidebar' => ['list' => '档案列表', 'add' => '新建档案', 'detail' => '档案详情'],
+    'go' => '前往',
 ];

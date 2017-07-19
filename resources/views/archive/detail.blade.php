@@ -17,7 +17,7 @@
                 <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">{{ __('archive.go') }}</button>
             </p>
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{ __('archive.sidebar.list') }}</div>
+                    <div class="panel-heading">{{ __('archive.sidebar.detail') }}</div>
 
 
             </div>
