@@ -13,4 +13,5 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'ArchiveController@index')->name('home');
+Route::get('/create', 'ArchiveController@create')->name('create');

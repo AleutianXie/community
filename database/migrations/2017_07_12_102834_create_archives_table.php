@@ -37,6 +37,11 @@ class CreateArchivesTable extends Migration
 
             $table->timestamps();
         });
+
+        // once the table is created use a raw query to ALTER it and add the MEDIUMBLOB
+        DB::statement("ALTER TABLE archives ALTER COLUMN shape_length TYPE numeric");
+        DB::statement("ALTER TABLE archives ALTER COLUMN shape_area TYPE numeric");
+
     }
 
     /**
