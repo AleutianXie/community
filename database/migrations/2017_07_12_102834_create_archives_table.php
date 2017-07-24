@@ -19,15 +19,15 @@ class CreateArchivesTable extends Migration
             $table->increments('id');
             $table->string('name', 60)->unique();
             $table->string('address', 255);
-            $table->tinyInteger('shape');
+            $table->tinyInteger('shape')->nullable();
             $table->smallInteger('unit');
             $table->smallInteger('building');
             $table->smallInteger('lift');
             $table->string('property', 60);
             $table->string('principal', 30);
             $table->string('mobile', 11);
-            $table->float('shape_length', 20, 6);
-            $table->float('shape_area', 20, 6);
+            $table->float('shape_length', 20, 6)->nullable();
+            $table->float('shape_area', 20, 6)->nullable();
 
             $table->boolean('show')->default(1);
             $table->unsignedInteger('creater');

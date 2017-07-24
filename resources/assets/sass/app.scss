@@ -1,9 +1,18 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+// @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// x-editable
+@import "node_modules/X-editable/dist/bootstrap3-editable/css/bootstrap-editable";
+
+@import "offcanvas";
+
+@import "slider";
+
+@import "archive";

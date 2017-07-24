@@ -6,6 +6,8 @@
  */
 
 require('./bootstrap');
+require('../../../node_modules/X-editable/dist/bootstrap3-editable/js/bootstrap-editable');
+require('./jssor.slider-25.2.0.min');
 
 window.Vue = require('vue');
 
