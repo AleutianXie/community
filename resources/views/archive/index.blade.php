@@ -16,27 +16,27 @@
                     <p class="pull-right visible-xs">
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">{{ __('archive.go') }}</button>
                     </p>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">{{ __('archive.sidebar.list') }}</div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ __('archive.sidebar.list') }}</div>
 
-                            <div class="panel-body">
-                                @include('messages')
+                        <div class="panel-body">
+                            @include('messages')
 
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>{{ __('archive.name') }}</th>
-                                            <th>{{ __('archive.address') }}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($archives as $archive)
-                                        <tr>
-                                            <td>{{ $archive->id }}</td>
-                                            <td><a href="{{ asset('/'.$archive->id) }}">{{ $archive->name }}</a></td>
-                                            <td>{{ $archive->address }}</td>
-                                        </tr>
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>{{ __('archive.name') }}</th>
+                                        <th>{{ __('archive.address') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($archives as $archive)
+                                    <tr>
+                                        <td>{{ $archive->id }}</td>
+                                        <td><a href="{{ asset('/'.$archive->id) }}">{{ $archive->name }}</a></td>
+                                        <td>{{ $archive->address }}</td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>

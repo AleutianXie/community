@@ -133,4 +133,9 @@ class ArchiveController extends Controller
             }
         }
     }
+
+    public function map()
+    {
+        return view('archive.map');
+    }
 }

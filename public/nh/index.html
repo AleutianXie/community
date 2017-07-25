@@ -1,0 +1,47 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>TianDi Map</title>
+    
+    <script type="text/javascript">
+        dojoConfig = {
+            parseOnLoad: true,
+            packages: [{
+                name: 'tdlib',
+                location: "/nh/js/tdlib"
+            }]
+        };
+    </script>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.6/js/esri/css/esri.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.6/js/dojo/dijit/themes/tundra/tundra.css">
+    
+    <script src="http://js.arcgis.com/3.7/"></script>
+    
+
+    <script type="text/javascript">
+    var map;
+    require(["esri/map", "tdlib/TDTLayer","tdlib/TDTAnnoLayer","esri/geometry/Point","dijit/form/Button","dojo/domReady!"], 
+    function(Map,TDTLayer,TDTAnnoLayer,Point,Button) {
+        map=new Map("mapDiv",{ logo:false});
+        var nhbasemap = new TDTLayer();
+        map.addLayer(nhbasemap);
+        var nhannolayer=  new TDTAnnoLayer();
+        map.addLayer(nhannolayer);
+        
+        map.centerAndZoom(new Point({"x": 121.42018376109351, "y": 29.291107035766274, "spatialReference": {"wkid": 4490 } }),11);
+        
+        var button = new Button({
+            label: "宁海",
+            onClick: function(){
+               		map.centerAt(new esri.geometry.Point(121.42018376109351,29.291107035766274, new esri.SpatialReference({ wkid: 4490 })));
+                }}
+            , "ToNinghai");      
+      });
+    </script>
+  </head>
+  <body class="tundra">
+    <button id="ToNinghai" type="button" ></button><br />
+    <div id="mapDiv" style="width:1000px; height:500px; border:1px solid #000;"></div>
+  </body>
+</html>
