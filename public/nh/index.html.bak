@@ -44,7 +44,6 @@
         registry.byId("clear").on("click", function() {
         		//清除所有绘制的面数据
           	map.graphics.clear();
-          	//清除graphiclayer图层的数据
           	map.getLayer("xiaoqu").clear();
           	
         });
