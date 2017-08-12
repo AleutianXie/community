@@ -23,7 +23,7 @@
                         <div class="panel-body">
                             @include('messages')
                             <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-4 col-md-push-8">
+                                <div class="col-xs-12 col-sm-12 col-md-4">
                                     <div class="profile-user-info profile-user-info-striped">
                                         <div class="profile-info-row">
                                             <div class="profile-info-name"> {{ __('archive.name') }} </div>
@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xs-12 col-sm-12 col-md-8 col-md-pull-4">
+                                <div class="col-xs-12 col-sm-12 col-md-8">
                                     <div id="jssor_1" style="margin:0 auto;top:0px;left:0px;width:980px;height:580px;overflow:hidden;visibility:hidden;">
                                         <!-- Loading Screen -->
                                         <div data-u="loading" class="jssorl-004-double-tail-spin" style="position:absolute;top:0px;left:0px;text-align:center;background-color:rgba(0,0,0,0.7);">
@@ -143,14 +143,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-<br/>
-<br/>
-                            <div class="row">
-                                    <button id="ToNinghai" type="button" ></button><br />
-    <div id="mapDiv" style="width:98%; border:1px solid #000;"></div>
-
                             </div>
                         </div>
                     </div>
@@ -294,39 +286,4 @@
         });
     });
 </script>
-
-    <script type="text/javascript">
-        dojoConfig = {
-            parseOnLoad: true,
-            packages: [{
-                name: 'tdlib',
-                location: "/nh/js/tdlib"
-            }]
-        };
-    </script>
-                                <link rel="stylesheet" href="http://js.arcgis.com/3.6/js/esri/css/esri.css">
-    <link rel="stylesheet" href="http://js.arcgis.com/3.6/js/dojo/dijit/themes/tundra/tundra.css">
-
-    <script src="http://js.arcgis.com/3.7/"></script>
-<script type="text/javascript">
-
-    var map;
-    require(["esri/map", "tdlib/TDTLayer","tdlib/TDTAnnoLayer","esri/geometry/Point","dijit/form/Button","dojo/domReady!"],
-    function(Map,TDTLayer,TDTAnnoLayer,Point,Button) {
-        map=new Map("mapDiv",{ logo:false});
-        var nhbasemap = new TDTLayer();
-        map.addLayer(nhbasemap);
-        var nhannolayer=  new TDTAnnoLayer();
-        map.addLayer(nhannolayer);
-
-        map.centerAndZoom(new Point({"x": 121.4313169100, "y": 29.3105884200, "spatialReference": {"wkid": 4490 } }),11);
-
-        var button = new Button({
-            label: "{{ $archive->name }}",
-            onClick: function(){
-                    map.centerAt(new esri.geometry.Point(121.4313169100,29.3105884200, new esri.SpatialReference({ wkid: 4490 })));
-                }}
-            , "ToNinghai");
-      });
-      </script>
 @endsection

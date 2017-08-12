@@ -13,7 +13,7 @@ return [
 		    |
 	*/
 
-	'name' => '小区名称',
+	'name' => '名称',
 	'address' => '地址',
 	'shape' => 'SHAPE',
 	'unit' => '单元数',

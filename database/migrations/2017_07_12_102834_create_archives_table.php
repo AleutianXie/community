@@ -28,7 +28,7 @@ class CreateArchivesTable extends Migration
             $table->string('mobile', 11);
             $table->float('shape_length', 20, 6)->nullable();
             $table->float('shape_area', 20, 6)->nullable();
-
+            $table->text('geometry')->nullable();
             $table->boolean('show')->default(1);
             $table->unsignedInteger('creater');
             $table->foreign('creater')->references('id')->on('users');

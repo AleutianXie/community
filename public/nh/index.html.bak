@@ -22,12 +22,21 @@
     <script type="text/javascript">
     var map,tb;
     
-    require(["esri/map","esri/toolbars/draw","esri/symbols/SimpleMarkerSymbol","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/graphic","esri/Color","esri/layers/GraphicsLayer", "esri/SpatialReference","tdlib/TDTLayer","tdlib/TDTAnnoLayer","esri/geometry/Point","dojo/parser","dijit/registry","dijit/form/Button", "dojo/domReady!"], 
-    function(Map,Draw,SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, Graphic,Color,GraphicsLayer,SpatialReference,TDTLayer,TDTAnnoLayer,Point,parser,registry,Button) {
+    require(["esri/map","esri/dijit/Popup","esri/dijit/PopupTemplate","esri/toolbars/draw","esri/symbols/SimpleMarkerSymbol","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/graphic","esri/Color","esri/layers/GraphicsLayer", "esri/SpatialReference","tdlib/TDTLayer","tdlib/TDTAnnoLayer","esri/geometry/Point","dojo/parser","dijit/registry","dijit/form/Button", "dojo/domReady!"], 
+    function(Map,Popup, PopupTemplate,Draw,SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, Graphic,Color,GraphicsLayer,SpatialReference,TDTLayer,TDTAnnoLayer,Point,parser,registry,Button) {
         parser.parse();
-        
-        map=new Map("mapDiv",{ logo:false});
-        
+        var popupOptions = {
+						titleInBody: false,
+						highlight: true,
+						marginTop: 60,
+						width: 100
+				};
+				var popup = new esri.dijit.Popup(popupOptions, dojo.create("div"));
+        map=new Map("mapDiv",{ logo:false,infoWindow: popup});
+        map.on('load', function() {        	
+						alert('地图加载结束\n这里可以触发加载小区数据事件');
+						requestData();
+					});
         var nhbasemap = new TDTLayer();
         map.addLayer(nhbasemap);
         var nhannolayer=  new TDTAnnoLayer();
@@ -44,6 +53,7 @@
         registry.byId("clear").on("click", function() {
         		//清除所有绘制的面数据
           	map.graphics.clear();
+          	//清除graphiclayer图层的数据
           	map.getLayer("xiaoqu").clear();
           	
         });
@@ -75,10 +85,10 @@
 							//evt.geometry.type  图形类型
 							//
 							//https://developers.arcgis.com/javascript/3/jssamples/toolbar_draw.html
-         	} 
+         	}
          	
-         	registry.byId("phpdata").on("click", function() {
-        			dojo.xhrGet({
+         	function requestData(){
+      		dojo.xhrGet({
 
 							       url:"data/c123_FeaturesToJSON.json",						
 							
@@ -106,17 +116,79 @@
 							              		 graLayer.add(graphic);
 							              		 map.centerAndZoom(graphic.geometry.getCentroid(),15); 
 							              		 //graphic.toJson();  转成json数据保存
+																
+																//添加图标
+																
+																var symbol = new esri.symbol.PictureMarkerSymbol("images/grn_pushpin_48px", 48, 48);
+												
+												        //创建模版
+												        var popupTemplate = esri.dijit.PopupTemplate({
+																			title: "小区详细信息",
+																			fieldInfos: [{
+																					fieldName: "小区名",
+																					label: "名称",
+																					visible: true
+																				}, {
+																					fieldName: "地址",
+																					label: "地址",
+																					visible: true
+																				}, {
+																					fieldName: "幢数",
+																					label: "幢数",
+																					visible: true
+																				}, {
+																					fieldName: "单元数",
+																					label: "单元数",
+																					visible: true
+																				},
+																				{
+																					fieldName:"电梯数",
+																					label:"电梯数",
+																				  visible:true
+																				},
+																				{
+																					fieldName:"物业公",
+																					label:"物业公司",
+																				  visible:true
+																				},
+																				{
+																					fieldName:"负责人",
+																					label:"负责人",
+																				  visible:true
+																				},
+																				{
+																					fieldName:"联系电",
+																					label:"联系电话",
+																				  visible:true
+																				},
+																				{
+																					fieldName: "Link",
+																					label: "更多详细信息",
+																					visible: true
+																				}
+																			]
+																		});
 
+																var attributes = attr;
+																attributes["Link"]="http://www.baidu.com";
+																var ptgraphic = new esri.Graphic(graphic.geometry.getCentroid(), symbol, attr, popupTemplate);
+																graLayer.add(ptgraphic);
 							              }
 							              
 							
 							      }
 							
 							});
+      } 
+         	
+         	registry.byId("phpdata").on("click", function() {
+        			requestData();
         });
          	
          	                                 
       });      
+      
+      
       
          	
          	

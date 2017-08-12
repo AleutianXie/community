@@ -14,7 +14,15 @@
 Auth::routes();
 
 Route::get('/', 'ArchiveController@index')->name('home');
-Route::match(['get', 'post'], '/create', 'ArchiveController@create')->name('create');
-Route::get('/{id}', 'ArchiveController@detail')->where('id', '[0-9]+')->name('detail');
+Route::match(['get', 'post'], '/create', 'ArchiveController@create')->name('archive.create');
+Route::get('/{id}', 'ArchiveController@detail')->where('id', '[0-9]+')->name('archive.detail');
 Route::post('/edit', 'ArchiveController@edit');
-Route::get('/map', 'ArchiveController@map');
+Route::get('/map', 'ArchiveController@map')->name('archive.map');
+
+Route::group(['prefix' => 'property'], function ()
+{
+	Route::get('/', 'PropertyController@index')->name('property');
+	Route::match(['get', 'post'], '/create', 'PropertyController@create')->name('property.create');
+	Route::get('/{id}', 'PropertyController@detail')->where('id', '[0-9]+')->name('property.detail');
+	Route::post('/edit', 'PropertyController@edit');
+});
