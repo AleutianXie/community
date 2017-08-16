@@ -134,9 +134,9 @@ class ArchiveController extends Controller
 		}
 	}
 
-	public function map()
+	public function map(Request $request, $id = null)
 	{
 		$archives = Archive::all();
-		return view('archive.map', compact('archives'));
+		return view('archive.map', compact('archives', 'id'));
 	}
 }

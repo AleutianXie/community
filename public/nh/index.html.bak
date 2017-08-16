@@ -10,20 +10,25 @@
             packages: [{
                 name: 'tdlib',
                 location: "/nh/js/tdlib"
-            }]
+            },
+            {
+            	name:'extras',
+            	location: "/nh/js/extras"
+            }
+            ]
         };
     </script>
-      <link rel="stylesheet" href="https://js.arcgis.com/3.21/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css">
+      <link rel="stylesheet" href="js/arcgis_js_api/library/3.21compact/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="js/arcgis_js_api/library/3.21compact/esri/css/esri.css">
     
-   <script src="https://js.arcgis.com/3.21/"></script>
+   <script src="js/arcgis_js_api/library/3.21compact/init.js"></script>
     
 
     <script type="text/javascript">
     var map,tb;
     
-    require(["esri/map","esri/dijit/Popup","esri/dijit/PopupTemplate","esri/toolbars/draw","esri/symbols/SimpleMarkerSymbol","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/graphic","esri/Color","esri/layers/GraphicsLayer", "esri/SpatialReference","tdlib/TDTLayer","tdlib/TDTAnnoLayer","esri/geometry/Point","dojo/parser","dijit/registry","dijit/form/Button", "dojo/domReady!"], 
-    function(Map,Popup, PopupTemplate,Draw,SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, Graphic,Color,GraphicsLayer,SpatialReference,TDTLayer,TDTAnnoLayer,Point,parser,registry,Button) {
+    require(["esri/map","esri/dijit/Popup","esri/dijit/PopupTemplate","esri/toolbars/draw","esri/symbols/SimpleMarkerSymbol","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/renderers/ClassBreaksRenderer","tdlib/ClusterLayer","esri/geometry/webMercatorUtils", "esri/graphic","esri/Color","esri/layers/GraphicsLayer", "esri/SpatialReference","tdlib/TDTLayer","tdlib/TDTAnnoLayer","esri/geometry/Point","dojo/parser","dijit/registry","dijit/form/Button", "dojo/domReady!"], 
+    function(Map,Popup, PopupTemplate,Draw,SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, ClassBreaksRenderer,ClusterLayer,webMercatorUtils,Graphic,Color,GraphicsLayer,SpatialReference,TDTLayer,TDTAnnoLayer,Point,parser,registry,Button) {
         parser.parse();
         var popupOptions = {
 						titleInBody: false,
@@ -45,7 +50,8 @@
         map.centerAndZoom(new Point({"x": 121.42018376109351, "y": 29.291107035766274, "spatialReference": {"wkid": 4490 } }),11);
         var graLayer = new GraphicsLayer({id:"xiaoqu"});  
 				map.addLayer(graLayer);  
-							              		 
+				var clusterLayer;
+				
         registry.byId("ToNinghai").on("click", function() {
           	map.centerAt(new esri.geometry.Point(121.42018376109351,29.291107035766274, new esri.SpatialReference({ wkid: 4490 })));
         });
@@ -112,16 +118,9 @@
 																		    new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
 																		    new Color([255,0,0]), 2),new Color([255,255,0,0.25]));
 																 //var polygon = new esri.geometry.Polygon(resp);
-							              		 var graphic = new Graphic(polygon,symbol);  
-							              		 graLayer.add(graphic);
-							              		 map.centerAndZoom(graphic.geometry.getCentroid(),15); 
-							              		 //graphic.toJson();  转成json数据保存
-																
-																//添加图标
-																
-																var symbol = new esri.symbol.PictureMarkerSymbol("images/grn_pushpin_48px", 48, 48);
-												
-												        //创建模版
+																 
+																 
+																 //创建模版
 												        var popupTemplate = esri.dijit.PopupTemplate({
 																			title: "小区详细信息",
 																			fieldInfos: [{
@@ -171,8 +170,48 @@
 
 																var attributes = attr;
 																attributes["Link"]="http://www.baidu.com";
-																var ptgraphic = new esri.Graphic(graphic.geometry.getCentroid(), symbol, attr, popupTemplate);
-																graLayer.add(ptgraphic);
+																
+																
+							              		 var graphic = new Graphic(polygon,symbol,attributes, popupTemplate);
+							              		 graLayer.add(graphic);
+							              		 map.centerAndZoom(graphic.geometry.getCentroid(),15); 
+							              		 //graphic.toJson();  转成json数据保存
+																
+																//添加聚合图层
+//																var latlng1 = new Point(map.extent.xmax, map.extent.ymax, map.spatialReference); 
+//								                var latlng2 = new Point(map.extent.xmin, map.extent.ymin, map.spatialReference); 
+//								                var webMercator1 = webMercatorUtils.geographicToWebMercator(latlng1);  
+//								                var webMercator2 = webMercatorUtils.geographicToWebMercator(latlng2);  
+//								                var clusterResolution = (webMercator1.x - webMercator2.x) / map.width; 
+//																 clusterLayer = new ClusterLayer({
+//												              "data": attributes,
+//												              "distance": 100,
+//												              "id": "clusters",
+//												              "labelColor": "#fff",
+//												              "labelOffset": 10,
+//												              "resolution": map.extent.getWidth() / map.width,
+//												              "singleColor": "#888",
+//												              "singleTemplate": popupTemplate 
+//												            });
+//																var defaultSym = new SimpleMarkerSymbol().setSize(4);
+//            										var renderer = new ClassBreaksRenderer(defaultSym, "clusterCount");
+            										
+            										
+																//添加图标
+																
+																//var symbol = new esri.symbol.PictureMarkerSymbol("images/grn_pushpin_48px.png", 48, 48);																								        
+																//var ptgraphic = new esri.Graphic(graphic.geometry.getCentroid(), symbol, attributes, popupTemplate);
+																//graLayer.add(ptgraphic);
+																
+//																var picBaseUrl = "http://static.arcgis.com/images/Symbols/Shapes/";
+//										            var blue = new esri.symbol.PictureMarkerSymbol(picBaseUrl + "BluePin1LargeB.png", 32, 32).setOffset(0, 15);
+//										            var green = new esri.symbol.PictureMarkerSymbol(picBaseUrl + "GreenPin1LargeB.png", 64, 64).setOffset(0, 15);
+//										            var red = new esri.symbol.PictureMarkerSymbol(picBaseUrl + "RedPin1LargeB.png", 72, 72).setOffset(0, 15);
+//										            renderer.addBreak(0, 2, blue);
+//										            renderer.addBreak(2, 80, green);
+//										            renderer.addBreak(80, 1001, red);
+//																clusterLayer.setRenderer(renderer);
+//            										map.addLayer(clusterLayer);
 							              }
 							              
 							
