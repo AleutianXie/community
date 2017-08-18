@@ -79,10 +79,11 @@ require(
     function requestData(){
       dojo.addOnLoad(function(resp){
         @foreach ($archives as $archive)
+        @if (!empty($archive->geometry))
         var geo = $.parseJSON('{!! $archive->geometry !!}');
 
         var polygon = new esri.geometry.Polygon(new SpatialReference({wkid:4490}));
-        polygon.rings = geo.rings;
+        polygon.rings = geo.rings;        @endif
 
         @if (!empty($id) && $archive->id == $id)
         var symbol = new SimpleFillSymbol(
