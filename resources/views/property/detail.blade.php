@@ -49,8 +49,6 @@
 @section('scripts')
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
-
-
         //editables on first profile page
         $.fn.editable.defaults.mode = 'inline';
         $.fn.editableform.loading = "<div class='editableform-loading'><i class='ace-icon fa fa-spinner fa-spin fa-2x light-blue'></i></div>";

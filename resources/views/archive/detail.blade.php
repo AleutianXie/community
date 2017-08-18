@@ -90,6 +90,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <a href='{{ '/map/'.$archive->id }}'>小区位址</a>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-8">
@@ -99,24 +100,11 @@
                                             <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="{{ asset('img/double-tail-spin.svg') }}" />
                                         </div>
                                         <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:580px;overflow:hidden;">
+                                        @foreach ($archive->photos as $photo)
                                             <div>
-                                                <img data-u="image" src="{{ asset('img/011.jpg') }}" />
+                                                <img data-u="image" src="{{ $photo->path }}" />
                                             </div>
-                                            <div>
-                                                <img data-u="image" src="{{ asset('img/012.jpg') }}" />
-                                            </div>
-                                            <div>
-                                                <img data-u="image" src="{{ asset('img/013.jpg') }}" />
-                                            </div>
-                                            <div>
-                                                <img data-u="image" src="{{ asset('img/014.jpg') }}" />
-                                            </div>
-                                            <div>
-                                                <img data-u="image" src="{{ asset('img/015.jpg') }}" />
-                                            </div>
-                                            <div>
-                                                <img data-u="image" src="{{ asset('img/016.jpg') }}" />
-                                            </div>
+                                        @endforeach
                                         </div>
                                         <!-- Bullet Navigator -->
                                         <div data-u="navigator" class="jssorb053" style="position:absolute;bottom:12px;right:12px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">

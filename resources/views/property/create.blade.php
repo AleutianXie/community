@@ -24,7 +24,7 @@
                             @include('messages')
                             {!! Form::open() !!}
                             <div class="input-group">
-                                {!! Form::label('name', __('archive.property.name'), ['class' => 'input-group-addon']) !!}
+                                {!! Form::label('name', __('property.name'), ['class' => 'input-group-addon']) !!}
                                 {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
                                 <div class="alert-danger">{{ __($errors->first('name')) }}</div>
                             </div>

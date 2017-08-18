@@ -20,10 +20,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">{{ __('archive.sidebar.map') }}</div>
 
-                        <div class="panel-body">
-                          @include('messages')
-                          <div id="mapDiv" style="width:100%; height:100%; border:1px solid #000;"></div>
-                        </div>
+                        <div id="mapDiv" style="width:100%; height:100%; border:1px solid #000;"></div>
                     </div>
                 </div>
             </div>
@@ -80,111 +77,102 @@ require(
     map.addLayer(graLayer);
 
     function requestData(){
-    dojo.addOnLoad(function(resp){
-      @foreach ($archives as $archive)
-      var geo = $.parseJSON('{!! $archive->geometry !!}');
+      dojo.addOnLoad(function(resp){
+        @foreach ($archives as $archive)
+        var geo = $.parseJSON('{!! $archive->geometry !!}');
 
-      var polygon = new esri.geometry.Polygon(new SpatialReference({wkid:4490}));
-      polygon.rings = geo.rings;
+        var polygon = new esri.geometry.Polygon(new SpatialReference({wkid:4490}));
+        polygon.rings = geo.rings;
 
-      @if (!empty($id) && $archive->id == $id)
-      var symbol = new SimpleFillSymbol(
-        SimpleFillSymbol.STYLE_SOLID,
-        new SimpleLineSymbol(
-          SimpleLineSymbol.STYLE_DASHDOT,
-            new Color([255,0,0]),
-            2
-          ),
-          new Color([255,255,0,0.25])
-      );
-      @else
+        @if (!empty($id) && $archive->id == $id)
         var symbol = new SimpleFillSymbol(
           SimpleFillSymbol.STYLE_SOLID,
           new SimpleLineSymbol(
-            SimpleLineSymbol.STYLE_SOLID,
-              new Color([255,25,0]),
-              0.5
+            SimpleLineSymbol.STYLE_DASHDOT,
+              new Color([255,0,0]),
+              2
             ),
-            new Color([0,255,0,0.25]));
-      @endif
+            new Color([255,255,0,0.25])
+        );
+        @else
+          var symbol = new SimpleFillSymbol(
+            SimpleFillSymbol.STYLE_SOLID,
+            new SimpleLineSymbol(
+              SimpleLineSymbol.STYLE_SOLID,
+                new Color([255,25,0]),
+                0.5
+              ),
+              new Color([0,255,0,0.25]));
+        @endif
 
-      var popupTemplate = esri.dijit.PopupTemplate({
-        title: "{{ $archive->name }}",
-        fieldInfos: [
-          {
-            fieldName: "address",
-            label: "{{ __('archive.address') }}",
-            visible: true
-          },
-          {
-            fieldName: "unit",
-            label: "{{ __('archive.unit') }}",
-            visible: true
-          },
-          {
-            fieldName: "building",
-            label: "{{ __('archive.building') }}",
-            visible: true
-          },
-          {
-            fieldName: "lift",
-            label: "{{ __('archive.lift') }}",
-            visible: true
-          },
-          {
-            fieldName: "property",
-            label: "{{ __('archive.property') }}",
-            visible: true
-          },
-          {
-            fieldName: "principal",
-            label: "{{ __('archive.principal') }}",
-            visible: true
-          },
-          {
-            fieldName: "mobile",
-            label: "{{ __('archive.mobile') }}",
-            visible: true
-          },
-          {
-            fieldName: "link",
-            label: "更多",
-            visible: true
-          }
-        ]
+        var popupTemplate = esri.dijit.PopupTemplate({
+          title: "{{ $archive->name }}",
+          fieldInfos: [
+            {
+              fieldName: "address",
+              label: "{{ __('archive.address') }}",
+              visible: true
+            },
+            {
+              fieldName: "unit",
+              label: "{{ __('archive.unit') }}",
+              visible: true
+            },
+            {
+              fieldName: "building",
+              label: "{{ __('archive.building') }}",
+              visible: true
+            },
+            {
+              fieldName: "lift",
+              label: "{{ __('archive.lift') }}",
+              visible: true
+            },
+            {
+              fieldName: "property",
+              label: "{{ __('archive.property') }}",
+              visible: true
+            },
+            {
+              fieldName: "principal",
+              label: "{{ __('archive.principal') }}",
+              visible: true
+            },
+            {
+              fieldName: "mobile",
+              label: "{{ __('archive.mobile') }}",
+              visible: true
+            },
+            {
+              fieldName: "link",
+              label: "更多",
+              visible: true
+            }
+          ]
+        });
+
+        var attributes = new Array();
+        attributes["address"]="{{ $archive->address }}";
+        attributes["unit"]="{{ $archive->unit }}";
+        attributes["building"]="{{ $archive->building }}";
+        attributes["lift"]="{{ $archive->lift }}";
+        attributes["property"]="{{ $archive->property }}";
+        attributes["principal"]="{{ $archive->principal }}";
+        attributes["mobile"]="{{ $archive->mobile }}";
+
+        attributes["link"]="{{ url('/'.$archive->id) }}";
+        var graphic = new Graphic(polygon, symbol, attributes, popupTemplate);
+        graLayer.add(graphic);
+
+        @if (!empty($id) && $archive->id == $id)
+          map.centerAndZoom(graphic.geometry.getCentroid(),15);
+          var symbol = new esri.symbol.PictureMarkerSymbol("{{ asset('js/nh/images/grn_pushpin_48px.png') }}", 48, 48);
+          ptgraphic = new esri.Graphic(graphic.geometry.getCentroid(),symbol, attributes, popupTemplate);
+          graLayer.add(ptgraphic);
+        @endif
+      @endforeach
       });
-
-      var attributes = new Array();
-      attributes["address"]="{{ $archive->address }}";
-      attributes["unit"]="{{ $archive->unit }}";
-      attributes["building"]="{{ $archive->building }}";
-      attributes["lift"]="{{ $archive->lift }}";
-      attributes["property"]="{{ $archive->property }}";
-      attributes["principal"]="{{ $archive->principal }}";
-      attributes["mobile"]="{{ $archive->mobile }}";
-
-      attributes["link"]="{{ url('/'.$archive->id) }}";
-      var graphic = new Graphic(polygon, symbol, attributes, popupTemplate);
-      graLayer.add(graphic);
-
-      @if (!empty($id) && $archive->id == $id)
-        map.centerAndZoom(graphic.geometry.getCentroid(),15);
-        var symbol = new esri.symbol.PictureMarkerSymbol("{{ asset('js/nh/images/grn_pushpin_48px.png') }}", 48, 48);
-        ptgraphic = new esri.Graphic(graphic.geometry.getCentroid(),symbol, attributes, popupTemplate);
-        graLayer.add(ptgraphic);
-      @endif
-    @endforeach
     }
-  );
-  }
-
-
-
   });
-
-
-
-
-
 </script>
 @endsection
