@@ -90,7 +90,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href='{{ '/map/'.$archive->id }}'>小区位址</a>
+                                                                        <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                    <a href='{{ '/map/'.$archive->id }}'>查看小区分布</a>
+                                    </h4>
+                                    </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-8">
@@ -131,6 +135,27 @@
                                         </div>
                                     </div>
                                 </div>
+                                </div>
+                                <div class="row">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a href="#" id="#pencil">
+                                            {{ __('archive.update.geometry') }}
+                                            </a>
+                                        </h4>
+{{--                             <div id="note" data-pk="1" data-type="wysihtml5" data-toggle="manual" data-title="Enter notes" data-placement="top">
+                            <h3>WYSIWYG</h3>
+                            WYSIWYG means <i>What You See Is What You Get</i>.<br>
+                            But may also refer to:
+                              <ul>
+                                <li>WYSIWYG (album), a 2000 album by Chumbawamba</li>
+                                <li>"Whatcha See is Whatcha Get", a 1971 song by The Dramatics</li>
+                                <li>WYSIWYG Film Festival, an annual Christian film festival</li>
+                              </ul>
+                              <i>Source:</i> <a href="http://en.wikipedia.org/wiki/WYSIWYG_%28disambiguation%29">wikipedia.org</a>
+
+                            </div> --}}
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -272,6 +297,13 @@
                 return response.responseJSON.mobile[0];
             }
         });
+
+            $('#note').editable();
+    $('#pencil').click(function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $('#note').editable('toggle');
+   });
     });
 </script>
 @endsection

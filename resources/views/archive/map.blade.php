@@ -83,7 +83,8 @@ require(
         var geo = $.parseJSON('{!! $archive->geometry !!}');
 
         var polygon = new esri.geometry.Polygon(new SpatialReference({wkid:4490}));
-        polygon.rings = geo.rings;        @endif
+        polygon.rings = geo.rings;
+        @endif
 
         @if (!empty($id) && $archive->id == $id)
         var symbol = new SimpleFillSymbol(

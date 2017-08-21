@@ -31,4 +31,6 @@ return [
     'create_succeed' => '创建成功！',
     'create_error' => '创建失败！',
     'draw' => '绘制小区区域坐标',
+    'look' => '查看小区分布',
+    'update' => ['geometry' => '更新小区区域坐标'],
 ];

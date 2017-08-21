@@ -71,8 +71,8 @@
                                     </h4>
                                 </div>
                                 <div id="collapseOne" class="panel-collapse collapse">
-                                    <button id="Polygon" data-dojo-type="dijit/form/Button">绘制面数据</button>
-    <button id="clear" data-dojo-type="dijit/form/Button">清除面数据</button>
+                                    <button id="Polygon" data-dojo-type="dijit/form/Button">绘制</button>
+                                    <button id="clear" data-dojo-type="dijit/form/Button">清除</button>
                                     <div id="mapDiv" style="width:100%; height:500px; border:1px solid #000;"></div>
                                 </div>
                             </div>

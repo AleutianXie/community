@@ -13,6 +13,7 @@ npm-debug.log
 yarn-error.log
 .env.example
 composer.lock
+package-lock.json
 .tags
 .tags_sorted_by_file
 _ide_helper.php
