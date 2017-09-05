@@ -1,32 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="container">
-            <div class="row row-offcanvas row-offcanvas-right">
-                <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar">
-                    <div class="list-group">
-                    <a href="/" class="list-group-item">{{ __('archive.sidebar.list') }}</a>
-                    <a href="/create" class="list-group-item">{{ __('archive.sidebar.add') }}</a>
-                    <a href="/map" class="list-group-item active">{{ __('archive.sidebar.map') }}</a>
-                    </div>
-                </div>
 
-                <div class="col-xs-12 col-sm-10">
-                    <p class="pull-right visible-xs">
-                        <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">{{ __('archive.go') }}</button>
-                    </p>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">{{ __('archive.sidebar.map') }}</div>
-
-                        <div id="mapDiv" style="width:100%; height:100%; border:1px solid #000;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div id="mapDiv" style="width:100%; height:100%;            margin: 0;  padding: 0;"></div>
 @endsection
 
 @section('scripts')
@@ -46,7 +22,7 @@
     };
 </script>
 <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/dijit/themes/claro/claro.css') }}">
-<link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/esri/css/esri.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/esri/css/esri.css') }}"> --}}
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
 var map,tb;

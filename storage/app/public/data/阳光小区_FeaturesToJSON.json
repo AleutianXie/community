@@ -1,0 +1,148 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "阳光小区",
+        "地址" : "宁海县桃源街道金山南路208号",
+        "单元数" : 138,
+        "幢数" : 37,
+        "电梯数" : 0,
+        "物业公司" : "宁海万兴物业服务有限公司",
+        "负责人" : "李贤杰",
+        "联系电话" : "65353911",
+        "SHAPE_Leng" : 1299.44639319,
+        "Shape_Length" : 0.012309349543248124,
+        "Shape_Area" : 8.4551427127622683e-006
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.41177021400006,
+              29.324014643000055
+            ],
+            [
+              121.41033111600007,
+              29.320005727000023
+            ],
+            [
+              121.40837805500007,
+              29.320474005000051
+            ],
+            [
+              121.40874925100002,
+              29.321758914000043
+            ],
+            [
+              121.40934316400001,
+              29.323295094000059
+            ],
+            [
+              121.40986854900007,
+              29.324300178000044
+            ],
+            [
+              121.41177021400006,
+              29.324014643000055
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

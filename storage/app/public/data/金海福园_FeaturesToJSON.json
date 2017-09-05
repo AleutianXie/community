@@ -1,0 +1,176 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "金海福园",
+        "地址" : "宁海县跃龙街道西郊路75弄1幢",
+        "单元数" : 25,
+        "幢数" : 12,
+        "电梯数" : 0,
+        "物业公司" : "宁波市斯金物业公司宁海分公司",
+        "负责人" : "韩伟峰",
+        "联系电话" : "13336616885",
+        "SHAPE_Leng" : 544.73775985500004,
+        "Shape_Length" : 0.0052969835592978146,
+        "Shape_Area" : 1.360637372023578e-006
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.40984120700011,
+              29.286139835000029
+            ],
+            [
+              121.40974698600007,
+              29.28655126600006
+            ],
+            [
+              121.40956424400008,
+              29.287011930000062
+            ],
+            [
+              121.4103561280001,
+              29.287259393000056
+            ],
+            [
+              121.41045511400011,
+              29.286985280000067
+            ],
+            [
+              121.41108329200006,
+              29.287114722000069
+            ],
+            [
+              121.41140309100001,
+              29.287187058000029
+            ],
+            [
+              121.41147923400001,
+              29.287076651000064
+            ],
+            [
+              121.41121273400006,
+              29.286680709000052
+            ],
+            [
+              121.41025714300008,
+              29.286056338000037
+            ],
+            [
+              121.41008201400007,
+              29.285953545000041
+            ],
+            [
+              121.40999064300001,
+              29.285980195000036
+            ],
+            [
+              121.40986120000002,
+              29.286052531000053
+            ],
+            [
+              121.40984120700011,
+              29.286139835000029
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

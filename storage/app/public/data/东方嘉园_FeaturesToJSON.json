@@ -1,0 +1,152 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "东方嘉园",
+        "地址" : "宁海县跃龙街道天平路162号",
+        "单元数" : 4,
+        "幢数" : 3,
+        "电梯数" : 4,
+        "物业公司" : "宁海嘉和管理有限公司",
+        "负责人" : "王祖跃",
+        "联系电话" : "13989399626",
+        "SHAPE_Leng" : 355.25950647299999,
+        "Shape_Length" : 0.0034274314967128877,
+        "Shape_Area" : 7.8539294986124814e-007
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.44090334700002,
+              29.301946208000061
+            ],
+            [
+              121.44009344800008,
+              29.301946208000061
+            ],
+            [
+              121.4400854160001,
+              29.30247627500006
+            ],
+            [
+              121.44031738700005,
+              29.302905318000057
+            ],
+            [
+              121.44113475800009,
+              29.30259899400005
+            ],
+            [
+              121.44117620500003,
+              29.302491923000048
+            ],
+            [
+              121.44114166600002,
+              29.302381399000069
+            ],
+            [
+              121.44090334700002,
+              29.301946208000061
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

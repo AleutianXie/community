@@ -1,0 +1,160 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "湖西花园",
+        "地址" : "宁海县桃源街道隔水洋村北侧",
+        "单元数" : 15,
+        "幢数" : 44,
+        "电梯数" : 31,
+        "物业公司" : "宁波尚诚物业服务有限公司",
+        "负责人" : "章灏",
+        "联系电话" : "13605788488",
+        "SHAPE_Leng" : 723.322743973,
+        "Shape_Length" : 0.007202600212366057,
+        "Shape_Area" : 2.5277627867302403e-006
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.42914126500011,
+              29.324630176000028
+            ],
+            [
+              121.42908177900006,
+              29.324568310000075
+            ],
+            [
+              121.42644057700011,
+              29.324708698000052
+            ],
+            [
+              121.42632160400001,
+              29.32474914900007
+            ],
+            [
+              121.4263787110001,
+              29.325581960000079
+            ],
+            [
+              121.42660476000003,
+              29.325677139000049
+            ],
+            [
+              121.42900801500002,
+              29.325415398000075
+            ],
+            [
+              121.4290793990001,
+              29.325374947000057
+            ],
+            [
+              121.42915316200003,
+              29.32526073300005
+            ],
+            [
+              121.42914126500011,
+              29.324630176000028
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

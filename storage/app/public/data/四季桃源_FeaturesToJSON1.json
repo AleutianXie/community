@@ -1,0 +1,172 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 4,
+        "小区名称" : "四季桃源",
+        "地址" : "宁海县桃源街道东至竹泉南路南临李杏小区西至桃源北路",
+        "单元数" : 13,
+        "幢数" : 9,
+        "电梯数" : 19,
+        "物业公司" : "宁波市斯金物业公司宁海分公司",
+        "负责人" : "姜建标",
+        "联系电话" : "13736061095",
+        "SHAPE_Leng" : 769.51437956200004,
+        "Shape_Length" : 0.0077275944232342254,
+        "Shape_Area" : 2.6487539794862973e-006
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.44816922900009,
+              29.342572504000032
+            ],
+            [
+              121.44792817300004,
+              29.342311842000072
+            ],
+            [
+              121.44499287000008,
+              29.342962863000025
+            ],
+            [
+              121.4451946480001,
+              29.343271241000025
+            ],
+            [
+              121.44548399100006,
+              29.343495862000054
+            ],
+            [
+              121.44584947600003,
+              29.343583426000066
+            ],
+            [
+              121.44617308300008,
+              29.343602462000035
+            ],
+            [
+              121.44661090400007,
+              29.34353393300006
+            ],
+            [
+              121.44837176800002,
+              29.343146621000074
+            ],
+            [
+              121.44843420500001,
+              29.343047635000062
+            ],
+            [
+              121.44842354500008,
+              29.342934944000035
+            ],
+            [
+              121.44840679400011,
+              29.342837481000061
+            ],
+            [
+              121.44816922900009,
+              29.342572504000032
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

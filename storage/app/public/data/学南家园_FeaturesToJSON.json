@@ -1,0 +1,180 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "学南家园",
+        "地址" : "宁海县跃龙街道上隍畈路69号",
+        "单元数" : 28,
+        "幢数" : 11,
+        "电梯数" : 28,
+        "物业公司" : "宁波市原野物业有限公司",
+        "负责人" : "胡冬玲",
+        "联系电话" : "13646618935",
+        "SHAPE_Leng" : 839.76981021999995,
+        "Shape_Length" : 0.0081969731812053109,
+        "Shape_Area" : 2.9802302409958798e-006
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.41935180400003,
+              29.287314889000072
+            ],
+            [
+              121.41932896100002,
+              29.286720976000026
+            ],
+            [
+              121.41779849200009,
+              29.286858033000044
+            ],
+            [
+              121.41779278100012,
+              29.28697795800008
+            ],
+            [
+              121.41752437800005,
+              29.286995090000062
+            ],
+            [
+              121.41761003800002,
+              29.287491921000026
+            ],
+            [
+              121.41755293100005,
+              29.287600425000051
+            ],
+            [
+              121.4167191680001,
+              29.287646110000026
+            ],
+            [
+              121.41681625000001,
+              29.288160074000075
+            ],
+            [
+              121.41689620000011,
+              29.288165785000047
+            ],
+            [
+              121.41699899300011,
+              29.288731145000042
+            ],
+            [
+              121.41808973800005,
+              29.288234313000032
+            ],
+            [
+              121.41943746400011,
+              29.287646110000026
+            ],
+            [
+              121.41946601800009,
+              29.287486211000044
+            ],
+            [
+              121.41935180400003,
+              29.287314889000072
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

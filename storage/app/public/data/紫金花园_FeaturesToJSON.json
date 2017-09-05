@@ -1,0 +1,164 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "紫金花园",
+        "地址" : "宁海县时代大道19号",
+        "单元数" : 14,
+        "幢数" : 9,
+        "电梯数" : 28,
+        "物业公司" : "宁波得力物业服务有限公司",
+        "负责人" : "叶春春",
+        "联系电话" : "18258709012",
+        "SHAPE_Leng" : 805.10193254499995,
+        "Shape_Length" : 0.0079621471339582101,
+        "Shape_Area" : 3.4705064112590334e-006
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.43672856400008,
+              29.313473592000037
+            ],
+            [
+              121.43398742500005,
+              29.313196622000078
+            ],
+            [
+              121.43389890900005,
+              29.313265151000053
+            ],
+            [
+              121.43376470700002,
+              29.314107480000075
+            ],
+            [
+              121.43373044300006,
+              29.31433019800005
+            ],
+            [
+              121.43384751200006,
+              29.31447582100003
+            ],
+            [
+              121.43590622200009,
+              29.314572903000055
+            ],
+            [
+              121.43644302900009,
+              29.314592890000029
+            ],
+            [
+              121.4365458210001,
+              29.314530072000025
+            ],
+            [
+              121.43679994800004,
+              29.313582095000072
+            ],
+            [
+              121.43672856400008,
+              29.313473592000037
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "东景花园",
+        "地址" : "宁海县跃龙街道环城东路18号",
+        "单元数" : 53,
+        "幢数" : 19,
+        "电梯数" : 29,
+        "物业公司" : "宁海万兴物业服务有限公司",
+        "负责人" : "王丽丽",
+        "联系电话" : "83555639",
+        "SHAPE_Leng" : 978.17355160099999,
+        "Shape_Length" : 0.0097373850583249572,
+        "Shape_Area" : 4.7422188835607943e-006
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.43339390600011,
+              29.286992872000042
+            ],
+            [
+              121.4332273440001,
+              29.286945283000023
+            ],
+            [
+              121.43120956100006,
+              29.287207024000054
+            ],
+            [
+              121.43015105000006,
+              29.28730981700005
+            ],
+            [
+              121.43007338400002,
+              29.28733875100005
+            ],
+            [
+              121.4300094240001,
+              29.28739205100004
+            ],
+            [
+              121.42999419600005,
+              29.28747123900007
+            ],
+            [
+              121.43012668400002,
+              29.288447389000055
+            ],
+            [
+              121.43022110100003,
+              29.288592060000042
+            ],
+            [
+              121.43188687500003,
+              29.288420192000046
+            ],
+            [
+              121.43247317400005,
+              29.288313592000065
+            ],
+            [
+              121.43352013700007,
+              29.288180342000032
+            ],
+            [
+              121.43380376800008,
+              29.288136560000055
+            ],
+            [
+              121.43392405000009,
+              29.288110743000061
+            ],
+            [
+              121.43395641100005,
+              29.287825208000072
+            ],
+            [
+              121.43395641100005,
+              29.287730029000045
+            ],
+            [
+              121.43390691800005,
+              29.28759106900003
+            ],
+            [
+              121.4338421970001,
+              29.287454012000069
+            ],
+            [
+              121.43363470800011,
+              29.287219873000026
+            ],
+            [
+              121.43339390600011,
+              29.286992872000042
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

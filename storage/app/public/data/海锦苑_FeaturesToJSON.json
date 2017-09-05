@@ -1,0 +1,188 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "海锦苑",
+        "地址" : "宁海县跃龙街道兴海中路",
+        "单元数" : 13,
+        "幢数" : 23,
+        "电梯数" : 23,
+        "物业公司" : "宁波市原野物业有限公司",
+        "负责人" : "王式余",
+        "联系电话" : "13858271885",
+        "SHAPE_Leng" : 984.08469564999996,
+        "Shape_Length" : 0.0094810738674292981,
+        "Shape_Area" : 4.6812177567845734e-006
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.44536343300001,
+              29.318470579000063
+            ],
+            [
+              121.44555759700006,
+              29.317971844000056
+            ],
+            [
+              121.44575937500008,
+              29.318021337000062
+            ],
+            [
+              121.44597638200003,
+              29.317861437000033
+            ],
+            [
+              121.44676826700004,
+              29.318207886000039
+            ],
+            [
+              121.4472175090001,
+              29.31724087300006
+            ],
+            [
+              121.44700430900002,
+              29.316692646000035
+            ],
+            [
+              121.44492751600001,
+              29.315935977000038
+            ],
+            [
+              121.44412135400012,
+              29.317700585000068
+            ],
+            [
+              121.44424413400009,
+              29.317735801000026
+            ],
+            [
+              121.44478094100009,
+              29.317903315000024
+            ],
+            [
+              121.4447009910001,
+              29.318021337000062
+            ],
+            [
+              121.44487992600011,
+              29.318185044000074
+            ],
+            [
+              121.44484946900002,
+              29.318291643000066
+            ],
+            [
+              121.44503982600008,
+              29.318390629000078
+            ],
+            [
+              121.44508170500001,
+              29.318322101000035
+            ],
+            [
+              121.44536343300001,
+              29.318470579000063
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

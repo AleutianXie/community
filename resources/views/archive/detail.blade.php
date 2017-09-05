@@ -90,10 +90,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                                                        <div class="panel-heading">
+                                    <div class="panel-heading">
                                         <h4 class="panel-title">
-                                    <a href='{{ '/map/'.$archive->id }}'>查看小区分布</a>
-                                    </h4>
+                                            <a href='{{ '/map/'.$archive->id }}' target="_blank">查看小区分布</a>
+                                        </h4>
                                     </div>
                                 </div>
 
@@ -135,27 +135,22 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        {{ __('archive.update.geometry') }}
+                                        </a>
+                                    </h4>
                                 </div>
-                                <div class="row">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a href="#" id="#pencil">
-                                            {{ __('archive.update.geometry') }}
-                                            </a>
-                                        </h4>
-{{--                             <div id="note" data-pk="1" data-type="wysihtml5" data-toggle="manual" data-title="Enter notes" data-placement="top">
-                            <h3>WYSIWYG</h3>
-                            WYSIWYG means <i>What You See Is What You Get</i>.<br>
-                            But may also refer to:
-                              <ul>
-                                <li>WYSIWYG (album), a 2000 album by Chumbawamba</li>
-                                <li>"Whatcha See is Whatcha Get", a 1971 song by The Dramatics</li>
-                                <li>WYSIWYG Film Festival, an annual Christian film festival</li>
-                              </ul>
-                              <i>Source:</i> <a href="http://en.wikipedia.org/wiki/WYSIWYG_%28disambiguation%29">wikipedia.org</a>
-
-                            </div> --}}
-                                    </div>
+                                <div id="collapseOne" class="panel-collapse collapse">
+                                    <button id="Polygon" data-dojo-type="dijit/form/Button">绘制</button>
+                                    <button id="clear" data-dojo-type="dijit/form/Button">清除</button>
+                                    <div id="mapDiv" style="width:100%; height:500px; solid #000;"></div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -297,13 +292,193 @@
                 return response.responseJSON.mobile[0];
             }
         });
-
-            $('#note').editable();
-    $('#pencil').click(function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        $('#note').editable('toggle');
-   });
     });
+</script>
+
+<script type="text/javascript">
+    dojoConfig = {
+        parseOnLoad: true,
+        packages: [
+        {
+            name: 'tdlib',
+            location: "{{ asset('js/nh/tdlib') }}"
+        },
+        {
+          name:'extras',
+          location: "{{ asset('js/nh/extras') }}"
+        }
+        ]
+    };
+</script>
+<link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/dijit/themes/claro/claro.css') }}">
+<link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/esri/css/esri.css') }}">
+<script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
+<script type="text/javascript">
+var map,tb;
+
+require(
+  ["esri/map","esri/dijit/Popup","esri/dijit/PopupTemplate","esri/toolbars/draw","esri/symbols/SimpleMarkerSymbol","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/renderers/ClassBreaksRenderer","tdlib/ClusterLayer","esri/geometry/webMercatorUtils", "esri/graphic","esri/Color","esri/layers/GraphicsLayer", "esri/SpatialReference","tdlib/TDTLayer","tdlib/TDTAnnoLayer","esri/geometry/Point","dojo/parser","dijit/registry","dijit/form/Button", "dojo/domReady!"],
+  function(Map,Popup, PopupTemplate,Draw,SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, ClassBreaksRenderer,ClusterLayer,webMercatorUtils,Graphic,Color,GraphicsLayer,SpatialReference,TDTLayer,TDTAnnoLayer,Point,parser,registry,Button)
+  {
+    parser.parse();
+    var popupOptions = {
+        titleInBody: false,
+        highlight: true,
+        marginTop: 60,
+        width: 100
+    };
+    var popup = new esri.dijit.Popup(popupOptions, dojo.create("div"));
+    map=new Map("mapDiv",{ logo:false,infoWindow: popup});
+    map.on('load', function() {
+        @if (!empty($archive->geometry))
+            requestData();
+        @endif
+    });
+    var nhbasemap = new TDTLayer();
+    map.addLayer(nhbasemap);
+    var nhannolayer=  new TDTAnnoLayer();
+    map.addLayer(nhannolayer);
+
+    map.centerAndZoom(new Point({"x": 121.42018376109351, "y": 29.291107035766274, "spatialReference": {"wkid": 4490 } }),11);
+    var graLayer = new GraphicsLayer({id:"xiaoqu"});
+    map.addLayer(graLayer);
+
+    function requestData(){
+      dojo.addOnLoad(function(resp){
+        @if (!empty($archive->geometry))
+        var geo = $.parseJSON('{!! $archive->geometry !!}');
+
+        var polygon = new esri.geometry.Polygon(new SpatialReference({wkid:4490}));
+        polygon.rings = geo.rings;
+        @endif
+
+        @if (!empty($id) && $archive->id == $id)
+        var symbol = new SimpleFillSymbol(
+          SimpleFillSymbol.STYLE_SOLID,
+          new SimpleLineSymbol(
+            SimpleLineSymbol.STYLE_DASHDOT,
+              new Color([255,0,0]),
+              2
+            ),
+            new Color([255,255,0,0.25])
+        );
+        @else
+          var symbol = new SimpleFillSymbol(
+            SimpleFillSymbol.STYLE_SOLID,
+            new SimpleLineSymbol(
+              SimpleLineSymbol.STYLE_SOLID,
+                new Color([255,25,0]),
+                0.5
+              ),
+              new Color([0,255,0,0.25]));
+        @endif
+
+        var popupTemplate = esri.dijit.PopupTemplate({
+          title: "{{ $archive->name }}",
+          fieldInfos: [
+            {
+              fieldName: "address",
+              label: "{{ __('archive.address') }}",
+              visible: true
+            },
+            {
+              fieldName: "unit",
+              label: "{{ __('archive.unit') }}",
+              visible: true
+            },
+            {
+              fieldName: "building",
+              label: "{{ __('archive.building') }}",
+              visible: true
+            },
+            {
+              fieldName: "lift",
+              label: "{{ __('archive.lift') }}",
+              visible: true
+            },
+            {
+              fieldName: "property",
+              label: "{{ __('archive.property') }}",
+              visible: true
+            },
+            {
+              fieldName: "principal",
+              label: "{{ __('archive.principal') }}",
+              visible: true
+            },
+            {
+              fieldName: "mobile",
+              label: "{{ __('archive.mobile') }}",
+              visible: true
+            },
+            {
+              fieldName: "link",
+              label: "更多",
+              visible: true
+            }
+          ]
+        });
+
+        var attributes = new Array();
+        attributes["address"]="{{ $archive->address }}";
+        attributes["unit"]="{{ $archive->unit }}";
+        attributes["building"]="{{ $archive->building }}";
+        attributes["lift"]="{{ $archive->lift }}";
+        attributes["property"]="{{ $archive->property }}";
+        attributes["principal"]="{{ $archive->principal }}";
+        attributes["mobile"]="{{ $archive->mobile }}";
+
+        attributes["link"]="{{ url('/'.$archive->id) }}";
+        var graphic = new Graphic(polygon, symbol, attributes, popupTemplate);
+        graLayer.add(graphic);
+
+        @if (!empty($id) && $archive->id == $id)
+          map.centerAndZoom(graphic.geometry.getCentroid(),15);
+          var symbol = new esri.symbol.PictureMarkerSymbol("{{ asset('js/nh/images/grn_pushpin_48px.png') }}", 48, 48);
+          ptgraphic = new esri.Graphic(graphic.geometry.getCentroid(),symbol, attributes, popupTemplate);
+          graLayer.add(ptgraphic);
+        @endif
+      });
+    }
+
+            registry.byId("clear").on("click", function() {
+                //清除所有绘制的面数据
+            map.graphics.clear();
+            //清除graphiclayer图层的数据
+            map.getLayer("xiaoqu").clear();
+
+        });
+
+                    tb = new Draw(map);
+        tb.on("draw-end", addGraphic);
+            registry.byId("Polygon").on("click", function() {
+            tb.activate(this.id.toLowerCase());
+        });
+
+
+    function addGraphic(evt){
+        var r = Math.floor(Math.random() * 255);
+        var g = Math.floor(Math.random() * 255);
+        var b = Math.floor(Math.random() * 255);
+            //alert(evt.geometry.type);
+             tb.deactivate();
+         //map.enableMapNavigation();
+         var symbol = new SimpleFillSymbol(
+          SimpleFillSymbol.STYLE_SOLID,
+          new SimpleLineSymbol(
+            SimpleLineSymbol.STYLE_SOLID,
+            new Color([r,g,b,0.9]),
+            4
+          ),new Color([r,g,b,0.5]));
+                    map.graphics.add(new Graphic(evt.geometry, symbol));
+                    $('#geometry').val($.toJSON(evt.geometry));
+                    console.log($.toJSON(evt.geometry));
+                    //evt.geometry.rings[0] 坐标串
+                    //evt.geometry.spatialReference.wkid 参考系
+                    //evt.geometry.type  图形类型
+                    //
+                    //https://developers.arcgis.com/javascript/3/jssamples/toolbar_draw.html
+    }
+  });
 </script>
 @endsection

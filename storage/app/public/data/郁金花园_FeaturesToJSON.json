@@ -1,0 +1,188 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "郁金花园",
+        "地址" : "宁海县跃龙街道纺织西路298号",
+        "单元数" : 40,
+        "幢数" : 30,
+        "电梯数" : 40,
+        "物业公司" : "宁波得力物业服务有限公司",
+        "负责人" : "李尚伟",
+        "联系电话" : "18667806577",
+        "SHAPE_Leng" : 1063.9492803400001,
+        "Shape_Length" : 0.010397206591604912,
+        "Shape_Area" : 6.7778739077095259e-006
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.41501564700002,
+              29.284211898000024
+            ],
+            [
+              121.41489762500009,
+              29.284162406000064
+            ],
+            [
+              121.41210699300007,
+              29.284619262000035
+            ],
+            [
+              121.41193947900001,
+              29.284706826000047
+            ],
+            [
+              121.41185572200004,
+              29.284832462000054
+            ],
+            [
+              121.41180242200005,
+              29.284961904000056
+            ],
+            [
+              121.41198135800005,
+              29.286031710000032
+            ],
+            [
+              121.41206892200012,
+              29.286503795000044
+            ],
+            [
+              121.41208795800003,
+              29.286560902000076
+            ],
+            [
+              121.4121755220001,
+              29.286602781000056
+            ],
+            [
+              121.4122516650001,
+              29.286614202000067
+            ],
+            [
+              121.41381639800011,
+              29.286401003000037
+            ],
+            [
+              121.41535448200011,
+              29.286142117000054
+            ],
+            [
+              121.41540016700003,
+              29.286104046000048
+            ],
+            [
+              121.41542681700003,
+              29.286031710000032
+            ],
+            [
+              121.41511082500006,
+              29.284310884000035
+            ],
+            [
+              121.41501564700002,
+              29.284211898000024
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

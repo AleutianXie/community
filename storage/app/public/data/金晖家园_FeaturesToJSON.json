@@ -1,0 +1,160 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "金晖家园",
+        "地址" : "宁海县跃龙街道杜鹃巷",
+        "单元数" : 23,
+        "幢数" : 9,
+        "电梯数" : 0,
+        "物业公司" : "宁海万兴物业服务有限公司",
+        "负责人" : "柴驰翔",
+        "联系电话" : "13968356968",
+        "SHAPE_Leng" : 424.689511057,
+        "Shape_Length" : 0.0041002480182448856,
+        "Shape_Area" : 9.4024485893418184e-007
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.44321746500009,
+              29.293438709000043
+            ],
+            [
+              121.44297380800003,
+              29.292616367000051
+            ],
+            [
+              121.44287482300001,
+              29.292536417000065
+            ],
+            [
+              121.4427529940001,
+              29.29252118900007
+            ],
+            [
+              121.44256644400002,
+              29.292547839000065
+            ],
+            [
+              121.44187354500002,
+              29.292742003000058
+            ],
+            [
+              121.44207532400003,
+              29.293343530000072
+            ],
+            [
+              121.44242938700006,
+              29.293240738000065
+            ],
+            [
+              121.44255121600008,
+              29.293613837000066
+            ],
+            [
+              121.44321746500009,
+              29.293438709000043
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

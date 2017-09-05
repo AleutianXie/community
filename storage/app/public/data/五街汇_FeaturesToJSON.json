@@ -1,0 +1,184 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "五街汇",
+        "地址" : "宁海县跃龙街道中山西路1号",
+        "单元数" : 4,
+        "幢数" : 4,
+        "电梯数" : 8,
+        "物业公司" : "宁波乐洲物业服务有限公司",
+        "负责人" : "袁汉平",
+        "联系电话" : "13738849846",
+        "SHAPE_Leng" : 583.76526278599999,
+        "Shape_Length" : 0.0057691722304626025,
+        "Shape_Area" : 1.7708971592732615e-006
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.42452987000001,
+              29.30060110900007
+            ],
+            [
+              121.42454890500005,
+              29.300589212000034
+            ],
+            [
+              121.42485585600002,
+              29.300603489000025
+            ],
+            [
+              121.42490820400008,
+              29.299915825000028
+            ],
+            [
+              121.42337107200001,
+              29.299844441000062
+            ],
+            [
+              121.42321878700011,
+              29.299861097000075
+            ],
+            [
+              121.4230807780001,
+              29.29991106600005
+            ],
+            [
+              121.4229974970001,
+              29.29997293200006
+            ],
+            [
+              121.42293563100009,
+              29.300025280000057
+            ],
+            [
+              121.42286662600009,
+              29.30012283800005
+            ],
+            [
+              121.42282617600006,
+              29.300234672000045
+            ],
+            [
+              121.42278096600012,
+              29.300401235000038
+            ],
+            [
+              121.42272147900007,
+              29.300636801000053
+            ],
+            [
+              121.42348052700004,
+              29.300762913000028
+            ],
+            [
+              121.42448703900004,
+              29.300886645000048
+            ],
+            [
+              121.42452987000001,
+              29.30060110900007
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

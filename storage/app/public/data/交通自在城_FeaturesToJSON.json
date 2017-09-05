@@ -1,0 +1,184 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "交通自在城",
+        "地址" : "宁海县科技大道和桃源北路交叉口",
+        "单元数" : 48,
+        "幢数" : 28,
+        "电梯数" : 80,
+        "物业公司" : "宁波市常青藤物业管理有限公司",
+        "负责人" : "张继林",
+        "联系电话" : "13857876906",
+        "SHAPE_Leng" : 1455.3238921499999,
+        "Shape_Length" : 0.014331884502317808,
+        "Shape_Area" : 1.1946830504126271e-005
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.4489540080001,
+              29.343632043000071
+            ],
+            [
+              121.44888681200007,
+              29.343629092000072
+            ],
+            [
+              121.44697943600011,
+              29.344035504000033
+            ],
+            [
+              121.44630938000012,
+              29.344222054000056
+            ],
+            [
+              121.4459020160001,
+              29.344499975000076
+            ],
+            [
+              121.44551368800001,
+              29.344937796000067
+            ],
+            [
+              121.44542612400005,
+              29.345261403000052
+            ],
+            [
+              121.44544516000008,
+              29.345497445000035
+            ],
+            [
+              121.44588088700004,
+              29.347021728000072
+            ],
+            [
+              121.45106125900008,
+              29.345817340000053
+            ],
+            [
+              121.44939754000006,
+              29.343925193000075
+            ],
+            [
+              121.44930045800004,
+              29.343803364000053
+            ],
+            [
+              121.4492109900001,
+              29.343744353000034
+            ],
+            [
+              121.44912532900003,
+              29.343691054000033
+            ],
+            [
+              121.44900921200008,
+              29.34365107900004
+            ],
+            [
+              121.4489540080001,
+              29.343632043000071
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "L地块",
+        "地址" : "宁海县跃龙街道气象北路与外环路交叉口",
+        "单元数" : 5,
+        "幢数" : 2,
+        "电梯数" : 1,
+        "物业公司" : "宁波市原野物业有限公司",
+        "负责人" : "周雅平",
+        "联系电话" : "13586736715",
+        "SHAPE_Leng" : 273.01360024000002,
+        "Shape_Length" : 0.0025713300164488784,
+        "Shape_Area" : 2.4778582343114238e-007
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.43036231200006,
+              29.308655644000055
+            ],
+            [
+              121.4303794440001,
+              29.308141681000052
+            ],
+            [
+              121.43066307600009,
+              29.308145488000036
+            ],
+            [
+              121.43067069000006,
+              29.307785713000044
+            ],
+            [
+              121.43033946900005,
+              29.307797135000044
+            ],
+            [
+              121.43022906200008,
+              29.307878988000027
+            ],
+            [
+              121.43020241200009,
+              29.307998913000063
+            ],
+            [
+              121.43018908700003,
+              29.308069345000035
+            ],
+            [
+              121.43019099000003,
+              29.308648030000029
+            ],
+            [
+              121.43036231200006,
+              29.308655644000055
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

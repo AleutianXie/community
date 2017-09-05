@@ -1,0 +1,164 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "丰泽园",
+        "地址" : "宁海县桃源北路与外环东路交叉口东北侧",
+        "单元数" : 29,
+        "幢数" : 16,
+        "电梯数" : 43,
+        "物业公司" : "宁波得力物业服务有限公司",
+        "负责人" : "冯伟安",
+        "联系电话" : "13780063538",
+        "SHAPE_Leng" : 1131.7879865499999,
+        "Shape_Length" : 0.011130974995939505,
+        "Shape_Area" : 6.2294615582599569e-006
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.43788080500008,
+              29.311195259000044
+            ],
+            [
+              121.43888588900006,
+              29.310935422000057
+            ],
+            [
+              121.44118159300001,
+              29.311066768000046
+            ],
+            [
+              121.44125868700007,
+              29.31096683100003
+            ],
+            [
+              121.44137004600009,
+              29.309442072000024
+            ],
+            [
+              121.44132436100006,
+              29.30937639900003
+            ],
+            [
+              121.43736398600004,
+              29.309196512000028
+            ],
+            [
+              121.43763524400003,
+              29.309796136000045
+            ],
+            [
+              121.43781513100009,
+              29.310267269000065
+            ],
+            [
+              121.43787509400011,
+              29.310789799000077
+            ],
+            [
+              121.43788080500008,
+              29.311195259000044
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

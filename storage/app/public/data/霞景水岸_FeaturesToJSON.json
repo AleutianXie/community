@@ -1,0 +1,156 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "OBJECTID_1" : "OBJECTID_1",
+    "OBJECTID" : "OBJECTID",
+    "小区名称" : "小区名称",
+    "地址" : "地址",
+    "单元数" : "单元数",
+    "幢数" : "幢数",
+    "电梯数" : "电梯数",
+    "物业公司" : "物业公司",
+    "负责人" : "负责人",
+    "联系电话" : "联系电话",
+    "SHAPE_Leng" : "SHAPE_Leng",
+    "Shape_Length" : "Shape_Length",
+    "Shape_Area" : "Shape_Area"
+  },
+  "geometryType" : "esriGeometryPolygon",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID_1",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID_1"
+    },
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "小区名称",
+      "type" : "esriFieldTypeString",
+      "alias" : "小区名称",
+      "length" : 50
+    },
+    {
+      "name" : "地址",
+      "type" : "esriFieldTypeString",
+      "alias" : "地址",
+      "length" : 50
+    },
+    {
+      "name" : "单元数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "单元数"
+    },
+    {
+      "name" : "幢数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "幢数"
+    },
+    {
+      "name" : "电梯数",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "电梯数"
+    },
+    {
+      "name" : "物业公司",
+      "type" : "esriFieldTypeString",
+      "alias" : "物业公司",
+      "length" : 50
+    },
+    {
+      "name" : "负责人",
+      "type" : "esriFieldTypeString",
+      "alias" : "负责人",
+      "length" : 50
+    },
+    {
+      "name" : "联系电话",
+      "type" : "esriFieldTypeString",
+      "alias" : "联系电话",
+      "length" : 50
+    },
+    {
+      "name" : "SHAPE_Leng",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "SHAPE_Leng"
+    },
+    {
+      "name" : "Shape_Length",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Length"
+    },
+    {
+      "name" : "Shape_Area",
+      "type" : "esriFieldTypeDouble",
+      "alias" : "Shape_Area"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID_1" : 1,
+        "OBJECTID" : 0,
+        "小区名称" : "霞景水岸",
+        "地址" : "宁海县徐霞客大道112号",
+        "单元数" : 12,
+        "幢数" : 12,
+        "电梯数" : 5,
+        "物业公司" : "宁波市斯金物业公司宁海分公司",
+        "负责人" : "李华翠",
+        "联系电话" : "13867841819",
+        "SHAPE_Leng" : 609.17858584999999,
+        "Shape_Length" : 0.0059892217613475903,
+        "Shape_Area" : 1.5204178899701374e-006
+      },
+      "geometry" : {
+        "rings" : [
+          [
+            [
+              121.41482346200007,
+              29.282913040000039
+            ],
+            [
+              121.4146616590001,
+              29.282870210000056
+            ],
+            [
+              121.41272953600003,
+              29.284200566000038
+            ],
+            [
+              121.41269812700011,
+              29.284329057000036
+            ],
+            [
+              121.41486819600004,
+              29.283963572000062
+            ],
+            [
+              121.41497098900004,
+              29.283883622000076
+            ],
+            [
+              121.41501667400007,
+              29.28376369700004
+            ],
+            [
+              121.41489960500007,
+              29.283017736000033
+            ],
+            [
+              121.41482346200007,
+              29.282913040000039
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
