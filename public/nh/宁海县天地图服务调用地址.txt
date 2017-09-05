@@ -1,9 +1,0 @@
-二维地图浏览服务：
-（1）	电子地图框架
-WMTS，http://www.nhmap.gov.cn/wmts/nhmap
-（2）	电子地图标注
-WMTS，http://www.nhmap.gov.cn/wmts/nhmapanno
-（3）	影像地图
-WMTS，http://www.nhmap.gov.cn/wmts/nhrmap
-（4）	影像注记
-WMTS，http://www.nhmap.gov.cn/wmts/nhrmapanno
