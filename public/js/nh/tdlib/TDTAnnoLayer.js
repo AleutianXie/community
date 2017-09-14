@@ -3,7 +3,7 @@ return declare(esri.layers.TiledMapServiceLayer, {
         constructor: function() {
           this.spatialReference = new esri.SpatialReference({ wkid:4490 });
           this.initialExtent = (this.fullExtent = new esri.geometry.Extent(-180.0, -90.0, 180.0, 90.0, this.spatialReference));
- 
+
           this.tileInfo = new esri.layers.TileInfo({
             "rows" : 256,
             "cols" : 256,
@@ -37,17 +37,17 @@ return declare(esri.layers.TiledMapServiceLayer, {
               { "level": 20, "resolution": 1.3411045074465156e-006, "scale": 563.61693012008664 }
             ]
           });
- 
+
           this.loaded = true;
           this.onLoad(this);
         },
- 
+
         getTileUrl: function(level, row, col) {
         	if(level < 18 && level > 0 )
         		return "http://www.nbmap.gov.cn/wmts/NBMAPAnno?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cva&STYLE=default&TILEMATRIXSET=c&TILEMATRIX="+level+"&TILEROW="+row+"&TILECOL="+col+"&FORMAT=tiles";
         	else
           	return "http://www.nhmap.gov.cn/wmts/nhmapanno?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=cva&STYLE=default&TILEMATRIXSET=c&TILEMATRIX="+level+"&TILEROW="+row+"&TILECOL="+col+"&FORMAT=tiles";
- 
+
         }
       });
       });

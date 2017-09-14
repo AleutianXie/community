@@ -1,8 +1,50 @@
 @extends('layouts.app')
 
+@section('style')
+  <style>
+    #mapDiv{
+      position:relative;
+    }
+    .navbar{
+      margin-bottom:0;
+    }
+    .mapController{
+      background-color: transparent;
+      position:absolute;
+      left:60px;
+      top:10px;
+      z-index: 10;
+    }
+    .search{
+      right:500px;
+    }
+      #result{
+          background-color: #00a3ef;
+          color:#000;
+          text-align: center;
+          border-radius: 10px;
+      }
+  </style>
+@endsection
 @section('content')
 
-<div id="mapDiv" style="width:100%; height:100%;            margin: 0;  padding: 0;"></div>
+<div id="mapDiv" style="width:100%; height:100%; margin: 0;  padding: 0;">
+    <div class="mapController">
+        <button id="baselayer">电子地图</button>
+        <button id="yxlayer">影像地图</button>
+        <button id="polygon">面积测算</button>
+        <button id="line">距离测算</button>
+        <button id="infoclose">清除</button>
+        <input type="text" placeholder="搜索" class="search">
+    </div>
+
+    <div id="measure">
+        <div id="result"></div>
+    </div>
+  </div>
+
+</div>
+
 @endsection
 
 @section('scripts')
@@ -20,16 +62,18 @@
         }
         ]
     };
+
 </script>
 <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/dijit/themes/claro/claro.css') }}">
-{{-- <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/esri/css/esri.css') }}"> --}}
+ <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/esri/css/esri.css') }}">
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
 var map,tb;
-
+var h = window.innerHeight-51;
+$("#mapDiv").height(h);
 require(
-  ["esri/map","esri/dijit/Popup","esri/dijit/PopupTemplate","esri/toolbars/draw","esri/symbols/SimpleMarkerSymbol","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/renderers/ClassBreaksRenderer","tdlib/ClusterLayer","esri/geometry/webMercatorUtils", "esri/graphic","esri/Color","esri/layers/GraphicsLayer", "esri/SpatialReference","tdlib/TDTLayer","tdlib/TDTAnnoLayer","esri/geometry/Point","dojo/parser","dijit/registry","dijit/form/Button", "dojo/domReady!"],
-  function(Map,Popup, PopupTemplate,Draw,SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, ClassBreaksRenderer,ClusterLayer,webMercatorUtils,Graphic,Color,GraphicsLayer,SpatialReference,TDTLayer,TDTAnnoLayer,Point,parser,registry,Button)
+  ["dojo/dom","dojo/on","esri/tasks/LengthsParameters","esri/tasks/AreasAndLengthsParameters","esri/toolbars/draw", "esri/graphic","dojo/keys","esri/config","esri/sniff","esri/SnappingManager","esri/dijit/Measurement","esri/layers/FeatureLayer","esri/renderers/SimpleRenderer","esri/tasks/GeometryService","esri/map","esri/dijit/Popup","esri/dijit/PopupTemplate","esri/toolbars/draw","esri/symbols/SimpleMarkerSymbol","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/renderers/ClassBreaksRenderer","tdlib/ClusterLayer","esri/geometry/webMercatorUtils", "esri/graphic","esri/Color","esri/layers/GraphicsLayer", "esri/SpatialReference","tdlib/TDTLayer","tdlib/TDTAnnoLayer","tdlib/TDTYXLayer","esri/geometry/Point","dojo/parser","dijit/registry","dijit/form/Button", "dojo/domReady!"],
+  function(dom,on,LengthsParameters,AreasAndLengthsParameters,draw,graphic,keys,esriConfig,has,SnappingManager,Measurement,FeatureLayer,SimpleRenderer,GeometryService,Map,Popup, PopupTemplate,Draw,SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, ClassBreaksRenderer,ClusterLayer,webMercatorUtils,Graphic,Color,GraphicsLayer,SpatialReference,TDTLayer,TDTAnnoLayer,TDTYXLayer,Point,parser,registry,Button)
   {
     parser.parse();
     var popupOptions = {
@@ -43,14 +87,154 @@ require(
     map.on('load', function() {
         requestData();
     });
+    var nhyxmap = new TDTYXLayer();
+    map.addLayer(nhyxmap);
+    nhyxmap.setVisibility(false);
     var nhbasemap = new TDTLayer();
     map.addLayer(nhbasemap);
     var nhannolayer=  new TDTAnnoLayer();
     map.addLayer(nhannolayer);
-
+    $("#baselayer").click(function(){
+        nhbasemap.setVisibility(true);
+        nhyxmap.setVisibility(false);
+    })
+    $("#yxlayer").click(function(){
+        nhbasemap.setVisibility(false);
+        nhyxmap.setVisibility(true);
+    })
     map.centerAndZoom(new Point({"x": 121.42018376109351, "y": 29.291107035766274, "spatialReference": {"wkid": 4490 } }),11);
     var graLayer = new GraphicsLayer({id:"xiaoqu"});
     map.addLayer(graLayer);
+
+    //量距
+    esriConfig.defaults.io.proxyUrl = "/proxy/";
+    esriConfig.defaults.io.alwaysUseProxy = false;
+
+    var gsvc = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+    var measureToolbar = new esri.toolbars.Draw(map);
+    var lineSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 2);
+    var polygonSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, polygonSymbol, new Color([0, 0, 0, 0.25]));
+    on(dom.byId("line"),"click",function(){
+
+      map.graphics.clear();
+      $("#result").html("");
+      //激活画线工具
+      measureToolbar.activate(Draw.POLYLINE, {
+        showTooltips:true
+      })
+    });
+    on(dom.byId("polygon"),"click",function(){
+      map.graphics.clear();
+      $("#result").html("");
+      //激活画面工具
+      measureToolbar.activate(Draw.POLYGON,{
+        showTooltips:true
+      })
+    });
+    measureToolbar.on("draw-end",showMeasureResults);
+    var showPt=null;
+
+    function showMeasureResults(evt){
+//      measureToolbar.deactivate(); 每次画完线或面后是否关闭绘画工具
+      map.graphics.clear();
+      map.setMapCursor("default");
+      var geometry = evt.geometry;
+      switch (geometry.type) {
+        case "polyline":{
+          var length = geometry.paths[0].length;
+          showPt = new Point(geometry.paths[0][length-1],map.spatialReference);
+          var lengthParams = new LengthsParameters();
+          lengthParams.lengthUnit = esri.tasks.GeometryService.UNIT_KILOMETER;
+          lengthParams.polylines = [geometry];
+          gsvc.lengths(lengthParams);
+          var graphicline = new Graphic(geometry, lineSymbol);
+          map.graphics.add(graphicline);
+          break;
+
+        }
+        case "polygon":{
+          showPt = new Point(geometry.rings[0][0],map.spatialReference);
+          var areasAndLengthParams = new AreasAndLengthsParameters();
+          areasAndLengthParams.lengthUnit = esri.tasks.GeometryService.UNIT_KILOMETER;
+          areasAndLengthParams.areaUnit = esri.tasks.GeometryService.UNIT_SQUARE_KILOMETERS;
+          gsvc.simplify([geometry], function(simplifiedGeometries) {
+            areasAndLengthParams.polygons = simplifiedGeometries;
+            gsvc.areasAndLengths(areasAndLengthParams);
+          });
+          var graphicploy = new Graphic(geometry,polygonSymbol);
+          map.graphics.add(graphicploy);
+          break;
+        }
+      }
+
+
+
+
+    }
+
+    gsvc.on("lengths-complete",outputLength);
+    function outputLength(evtObj){
+      var result = evtObj.result;
+      measureInfo(showPt, result.lengths[0].toFixed(2), "千米");
+    };
+    gsvc.on("areas-and-lengths-complete",outputAreaAndLength);
+    function outputAreaAndLength(evtObj){
+      var result = evtObj.result;
+      measureInfo(showPt, result.areas[0].toFixed(2), "平方千米");
+    };
+    function measureInfo(showPnt,data,unit){
+      var measureDiv=$("#measure");
+      var isShow = false;
+      var screenPnt=map.toScreen(showPnt);
+      measureDiv.css("left",screenPnt.x+"px");
+      measureDiv.css("top",screenPnt.y+"px");
+      measureDiv.css("position","absolute");
+      measureDiv.css("height","20px");
+      measureDiv.css("display","block");
+      isShow = true;
+      measureDiv.css("z-index","999");
+      if(unit==="千米"){
+        measureDiv.css("width","90px");
+      }
+      else{
+        measureDiv.css("width","130px");
+      }
+      $("#result").html(data+" "+unit);
+      $("#infoclose").click(function(){
+        map.graphics.clear();
+        measureDiv.css("display","none");
+        isShow = false;
+      });
+
+      map.on("pan-start", function(){
+        measureDiv.css("display","none");
+      });
+
+      map.on("pan-end", function(panend){
+        if(isShow){
+          screenPnt=map.toScreen(showPnt);
+          measureDiv.css("left",screenPnt.x+"px");
+          measureDiv.css("top",screenPnt.y+"px");
+          measureDiv.css("position","absolute");
+          measureDiv.css("height","20px");
+          measureDiv.css("display","block");
+        }
+      });
+      map.on("zoom-start", function(){
+        measureDiv.css("display","none");
+      });
+      map.on("zoom-end", function(){
+        if(isShow){
+          screenPnt=map.toScreen(showPnt);
+          measureDiv.css("left",screenPnt.x+"px");
+          measureDiv.css("top",screenPnt.y+"px");
+          measureDiv.css("position","absolute");
+          measureDiv.css("height","20px");
+          measureDiv.css("display","block");
+        }
+      });
+
+    };
 
     function requestData(){
       dojo.addOnLoad(function(resp){
@@ -152,5 +336,7 @@ require(
       });
     }
   });
+
+
 </script>
 @endsection
