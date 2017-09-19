@@ -19,7 +19,6 @@ Route::get('/{id}', 'ArchiveController@detail')->where('id', '[0-9]+')->name('ar
 Route::post('/edit', 'ArchiveController@edit');
 Route::get('/map', 'ArchiveController@map')->name('archive.map');
 Route::get('/map/{id}', 'ArchiveController@map')->where('id', '[0-9]+')->name('archive.map.detail');
-
 Route::group(['prefix' => 'property'], function ()
 {
 	Route::get('/', 'PropertyController@index')->name('property');

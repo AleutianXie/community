@@ -24,6 +24,13 @@
           text-align: center;
           border-radius: 10px;
       }
+    #list{
+      position:absolute;
+      z-index: 10;
+      top:100px;
+      left:100px;
+      width:200px;
+    }
   </style>
 @endsection
 @section('content')
@@ -41,8 +48,15 @@
     <div id="measure">
         <div id="result"></div>
     </div>
+</div>
+<div class="container" id="list">
+  {{--<div class="row">--}}
+    <div class="sidebar-offcanvas" id="sidebar">
+      <div class="list-group">
+        <a class="list-group-item active">{{ __('archive.sidebar.list') }}</a>
+      </div>
+    {{--</div>--}}
   </div>
-
 </div>
 
 @endsection
@@ -69,8 +83,15 @@
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
 var map,tb;
-var h = window.innerHeight-51;
-$("#mapDiv").height(h);
+function setMapZize(){
+  var h = window.innerHeight-51;
+  $("#mapDiv").height(h);
+}
+setMapZize();
+window.onresize = function(){
+  setMapZize();
+};
+
 require(
   ["dojo/dom","dojo/on","esri/tasks/LengthsParameters","esri/tasks/AreasAndLengthsParameters","esri/toolbars/draw", "esri/graphic","dojo/keys","esri/config","esri/sniff","esri/SnappingManager","esri/dijit/Measurement","esri/layers/FeatureLayer","esri/renderers/SimpleRenderer","esri/tasks/GeometryService","esri/map","esri/dijit/Popup","esri/dijit/PopupTemplate","esri/toolbars/draw","esri/symbols/SimpleMarkerSymbol","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/renderers/ClassBreaksRenderer","tdlib/ClusterLayer","esri/geometry/webMercatorUtils", "esri/graphic","esri/Color","esri/layers/GraphicsLayer", "esri/SpatialReference","tdlib/TDTLayer","tdlib/TDTAnnoLayer","tdlib/TDTYXLayer","esri/geometry/Point","dojo/parser","dijit/registry","dijit/form/Button", "dojo/domReady!"],
   function(dom,on,LengthsParameters,AreasAndLengthsParameters,draw,graphic,keys,esriConfig,has,SnappingManager,Measurement,FeatureLayer,SimpleRenderer,GeometryService,Map,Popup, PopupTemplate,Draw,SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, ClassBreaksRenderer,ClusterLayer,webMercatorUtils,Graphic,Color,GraphicsLayer,SpatialReference,TDTLayer,TDTAnnoLayer,TDTYXLayer,Point,parser,registry,Button)
@@ -97,11 +118,11 @@ require(
     $("#baselayer").click(function(){
         nhbasemap.setVisibility(true);
         nhyxmap.setVisibility(false);
-    })
+    });
     $("#yxlayer").click(function(){
         nhbasemap.setVisibility(false);
         nhyxmap.setVisibility(true);
-    })
+    });
     map.centerAndZoom(new Point({"x": 121.42018376109351, "y": 29.291107035766274, "spatialReference": {"wkid": 4490 } }),11);
     var graLayer = new GraphicsLayer({id:"xiaoqu"});
     map.addLayer(graLayer);

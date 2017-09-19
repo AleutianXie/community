@@ -1,13 +1,66 @@
 @extends('layouts.app')
 
+@section('style')
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            width:100%;
+            height:100%;
+            overflow: hidden;
+        }
+        #module{
+            position:absolute;
+            top:0;
+            left:0;
+            background:rgba(0,0,0,0.25);
+            display: none;
+            z-index: 10;
+        }
+        .module_close{
+            width: 30px;
+            height: 30px;
+            display: block;
+            position: absolute;
+            top: 70px;
+            right: 30px;
+            background: url({{ asset('js/nh/images/close_def.png') }})  no-repeat;
+            background-size:cover;
+            cursor: pointer;
+        }
+        .module_close:hover{
+            background:url({{ asset('js/nh/images/close_hov.png') }}) no-repeat;
+            background-size:cover;
+        }
+        #canvas{
+            margin:0;
+            padding:0;
+        }
+        input[type=range]{
+            /*position:absolute;*/
+            /*width:20%;*/
+            /*bottom:5%;*/
+            /*left:1%;*/
+            display: none;
+            opacity:0;
+        }
+    </style>
+@endsection
+
 @section('content')
+
+    <div id="module">
+        <a class="module_close" href="javascript:hideModule();"></a>
+        <canvas id="canvas"></canvas>
+    </div>
+    <input type="range" id="scale-range" min="0.2" max="2" step="0.05" value="1">
 <div class="container">
     <div class="row">
         <div class="container">
             <div class="row row-offcanvas row-offcanvas-right">
                 <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar">
                     <div class="list-group">
-                    <a href="/detail" class="list-group-item active">{{ __('archive.sidebar.list') }}</a>
+                    <a href="/" class="list-group-item active">{{ __('archive.sidebar.list') }}</a>
                     <a href="/create" class="list-group-item">{{ __('archive.sidebar.add') }}</a>
                     <a href="/" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
                     </div>
@@ -106,10 +159,15 @@
                                         <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:580px;overflow:hidden;">
                                         @foreach ($archive->photos as $photo)
                                             <div>
-                                                <img data-u="image" src="{{ $photo->path }}" />
+                                                <img data-u="image" src="{{ $photo->path }}" >
                                             </div>
+
+
                                         @endforeach
+
+
                                         </div>
+
                                         <!-- Bullet Navigator -->
                                         <div data-u="navigator" class="jssorb053" style="position:absolute;bottom:12px;right:12px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
                                             <div data-u="prototype" class="i" style="width:16px;height:16px;">
@@ -315,6 +373,127 @@
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
 var map,tb;
+//图片放大功能
+
+$("img[data-u=image]").on('click',function(e) {
+  src = $(this).prop("src");
+  showModule();
+})
+  var canvas = document.getElementById("canvas");
+  var context = canvas.getContext("2d");
+  var slider = document.getElementById("scale-range");
+  var scale = slider.value;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  scale = slider.value;
+  var w = $(window).width();
+  var h = $(window).height();
+  var dw = 0;
+  var dh = 0;
+  var imageWidth = 0;
+  var imageHeight = 0;
+  canvas.width = w;
+  canvas.height = h;
+  var image = new Image();
+  var src="";
+  function showModule(){
+    image.src = src;
+    imageWidth = image.width*scale;
+    imageHeight = image.height*scale;
+    dw = w/2-imageWidth/2;
+    dh = h/2-imageHeight/2;
+    $("#module").height(h).width(w);
+    $("#module").css({display:"block"});
+    $("input[type=range]").css({display:"block"});
+    image.onload = function(){
+//    drawImageByScale();
+//    slider.onmousemove = function(){
+//      drawImageByScale();
+//    };
+      context.drawImage(image,dw,dh,imageWidth,imageHeight);
+      move();
+    };
+
+    addEvent(canvas,'mousewheel',onMouseWheel);
+    addEvent(canvas,'DOMMouseScroll',onMouseWheel);
+    // 当滚轮事件发生时，执行onMouseWheel这个函数
+    function onMouseWheel(e) {
+      e = e || window.event;
+      if(e.wheelDelta){
+        console.log(e.wheelDelta);
+        if(e.wheelDelta>0){
+          slider.value +=0.05;
+          drawImageByScale();
+        }else{
+          slider.value -= 0.05;
+          drawImageByScale();
+        }
+      }else if(e.detail){
+        if(e.detail>0){
+          slider.value +=0.05;
+          drawImageByScale();
+        }else{
+          slider.value -=0.05;
+          drawImageByScale();
+        }
+      }
+    }
+  }
+
+  function addEvent(obj,xEvent,fn){
+    if(obj.attachEvent){
+      obj.attachEvent('on'+xEvent,fn);
+    }else{
+      obj.addEventListener(xEvent,fn,false);
+    }
+  }
+
+  function drawImageByScale(){
+    var oldScale = scale;
+    scale = slider.value;
+    imageWidth = image.width*scale;
+    imageHeight = image.height*scale;
+    dw = dw+image.width*(oldScale-scale)/2;
+    dh = dh+image.height*(oldScale-scale)/2;
+    context.clearRect(0,0,w,h);
+    context.drawImage(image,dw,dh,imageWidth,imageHeight);
+  }
+
+  function hideModule(){
+    $("#module").css({display:"none"});
+  }
+  function move(){
+    var canMove = false;
+    var startX = 0;
+    var startY = 0;
+    canvas.onmousedown = function(e){
+      e = e || window.event;
+      this.style.cursor = "move";
+      startX = e.offsetX;
+      startY = e.offsetY;
+      canMove = true;
+      startMove();
+    }
+    canvas.onmouseup = function(){
+      this.style.cursor = "default";
+      canMove = false;
+      dw += cx-startX;
+      dh += cy-startY;
+    }
+    function startMove(){
+      canvas.onmousemove = function(e) {
+        e = e || window.event;
+        cx = e.clientX;
+        cy = e.clientY;
+        setInterval(function(){
+          if(canMove){
+            context.clearRect(0,0,w,h);
+            context.drawImage(image,dw+cx-startX,dh+cy-startY,imageWidth,imageHeight);
+          }
+        },50)
+      }
+    }
+  }
+
+
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 
 require(
   ["esri/map","esri/dijit/Popup","esri/dijit/PopupTemplate","esri/toolbars/draw","esri/symbols/SimpleMarkerSymbol","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/renderers/ClassBreaksRenderer","tdlib/ClusterLayer","esri/geometry/webMercatorUtils", "esri/graphic","esri/Color","esri/layers/GraphicsLayer", "esri/SpatialReference","tdlib/TDTLayer","tdlib/TDTAnnoLayer","esri/geometry/Point","dojo/parser","dijit/registry","dijit/form/Button", "dojo/domReady!"],
