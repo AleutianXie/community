@@ -13,7 +13,7 @@ class PhotosTableSeeder extends Seeder
   public function run()
   {
     //
-    $dir = storage_path('app/xiaoqutuzhi');
+    $dir = storage_path('app/xiaoqutuzhihuizong');
     $saveDir = storage_path('app/aetherupload/file/' . date("Ym", time()));
     if (!file_exists($saveDir))
     {
@@ -27,7 +27,11 @@ class PhotosTableSeeder extends Seeder
       if (!in_array($subDir, ['.', '..']))
       {
         $aName = $subDir;
-        $archive = Archive::where(['name' => mb_convert_encoding($aName,'UTF-8','GBK')])->get()->toArray();
+        // for windows
+        //$archive = Archive::where(['name' => mb_convert_encoding($aName,'UTF-8','GBK')])->get()->toArray();
+        // for mac
+        $archive = Archive::where(['name' => $aName])->get()->toArray();
+        //var_dump($archive);exit;
         //var_dump($aName);
         //var_dump($archive[0]['id']);exit;
         $types = scandir($dir . '/' . $subDir);
@@ -35,7 +39,10 @@ class PhotosTableSeeder extends Seeder
         {
           if (!in_array($type, ['.', '..']))
           {
-            $aType = substr($type, 2, 4);
+            // for windows
+            // $aType = substr($type, 2, 4);
+            // for mac
+            $aType = substr($type, 2, 6);
 
             $files = scandir($dir . '/' . $subDir . '/' . $type);
             foreach ($files as $file)
@@ -52,10 +59,14 @@ class PhotosTableSeeder extends Seeder
                 {
                   //var_dump($aType);exit;
                   $arr[] = [$aName, $aType, $file, $md5, $archive[0]['id'], 'file/' . date("Ym", time()) . '/' . $md5 . '.' . $extension];
+
                   DB::table('photos')->insert([
                     'aid' => $archive[0]['id'],
                     'path' => 'file/' . date("Ym", time()) . '/' . $md5 . '.' . $extension,
-                    'type' => mb_convert_encoding($aType,'UTF-8','GBK'),
+                    //for winodws
+                    //'type' => mb_convert_encoding($aType,'UTF-8','GBK'),
+                    // for mac
+                    'type' => $aType,
                     'creater' => 1,
                     'modifier' => 1,
                     'created_at' => date('Y-m-d H:i:s', time()),

@@ -180,6 +180,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         //Peinhu\AetherUpload\AetherUploadServiceProvider::class,
+        AetherUpload\AetherUploadServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
     ],

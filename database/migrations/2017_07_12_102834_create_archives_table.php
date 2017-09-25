@@ -23,7 +23,9 @@ class CreateArchivesTable extends Migration
             $table->smallInteger('unit');
             $table->smallInteger('building');
             $table->smallInteger('lift');
-            $table->string('property', 60);
+            //$table->string('property', 60);
+            $table->unsignedInteger('pid');
+            $table->foreign('pid')->references('id')->on('properties');
             $table->string('principal', 30);
             $table->string('mobile', 11);
             $table->float('shape_length', 20, 6)->nullable();

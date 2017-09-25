@@ -120,10 +120,18 @@
                                         </div>
 
                                         <div class="profile-info-row">
+                                            <div class="profile-info-name"> {{ __('archive.shape_area') }} </div>
+
+                                            <div class="profile-info-value">
+                                                <span class="editable editable-click" id="shape_area">{{ $archive->shape_area }}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-info-row">
                                             <div class="profile-info-name"> {{ __('archive.property') }}</div>
 
                                             <div class="profile-info-value">
-                                                <span class="editable editable-click" id="property">{{ $archive->property }}</span>
+                                                <span class="editable editable-click" id="property">{{ $archive->property ->name }}</span>
                                             </div>
                                         </div>
 
@@ -302,6 +310,16 @@
         });
 
         $('#building').editable({
+            type: 'text',
+            url: '/edit',
+            params: {'_token' : '{{ csrf_token() }}'},
+            pk: {{ $archive->id }},
+            error: function(response){
+                return response.responseJSON.building[0];
+            }
+        });
+
+        $('#shape_area').editable({
             type: 'text',
             url: '/edit',
             params: {'_token' : '{{ csrf_token() }}'},

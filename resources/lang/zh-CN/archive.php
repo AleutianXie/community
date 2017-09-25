@@ -23,7 +23,7 @@ return [
     'principal' => '负责人',
     'mobile' => '联系电话',
     'shape_length' => 'SHAPE_Length',
-    'shape_area' => 'SHAPE_AREA',
+    'shape_area' => '小区面积',
     'submit' => '提交',
     'reset' => '重置',
     'sidebar' => ['list' => '档案列表', 'add' => '新建档案', 'detail' => '档案详情', 'map' => '小区分布'],
