@@ -55,7 +55,7 @@
       <div class="list-group">
         <a class="list-group-item" href="{{ url("/list") }}">{{ __('archive.sidebar.list') }}</a>
         @foreach($archives as $archive)
-        <a class="list-group-item" href="{{ url("/".$archive->id) }}">{{ $archive->address }}</a>
+        <a class="list-group-item" href="{{ url("/map/".$archive->id) }}">{{ $archive->name }}</a>
         @endforeach
       </div>
     {{--</div>--}}
