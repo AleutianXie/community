@@ -53,7 +53,7 @@ class ArchiveController extends Controller
     public function index()
     {
         $archives = Archive::orderByDesc('id')->paginate(10);
-        return view('archive.map', compact('archives'));
+        return view('archive.index', compact('archives'));
     }
 
     /**

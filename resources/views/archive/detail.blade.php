@@ -60,9 +60,9 @@
             <div class="row row-offcanvas row-offcanvas-right">
                 <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar">
                     <div class="list-group">
-                    <a href="/" class="list-group-item active">{{ __('archive.sidebar.list') }}</a>
+                    <a href="/list" class="list-group-item active">{{ __('archive.sidebar.list') }}</a>
                     <a href="/create" class="list-group-item">{{ __('archive.sidebar.add') }}</a>
-                    <a href="/" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
+                    <a href="/map" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
                     </div>
                 </div>
 

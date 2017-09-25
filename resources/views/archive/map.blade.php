@@ -53,7 +53,10 @@
   {{--<div class="row">--}}
     <div class="sidebar-offcanvas" id="sidebar">
       <div class="list-group">
-        <a class="list-group-item active">{{ __('archive.sidebar.list') }}</a>
+        <a class="list-group-item" href="{{ url("/list") }}">{{ __('archive.sidebar.list') }}</a>
+        @foreach($archives as $archive)
+        <a class="list-group-item" href="{{ url("/".$archive->id) }}">{{ $archive->address }}</a>
+        @endforeach
       </div>
     {{--</div>--}}
   </div>

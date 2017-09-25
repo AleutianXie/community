@@ -179,7 +179,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        Peinhu\AetherUpload\AetherUploadServiceProvider::class,
+        //Peinhu\AetherUpload\AetherUploadServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
     ],
