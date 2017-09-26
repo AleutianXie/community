@@ -55,7 +55,7 @@
       <div class="list-group">
         <a class="list-group-item" href="{{ url("/list") }}">{{ __('archive.sidebar.list') }}</a>
         @foreach($archives as $archive)
-        <a class="list-group-item" href="{{ url("/map/".$archive->id) }}">{{ $archive->name }}</a>
+        <a class="list-group-item" href="{{ url("/".$archive->id) }}">{{$archive->property}}</a>
         @endforeach
       </div>
     {{--</div>--}}
@@ -83,6 +83,8 @@
 </script>
 <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/dijit/themes/claro/claro.css') }}">
  <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/esri/css/esri.css') }}">
+<link rel="stylesheet" href="{{asset('css/bootstrap-treeview.css')}}">
+<script src="{{asset('js/bootstrap-treeview.js')}}"></script>
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
 var map,tb;
@@ -226,6 +228,7 @@ require(
       $("#result").html(data+" "+unit);
       $("#infoclose").click(function(){
         map.graphics.clear();
+        measureToolbar.deactivate();
         measureDiv.css("display","none");
         isShow = false;
       });
