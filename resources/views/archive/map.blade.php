@@ -127,56 +127,7 @@
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
   //树
-//  function buildTree(){
-//    var data=[];
-//    function walk(nodes,data){
-//      if(!nodes){return;}
-//      $.each(properties,function(property){
-//        var Property = {
-//          id:property.id,
-//          text: property.name
-//        }
-//        Property.nodes = [];
-//      })
-//    }
-//  }
 
-//  var data = [
-//    {
-//      text:"物业1",//第一个物业公司
-//      //物业下小区
-//      nodes:[
-//        {
-//          text:"太阳小区"
-//        },
-//        {
-//          text:'月亮小区'
-//        },
-//        {
-//          text:'金星'
-//        },
-//        {
-//          text:'水星'
-//        }
-//      ]
-//    },
-//      //第二个物业公司
-//    {
-//      text:'物业2',
-//      nodes:[
-//        {
-//          text:'秦时明月'
-//        },{
-//          text:'喜羊羊'
-//        }
-//      ]
-//    },
-//      //第三个
-//    {
-//      text:'物业3'
-//    }
-//    // ……
-//  ];
   var data = [
       @foreach (array_keys($archiveList) as $item)
     {
