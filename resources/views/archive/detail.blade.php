@@ -164,7 +164,6 @@
                                         </h4>
                                     </div>
                                 </div>
-
                                 <div class="col-xs-12 col-sm-12 col-md-8">
                                     <div id="jssor_1" style="margin:0 auto;top:0px;left:0px;width:980px;height:580px;overflow:hidden;visibility:hidden;">
                                         <!-- Loading Screen -->
@@ -315,7 +314,6 @@
                 return response.responseJSON.unit[0];
             }
         });
-
         $('#building').editable({
             type: 'text',
             url: '/edit',

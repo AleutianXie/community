@@ -13,12 +13,28 @@
     .mapController{
       background-color: transparent;
       position:absolute;
-      left:60px;
-      top:10px;
+      left:80px;
+      top:15px;
       z-index: 10;
     }
-    .search{
-      right:500px;
+    .mapController button{
+      padding:15px;
+      margin-left:10px;
+      background-color: #5cace1;
+      box-shadow: none;
+      border:none;
+      color:#fff;
+      border-radius: 50%;
+      opacity: 0.8;
+      outline: none;
+    }
+    .mapController button:hover{
+      background-color: #00b9f2;
+      opacity:1;
+      transition:all 1s;
+    }
+    .mapController button:active{
+      text-decoration: none;
     }
     #result{
           background-color: #00a3ef;
@@ -32,13 +48,25 @@
     #list{
       padding:0;
     }
+    .container-fluid{
+      padding:0;
+    }
+    #treeview-selectable ul{
+      margin-bottom:0;
+    }
+    .item-list{
+      margin-bottom:10px;
+      overflow: auto;
+      border-bottom: 1px solid #d3e0e9;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
   </style>
 @endsection
 @section('content')
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2 hidden-xs" id="list">
-      {{--需要物业公司数据--}}
+    <div class="col-sm-3 col-lg-2 hidden-xs" id="list">
       {{--<div class="sidebar-offcanvas" id="sidebar">--}}
         {{--<div class="list-group">--}}
           {{--<a class="list-group-item text-center" href="{{ url("/list") }}">{{ __('archive.sidebar.list') }}</a>--}}
@@ -47,21 +75,23 @@
           {{--@endforeach--}}
         {{--</div>--}}
       {{--</div>--}}
-      <a class="list-group-item text-center" href="{{ url("/list") }}"><strong>小区列表</strong></a>
-      <div id="treeview-selectable"></div>
+      <div class="item-list">
+        <a class="list-group-item text-center" href="{{ url("/list") }}"><strong>小区列表</strong></a>
+        <div id="treeview-selectable"></div>
+      </div>
       <div class="form-group">
         <label for="input-select-node" class="sr-only">搜索</label>
         <input type="input" class="form-control" id="input-select-node" placeholder="输入关键字搜索">
       </div>
     </div>
-    <div id="mapDiv" class="col-md-10" style=" height:100%; margin: 0;  padding: 0;">
+    <div id="mapDiv" class="col-sm-9 col-lg-10" style=" height:100%; margin: 0;  padding: 0;">
       <div class="mapController hidden-xs">
-        <button id="baselayer">电子地图</button>
-        <button id="yxlayer">影像地图</button>
-        <button id="polygon">面积测算</button>
-        <button id="line">距离测算</button>
+        {{--<input type="text" placeholder="搜索" id="input-select-node">--}}
+        <button id="baselayer">电子</button>
+        <button id="yxlayer">影像</button>
+        <button id="polygon">面积</button>
+        <button id="line">距离</button>
         <button id="infoclose">清除</button>
-        {{--<input type="text" placeholder="搜索" id="search">--}}
       </div>
 
       <div id="measure">
@@ -70,21 +100,6 @@
     </div>
   </div>
 </div>
-{{--<div id="mapDiv" style="width:100%; height:100%; margin: 0;  padding: 0;">--}}
-    {{--<div class="mapController">--}}
-        {{--<button id="baselayer">电子地图</button>--}}
-        {{--<button id="yxlayer">影像地图</button>--}}
-        {{--<button id="polygon">面积测算</button>--}}
-        {{--<button id="line">距离测算</button>--}}
-        {{--<button id="infoclose">清除</button>--}}
-        {{--<input type="text" placeholder="搜索" class="search">--}}
-    {{--</div>--}}
-
-    {{--<div id="measure">--}}
-        {{--<div id="result"></div>--}}
-    {{--</div>--}}
-{{--</div>--}}
-
 
 @endsection
 
@@ -111,39 +126,72 @@
 <script src="{{asset('js/bootstrap-treeview.js')}}"></script>
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
-  //物业公司列表树
-$(function(){
+  //树
+//  function buildTree(){
+//    var data=[];
+//    function walk(nodes,data){
+//      if(!nodes){return;}
+//      $.each(properties,function(property){
+//        var Property = {
+//          id:property.id,
+//          text: property.name
+//        }
+//        Property.nodes = [];
+//      })
+//    }
+//  }
+
+//  var data = [
+//    {
+//      text:"物业1",//第一个物业公司
+//      //物业下小区
+//      nodes:[
+//        {
+//          text:"太阳小区"
+//        },
+//        {
+//          text:'月亮小区'
+//        },
+//        {
+//          text:'金星'
+//        },
+//        {
+//          text:'水星'
+//        }
+//      ]
+//    },
+//      //第二个物业公司
+//    {
+//      text:'物业2',
+//      nodes:[
+//        {
+//          text:'秦时明月'
+//        },{
+//          text:'喜羊羊'
+//        }
+//      ]
+//    },
+//      //第三个
+//    {
+//      text:'物业3'
+//    }
+//    // ……
+//  ];
   var data = [
+      @foreach (array_keys($archiveList) as $item)
     {
-      text:"星球物业",
-//      href:'#property',
-//      tags:['4'],
-      nodes:[
+      text: '{{ $item }}',
+      nodes: [
+          @foreach ($archiveList[$item] as $element)
         {
-          text:'太阳小区'
+          text: '{{ $element['name'] }}',
         },
-        {
-          text:'月亮小区'
-        },
-        {
-          text:'金星'
-        },
-        {
-          text:'水星'
-        }
+        @endforeach
       ]
     },
-    {
-      text:'二次元物业',
-      nodes:[
-        {
-          text:'秦时明月'
-        },{
-          text:'喜羊羊'
-        }
-      ]
-    }
+    @endforeach
   ];
+
   var initSelectableTree = function(){
     return $('#treeview-selectable').treeview({
       data:data,
@@ -161,13 +209,14 @@ $(function(){
     selectableNodes = findSelectableNodes();
     $('.select-node').prop('disabled', !(selectableNodes.length >= 1));
   });
-})
 
   //加载地图和地图控件
 var map,tb;
 function setMapZize(){
-  var h = window.innerHeight-$(".navbar-static-top").height();
+  var h = window.innerHeight-$(".navbar-static-top").height()-1;
   $("#mapDiv").height(h);
+  $("#list").height(h);
+  $(".item-list").css("max-height",800);
 }
 setMapZize();
 window.onresize = function(){
@@ -393,6 +442,10 @@ require(
               fieldName: "lift",
               label: "{{ __('archive.lift') }}",
               visible: true
+            },{
+              fieldName: "shape_area",
+              label: "{{ __('archive.shape_area') }}",
+              visible: true
             },
             {
               fieldName: "property",
@@ -422,7 +475,8 @@ require(
         attributes["unit"]="{{ $archive->unit }}";
         attributes["building"]="{{ $archive->building }}";
         attributes["lift"]="{{ $archive->lift }}";
-        attributes["property"]="{{ $archive->property->name }}";
+        attributes["shape_area"]="{{$archive->shape_area}}";
+        attributes["property"]="{{ $archive->property->name}}";
         attributes["principal"]="{{ $archive->principal }}";
         attributes["mobile"]="{{ $archive->mobile }}";
 
@@ -440,7 +494,6 @@ require(
       });
     }
   });
-
 
 </script>
 @endsection
