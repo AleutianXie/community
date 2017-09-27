@@ -181,6 +181,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         AetherUpload\AetherUploadServiceProvider::class,
         //Peinhu\AetherUpload\AetherUploadServiceProvider::class,
+        AetherUpload\AetherUploadServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
     ],

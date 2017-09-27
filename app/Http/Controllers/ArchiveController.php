@@ -155,11 +155,11 @@ class ArchiveController extends Controller
     public function map(Request $request, $id = null)
     {
         $archives = Archive::all();
-//        return view('archive.map', compact('archives', 'id'));
-        $archiveList=[];
-        foreach($archives as $archive){
-          $archiveList[$archive->property->name][]=['id'=>$archive->id,'name'=>$archive->name];
+
+        $archiveList = [];
+        foreach ($archives as $archive) {
+            $archiveList[$archive->property->name][] = [ 'id' => $archive->id, 'name' => $archive->name ];
         }
-      return view('archive.map', compact('archives','id', 'archiveList'));
+        return view('archive.map', compact('archives', 'id', 'archiveList'));
     }
 }
