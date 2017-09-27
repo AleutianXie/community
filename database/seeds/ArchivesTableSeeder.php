@@ -28,7 +28,7 @@ class ArchivesTableSeeder extends Seeder
                         'unit' => $archive['attributes']['单元数'],
                         'building' => $archive['attributes']['幢数'],
                         'lift' => $archive['attributes']['电梯数'],
-                        'property' => $property[0]->id,
+                        'pid' => $property[0]->id,
                         'principal' => $archive['attributes']['负责人'],
                         'mobile' => $archive['attributes']['联系电话'],
                         'geometry' => json_encode($archive['geometry']),
