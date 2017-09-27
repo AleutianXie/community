@@ -10,4 +10,8 @@ class Archive extends Model
     {
         return $this->hasMany('App\Photo', 'aid');
     }
+    public function property()
+    {
+        return $this->hasOne('App\Property', 'id', 'pid');
+    }
 }

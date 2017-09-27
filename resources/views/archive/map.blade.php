@@ -4,6 +4,8 @@
   <style>
     #mapDiv{
       position:relative;
+      padding:0;
+      margin:0;
     }
     .navbar{
       margin-bottom:0;
@@ -18,49 +20,71 @@
     .search{
       right:500px;
     }
-      #result{
+    #result{
           background-color: #00a3ef;
           color:#000;
           text-align: center;
           border-radius: 10px;
       }
+    .row{
+      margin:0;
+    }
     #list{
-      position:absolute;
-      z-index: 10;
-      top:100px;
-      left:100px;
-      width:200px;
+      padding:0;
     }
   </style>
 @endsection
 @section('content')
-
-<div id="mapDiv" style="width:100%; height:100%; margin: 0;  padding: 0;">
-    <div class="mapController">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 hidden-xs" id="list">
+      {{--需要物业公司数据--}}
+      {{--<div class="sidebar-offcanvas" id="sidebar">--}}
+        {{--<div class="list-group">--}}
+          {{--<a class="list-group-item text-center" href="{{ url("/list") }}">{{ __('archive.sidebar.list') }}</a>--}}
+          {{--@foreach($archives as $archive)--}}
+            {{--<a class="list-group-item" href="{{ url("/".$archive->id) }}">{{$archive->property}}</a>--}}
+          {{--@endforeach--}}
+        {{--</div>--}}
+      {{--</div>--}}
+      <a class="list-group-item text-center" href="{{ url("/list") }}"><strong>小区列表</strong></a>
+      <div id="treeview-selectable"></div>
+      <div class="form-group">
+        <label for="input-select-node" class="sr-only">搜索</label>
+        <input type="input" class="form-control" id="input-select-node" placeholder="输入关键字搜索">
+      </div>
+    </div>
+    <div id="mapDiv" class="col-md-10" style=" height:100%; margin: 0;  padding: 0;">
+      <div class="mapController hidden-xs">
         <button id="baselayer">电子地图</button>
         <button id="yxlayer">影像地图</button>
         <button id="polygon">面积测算</button>
         <button id="line">距离测算</button>
         <button id="infoclose">清除</button>
-        <input type="text" placeholder="搜索" class="search">
-    </div>
-
-    <div id="measure">
-        <div id="result"></div>
-    </div>
-</div>
-<div class="container" id="list">
-  {{--<div class="row">--}}
-    <div class="sidebar-offcanvas" id="sidebar">
-      <div class="list-group">
-        <a class="list-group-item" href="{{ url("/list") }}">{{ __('archive.sidebar.list') }}</a>
-        @foreach($archives as $archive)
-        <a class="list-group-item" href="{{ url("/".$archive->id) }}">{{$archive->property}}</a>
-        @endforeach
+        {{--<input type="text" placeholder="搜索" id="search">--}}
       </div>
-    {{--</div>--}}
+
+      <div id="measure">
+        <div id="result"></div>
+      </div>
+    </div>
   </div>
 </div>
+{{--<div id="mapDiv" style="width:100%; height:100%; margin: 0;  padding: 0;">--}}
+    {{--<div class="mapController">--}}
+        {{--<button id="baselayer">电子地图</button>--}}
+        {{--<button id="yxlayer">影像地图</button>--}}
+        {{--<button id="polygon">面积测算</button>--}}
+        {{--<button id="line">距离测算</button>--}}
+        {{--<button id="infoclose">清除</button>--}}
+        {{--<input type="text" placeholder="搜索" class="search">--}}
+    {{--</div>--}}
+
+    {{--<div id="measure">--}}
+        {{--<div id="result"></div>--}}
+    {{--</div>--}}
+{{--</div>--}}
+
 
 @endsection
 
@@ -87,9 +111,62 @@
 <script src="{{asset('js/bootstrap-treeview.js')}}"></script>
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
+  //物业公司列表树
+$(function(){
+  var data = [
+    {
+      text:"星球物业",
+//      href:'#property',
+//      tags:['4'],
+      nodes:[
+        {
+          text:'太阳小区'
+        },
+        {
+          text:'月亮小区'
+        },
+        {
+          text:'金星'
+        },
+        {
+          text:'水星'
+        }
+      ]
+    },
+    {
+      text:'二次元物业',
+      nodes:[
+        {
+          text:'秦时明月'
+        },{
+          text:'喜羊羊'
+        }
+      ]
+    }
+  ];
+  var initSelectableTree = function(){
+    return $('#treeview-selectable').treeview({
+      data:data,
+      levels:1,
+      searchResultColor:"orange"
+    })
+  }
+  var $selectableTree = initSelectableTree();
+  var findSelectableNodes = function(){
+    return $selectableTree.treeview('search',[$('#input-select-node').val(), { ignoreCase: true}]);
+  }
+  var selectableNodes = findSelectableNodes();
+
+  $('#input-select-node').on('keyup', function (e) {
+    selectableNodes = findSelectableNodes();
+    $('.select-node').prop('disabled', !(selectableNodes.length >= 1));
+  });
+})
+
+  //加载地图和地图控件
 var map,tb;
 function setMapZize(){
-  var h = window.innerHeight-51;
+  var h = window.innerHeight-$(".navbar-static-top").height();
   $("#mapDiv").height(h);
 }
 setMapZize();
@@ -345,7 +422,7 @@ require(
         attributes["unit"]="{{ $archive->unit }}";
         attributes["building"]="{{ $archive->building }}";
         attributes["lift"]="{{ $archive->lift }}";
-        attributes["property"]="{{ $archive->property }}";
+        attributes["property"]="{{ $archive->property->name }}";
         attributes["principal"]="{{ $archive->principal }}";
         attributes["mobile"]="{{ $archive->mobile }}";
 
