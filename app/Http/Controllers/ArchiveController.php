@@ -155,6 +155,7 @@ class ArchiveController extends Controller
     public function map(Request $request, $id = null)
     {
         $archives = Archive::all();
+
         $archiveList = [];
         foreach ($archives as $archive) {
             $archiveList[$archive->property->name][] = [ 'id' => $archive->id, 'name' => $archive->name ];

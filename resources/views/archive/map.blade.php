@@ -4,6 +4,8 @@
   <style>
     #mapDiv{
       position:relative;
+      padding:0;
+      margin:0;
     }
     .navbar{
       margin-bottom:0;
@@ -11,54 +13,94 @@
     .mapController{
       background-color: transparent;
       position:absolute;
-      left:60px;
-      top:10px;
+      left:80px;
+      top:15px;
       z-index: 10;
     }
-    .search{
-      right:500px;
+    .mapController button{
+      padding:15px;
+      margin-left:10px;
+      background-color: #5cace1;
+      box-shadow: none;
+      border:none;
+      color:#fff;
+      border-radius: 50%;
+      opacity: 0.8;
+      outline: none;
     }
-      #result{
+    .mapController button:hover{
+      background-color: #00b9f2;
+      opacity:1;
+      transition:all 1s;
+    }
+    .mapController button:active{
+      text-decoration: none;
+    }
+    #result{
           background-color: #00a3ef;
           color:#000;
           text-align: center;
           border-radius: 10px;
       }
+    .row{
+      margin:0;
+    }
     #list{
-      position:absolute;
-      z-index: 10;
-      top:100px;
-      left:100px;
-      width:200px;
+      padding:0;
+    }
+    .container-fluid{
+      padding:0;
+    }
+    #treeview-selectable ul{
+      margin-bottom:0;
+    }
+    #treeview-selectable ul li a{
+      text-decoration: none;
+    }
+    .item-list{
+      margin-bottom:10px;
+      overflow: auto;
+      border-bottom: 1px solid #d3e0e9;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
     }
   </style>
 @endsection
 @section('content')
-
-<div id="mapDiv" style="width:100%; height:100%; margin: 0;  padding: 0;">
-    <div class="mapController">
-        <button id="baselayer">电子地图</button>
-        <button id="yxlayer">影像地图</button>
-        <button id="polygon">面积测算</button>
-        <button id="line">距离测算</button>
-        <button id="infoclose">清除</button>
-        <input type="text" placeholder="搜索" class="search">
-    </div>
-
-    <div id="measure">
-        <div id="result"></div>
-    </div>
-</div>
-<div class="container" id="list">
-  {{--<div class="row">--}}
-    <div class="sidebar-offcanvas" id="sidebar">
-      <div class="list-group">
-        <a class="list-group-item" href="{{ url("/list") }}">{{ __('archive.sidebar.list') }}</a>
-        @foreach($archives as $archive)
-        <a class="list-group-item" href="{{ url("/map/".$archive->id) }}">{{ $archive->name }}</a>
-        @endforeach
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-lg-2 hidden-xs" id="list">
+      {{--<div class="sidebar-offcanvas" id="sidebar">--}}
+        {{--<div class="list-group">--}}
+          {{--<a class="list-group-item text-center" href="{{ url("/list") }}">{{ __('archive.sidebar.list') }}</a>--}}
+          {{--@foreach($archives as $archive)--}}
+            {{--<a class="list-group-item" href="{{ url("/".$archive->id) }}">{{$archive->property}}</a>--}}
+          {{--@endforeach--}}
+        {{--</div>--}}
+      {{--</div>--}}
+      <div class="item-list">
+        <a class="list-group-item text-center" href="{{ url("/list") }}"><strong>小区列表</strong></a>
+        <div id="treeview-selectable"></div>
       </div>
-    {{--</div>--}}
+      <div class="form-group">
+        <label for="input-select-node" class="sr-only">搜索</label>
+        <input type="input" class="form-control" id="input-select-node" placeholder="输入关键字搜索">
+      </div>
+    </div>
+    <div id="mapDiv" class="col-sm-9 col-lg-10" style=" height:100%; margin: 0;  padding: 0;">
+      <div class="mapController hidden-xs">
+        {{--<input type="text" placeholder="搜索" id="input-select-node">--}}
+        <button id="baselayer">电子</button>
+        <button id="yxlayer">影像</button>
+        <button id="polygon">面积</button>
+        <button id="line">距离</button>
+        <button id="infoclose">清除</button>
+      </div>
+
+      <div id="measure">
+        <div id="result"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -83,12 +125,54 @@
 </script>
 <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/dijit/themes/claro/claro.css') }}">
  <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/esri/css/esri.css') }}">
+<link rel="stylesheet" href="{{asset('css/bootstrap-treeview.css')}}">
+<script src="{{asset('js/bootstrap-treeview.js')}}"></script>
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
+  //树
+
+  var data = [
+      @foreach (array_keys($archiveList) as $item)
+    {
+      text: '{{ $item }}',
+      nodes: [
+          @foreach ($archiveList[$item] as $element)
+        {
+          text: '{{ $element['name'] }}',
+          href: "../map/{{$element['id']}}",
+        },
+        @endforeach
+      ]
+    },
+    @endforeach
+  ];
+
+  var initSelectableTree = function(){
+    return $('#treeview-selectable').treeview({
+      data:data,
+      levels:1,
+      enableLinks:true,
+      searchResultColor:"orange"
+    })
+  }
+  var $selectableTree = initSelectableTree();
+  var findSelectableNodes = function(){
+    return $selectableTree.treeview('search',[$('#input-select-node').val(), { ignoreCase: true}]);
+  }
+  var selectableNodes = findSelectableNodes();
+
+  $('#input-select-node').on('keyup', function (e) {
+    selectableNodes = findSelectableNodes();
+    $('.select-node').prop('disabled', !(selectableNodes.length >= 1));
+  });
+
+  //加载地图和地图控件
 var map,tb;
 function setMapZize(){
-  var h = window.innerHeight-51;
+  var h = window.innerHeight-$(".navbar-static-top").height()-1;
   $("#mapDiv").height(h);
+  $("#list").height(h);
+  $(".item-list").css("max-height",h-120);
 }
 setMapZize();
 window.onresize = function(){
@@ -226,6 +310,7 @@ require(
       $("#result").html(data+" "+unit);
       $("#infoclose").click(function(){
         map.graphics.clear();
+        measureToolbar.deactivate();
         measureDiv.css("display","none");
         isShow = false;
       });
@@ -313,6 +398,10 @@ require(
               fieldName: "lift",
               label: "{{ __('archive.lift') }}",
               visible: true
+            },{
+              fieldName: "shape_area",
+              label: "{{ __('archive.shape_area') }}",
+              visible: true
             },
             {
               fieldName: "property",
@@ -342,7 +431,8 @@ require(
         attributes["unit"]="{{ $archive->unit }}";
         attributes["building"]="{{ $archive->building }}";
         attributes["lift"]="{{ $archive->lift }}";
-        attributes["property"]="{{ $archive->property }}";
+        attributes["shape_area"]="{{$archive->shape_area}}";
+        attributes["property"]="{{ $archive->property->name}}";
         attributes["principal"]="{{ $archive->principal }}";
         attributes["mobile"]="{{ $archive->mobile }}";
 
@@ -360,7 +450,6 @@ require(
       });
     }
   });
-
 
 </script>
 @endsection

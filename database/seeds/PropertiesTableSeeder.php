@@ -20,7 +20,7 @@ class PropertiesTableSeeder extends Seeder
                 $data = file_get_contents($dir . '/' . $file);
                 $archive = json_decode($data, true)['features'][0];
 
-                if (!DB::table('properties')->where(['name' => $archive['attributes']['物业公司']])->exists() && !empty(archive['attributes']['物业公司'])) {
+                if (!DB::table('properties')->where(['name' => $archive['attributes']['物业公司']])->exists() && !empty($archive['attributes']['物业公司'])) {
                     DB::table('properties')->insert([
                         'name' => $archive['attributes']['物业公司'],
                         'creater' => 1,
