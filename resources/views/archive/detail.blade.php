@@ -160,7 +160,7 @@
                                     </div>
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a href='{{ '/map/'.$archive->id }}' target="_blank">查看小区分布</a>
+                                            <a href='{{ '/map/'.$archive->id }}' target="_blank">查看小区位置</a>
                                         </h4>
                                     </div>
                                 </div>

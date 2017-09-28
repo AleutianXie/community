@@ -54,6 +54,9 @@
     #treeview-selectable ul{
       margin-bottom:0;
     }
+    #treeview-selectable ul li a{
+      text-decoration: none;
+    }
     .item-list{
       margin-bottom:10px;
       overflow: auto;
@@ -136,6 +139,7 @@
           @foreach ($archiveList[$item] as $element)
         {
           text: '{{ $element['name'] }}',
+          href: "../map/{{$element['id']}}",
         },
         @endforeach
       ]
@@ -147,6 +151,7 @@
     return $('#treeview-selectable').treeview({
       data:data,
       levels:1,
+      enableLinks:true,
       searchResultColor:"orange"
     })
   }
@@ -167,7 +172,7 @@ function setMapZize(){
   var h = window.innerHeight-$(".navbar-static-top").height()-1;
   $("#mapDiv").height(h);
   $("#list").height(h);
-  $(".item-list").css("max-height",800);
+  $(".item-list").css("max-height",h-120);
 }
 setMapZize();
 window.onresize = function(){
