@@ -53,6 +53,7 @@
     }
     #treeview-selectable ul{
       margin-bottom:0;
+      padding-bottom:1px;
     }
     #treeview-selectable ul li a{
       text-decoration: none;
@@ -79,7 +80,7 @@
         {{--</div>--}}
       {{--</div>--}}
       <div class="item-list">
-        <a class="list-group-item text-center" href="{{ url("/list") }}"><strong>小区列表</strong></a>
+        <a class="list-group-item text-center" href="{{ url("/list") }}"><strong>物业管理项目列表</strong></a>
         <div id="treeview-selectable"></div>
       </div>
       <div class="form-group">
@@ -130,7 +131,6 @@
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
   //树
-
   var data = [
       @foreach (array_keys($archiveList) as $item)
     {
@@ -162,13 +162,16 @@
   var selectableNodes = findSelectableNodes();
 
   $('#input-select-node').on('keyup', function (e) {
+    e = e || window.event;
     selectableNodes = findSelectableNodes();
     $('.select-node').prop('disabled', !(selectableNodes.length >= 1));
     if($('#input-select-node').val()){
       $('.glyphicon-plus').parent("li:not(.search-result)").css("display","none");
-    }else
+    }else{
       $('#treeview-selectable').treeview('collapseAll', { silent: true });
+    }
   });
+
 
   //加载地图和地图控件
 var map,tb;
