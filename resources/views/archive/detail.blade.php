@@ -405,7 +405,7 @@ $("img[data-u=image]").on('click',function(e) {
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext("2d");
   var slider = document.getElementById("scale-range");
-  var scale = slider.value;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  scale = slider.value;
+  var scale = slider.value;
   var w = $(window).width();
   var h = $(window).height();
   var dw = 0;

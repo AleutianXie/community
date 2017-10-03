@@ -125,8 +125,6 @@
 </script>
 <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/dijit/themes/claro/claro.css') }}">
  <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/esri/css/esri.css') }}">
-<link rel="stylesheet" href="{{asset('css/bootstrap-treeview.css')}}">
-<script src="{{asset('js/bootstrap-treeview.js')}}"></script>
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
   //树
