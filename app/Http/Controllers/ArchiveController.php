@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Archive;
 use App\Photo;
+use App\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -26,6 +27,7 @@ class ArchiveController extends Controller
             'property' => __('archive.property'),
             'principal' => __('archive.principal'),
             'mobile' => __('archive.mobile'),
+            'shape_area' => __('archive.shape_area'),
         ];
     }
 
@@ -42,6 +44,7 @@ class ArchiveController extends Controller
         'property' => 'required',
         'principal' => 'required',
         'mobile' => ['required', 'regex:/^1(3|4|5|7|8)[0-9]{9}$/'],
+        'shape_area' => 'integer',
     ];
 
     private $attributes;
@@ -65,6 +68,7 @@ class ArchiveController extends Controller
     {
         if ($request->isMethod('POST'))
         {
+            //dd($request->input());
             $this->validate(
                 $request,
                 $this->validationRules,
@@ -91,24 +95,45 @@ class ArchiveController extends Controller
 
             if ($archive->save())
             {
-                if (!empty($data['savedpath']))
+                if (!empty($data['savedpath-design']))
                 {
-                    $photo = new Photo();
-                    $photo->aid = $archive->id;
-                    $photo->path = $data['savedpath'];
-                    $photo->creater = Auth::id();
-                    $photo->modifier = Auth::id();
-
-                    if ($photo->save())
-                    {
-                        return redirect('/')->with('success', __('archive.create_succeed'));
+                    if (!empty(json_decode($data['savedpath-design']['savedimages']))) {
+                        foreach ($$data['savedpath-design']['savedimages'] as $image) {
+                            $photo = new Photo();
+                            $photo->aid = $archive->id;
+                            $photo->path = 'file/' . date("Ym", time()) . $image;
+                            $photo->type = '设计';
+                            $photo->creater = Auth::id();
+                            $photo->modifier = Auth::id();
+                            if (!$photo->save()) {
+                                return redirect('/')->with('success', __('archive.create_succeed'));
+                            }
+                        }
                     }
                 }
-                return redirect('/')->with('success', __('archive.create_succeed'));
+
+                if (!empty($data['savedpath-complete']))
+                {
+                    if (!empty(json_decode($data['savedpath-complete']['savedimages']))) {
+                        foreach ($$data['savedpath-complete']['savedimages'] as $image) {
+                            $photo = new Photo();
+                            $photo->aid = $archive->id;
+                            $photo->path = 'file/' . date("Ym", time()) . $image;
+                            $photo->type = '竣工';
+                            $photo->creater = Auth::id();
+                            $photo->modifier = Auth::id();
+                            if (!$photo->save()) {
+                                return redirect('/')->with('success', __('archive.create_succeed'));
+                            }
+                        }
+                    }
+                }
             }
             return redirect()->back()->with('error', __('archive.create_error'));
         }
-        return view('archive.create');
+        $properties = Property::all();
+
+        return view('archive.create', compact('properties'));
     }
 
     /**
@@ -125,6 +150,7 @@ class ArchiveController extends Controller
 
     public function edit(Request $request)
     {
+        //var_dump($request->input());exit;
 
         if ($request->isMethod('POST'))
         {
@@ -161,5 +187,23 @@ class ArchiveController extends Controller
             $archiveList[$archive->property->name][] = [ 'id' => $archive->id, 'name' => $archive->name ];
         }
         return view('archive.map', compact('archives', 'id', 'archiveList'));
+    }
+
+    public function uploadimage(Request $request, $type)
+    {
+        $uploads_dir = storage_path('app/aetherupload/file/' . date("Ym", time()));
+        $saveFileNames = [];
+        //dd($_FILES);
+        foreach ($_FILES["file-".$type]["error"] as $key => $error) {
+            if ($error == UPLOAD_ERR_OK) {
+                $path_parts = pathinfo($_FILES["file-".$type]["name"][$key]);
+                $tmp_name = $_FILES["file-".$type]["tmp_name"][$key];
+                $name = md5_file($_FILES["file-".$type]["tmp_name"][$key]).'.'.$path_parts['extension'];
+                if (move_uploaded_file($tmp_name, "$uploads_dir/$name")) {
+                    $saveFileNames[] = $name;
+                }
+            }
+        }
+        return json_encode(['savedimages' => $saveFileNames]);
     }
 }

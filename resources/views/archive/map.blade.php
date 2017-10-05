@@ -272,10 +272,6 @@ require(
           break;
         }
       }
-
-
-
-
     }
 
     gsvc.on("lengths-complete",outputLength);

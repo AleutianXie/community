@@ -7,7 +7,6 @@
             padding:0;
             width:100%;
             height:100%;
-            overflow: hidden;
         }
         #module{
             position:absolute;
@@ -55,7 +54,6 @@
 @endsection
 
 @section('content')
-
     <div id="module">
         <a class="module_close" href="javascript:hideModule();"></a>
         <canvas id="canvas"></canvas>
@@ -71,6 +69,22 @@
                     <a href="/create" class="list-group-item">{{ __('archive.sidebar.add') }}</a>
                     <a href="/map" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
                     </div>
+                    @if (count($archive->designPhotos) != 0)
+                    <a href="#" class="list-group-item active">{{ __('archive.sidebar.design') }} <span class="badge">{{ count($archive->designPhotos) }}</span></a>
+                        @foreach ($archive->designPhotos as $photo)
+                        <div>
+                            <img data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                        </div>
+                        @endforeach
+                    @endif
+                    @if (count($archive->completePhotos) != 0)
+                    <a href="#" class="list-group-item active">{{ __('archive.sidebar.complete') }} <span class="badge">{{ count($archive->completePhotos) }}</span></a>
+                        @foreach ($archive->completePhotos as $photo)
+                        <div>
+                            <img data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                        </div>
+                        @endforeach
+                    @endif
                 </div>
 
                 <div class="col-xs-12 col-sm-10">
@@ -157,6 +171,7 @@
                                                 <span class="editable editable-click" id="mobile">{{ $archive->mobile }}</span>
                                             </div>
                                         </div>
+                                            <input type="hidden" name="geometry" id="geometry" value="{{ $archive->geometry }}"></input>
                                     </div>
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
@@ -175,11 +190,7 @@
                                             <div>
                                                 <img data-u="image" src="{{ $photo->path }}" >
                                             </div>
-
-
                                         @endforeach
-
-
                                         </div>
 
                                         <!-- Bullet Navigator -->
@@ -220,6 +231,7 @@
                                 <div id="collapseOne" class="panel-collapse collapse">
                                     <button id="Polygon" data-dojo-type="dijit/form/Button">绘制</button>
                                     <button id="clear" data-dojo-type="dijit/form/Button">清除</button>
+                                    <button id="save" data-dojo-type="dijit/form/Button">保存</button>
                                     <div id="mapDiv" style="width:100%; height:500px; solid #000;"></div>
                                 </div>
                             </div>
@@ -291,7 +303,7 @@
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.name[0];
+                return response.responseJSON.errors.name[0];
             }
         });
 
@@ -301,7 +313,7 @@
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.address[0];
+                return response.responseJSON.errors.address[0];
             }
         });
 
@@ -311,7 +323,7 @@
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.unit[0];
+                return response.responseJSON.errors.unit[0];
             }
         });
         $('#building').editable({
@@ -320,18 +332,18 @@
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.building[0];
+                return response.responseJSON.errors.building[0];
             }
         });
 
       $('#shape_area').editable({
-        type: 'text',
-        url: '/edit',
-        params: {'_token' : '{{ csrf_token() }}'},
-        pk: {{ $archive->id }},
-        error: function(response){
-          return response.responseJSON.building[0];
-        }
+            type: 'text',
+            url: '/edit',
+            params: {'_token' : '{{ csrf_token() }}'},
+            pk: {{ $archive->id }},
+            error: function(response){
+              return response.responseJSON.errors.shape_area[0];
+            }
       });
 
         $('#lift').editable({
@@ -340,7 +352,7 @@
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.lift[0];
+                return response.responseJSON.errors.lift[0];
             }
         });
 
@@ -350,7 +362,7 @@
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.property[0];
+                return response.responseJSON.errors.property[0];
             }
         });
 
@@ -360,7 +372,7 @@
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.principal[0];
+                return response.responseJSON.errors.principal[0];
             }
         });
 
@@ -370,7 +382,7 @@
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.mobile[0];
+                return response.responseJSON.errors.mobile[0];
             }
         });
     });
@@ -626,7 +638,7 @@ require(
         attributes["unit"]="{{ $archive->unit }}";
         attributes["building"]="{{ $archive->building }}";
         attributes["lift"]="{{ $archive->lift }}";
-        attributes["property"]="{{ $archive->property }}";
+        attributes["property"]="{{ $archive->property->name }}";
         attributes["principal"]="{{ $archive->principal }}";
         attributes["mobile"]="{{ $archive->mobile }}";
 
@@ -656,7 +668,17 @@ require(
             registry.byId("Polygon").on("click", function() {
             tb.activate(this.id.toLowerCase());
         });
+            registry.byId("save").on("click", function() {
+                //清除所有绘制的面数据
+                var id = '{{ $archive->id }}';
+                var geometry = $('#geometry').val();
+                if(geometry != '{!! $archive->geometry !!}')
+                {
+                                    saveGraphic(id, geometry);
 
+                }
+
+        });
 
     function addGraphic(evt){
         var r = Math.floor(Math.random() * 255);
@@ -680,6 +702,18 @@ require(
                     //evt.geometry.type  图形类型
                     //
                     //https://developers.arcgis.com/javascript/3/jssamples/toolbar_draw.html
+    }
+
+    function saveGraphic(id, geometry)
+    {
+$.post({
+    url: '/edit',
+    data: {'pk': id, '_token' : '{{ csrf_token() }}', 'value': geometry, 'name': 'geometry'},
+                error: function(response){
+                return response.responseJSON.errors.geometry[0];
+            }
+
+});
     }
   });
 </script>

@@ -61,6 +61,9 @@
                         </div>
                     </form>
                 </div>
+                <div class="panel-footer">
+<p class="text-center"><strong>主办单位：</strong><mark>宁海县住房和城乡建设局</mark>&nbsp; &nbsp; &nbsp; &nbsp;<strong>技术支持：</strong><mark>宁海县规划设计院</mark></p>
+                </div>
             </div>
         </div>
     </div>
