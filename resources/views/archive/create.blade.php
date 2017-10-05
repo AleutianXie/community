@@ -49,12 +49,7 @@
                             <br/>
                             <div class="input-group">
                                 {!! Form::label('property', __('archive.property'), ['class' => 'input-group-addon']) !!}
-                                {!! Form::text('property', old('property'), ['class' => 'form-control']) !!}
-                                                <select name="degree" id="degree">
-                @foreach ($properties as $property)
-                <option value="{{ $property->id }}">{{ $property->name }}</option>
-                @endforeach
-                </select>
+                                {!! Form::select('property', array_prepend($properties, '', ''), old('property')) !!}
                                 <div class="alert-danger">{{ __($errors->first('property')) }}</div>
                             </div>
                             <br/>
@@ -72,7 +67,7 @@
                                 <div class="file-loading">
                                     <input id="file-design" name="file-design[]" type="file" multiple>
                                 </div>
-                                <input type="hidden" name="savedpath-design" id="savedpath-design" value="">
+                                <input type="hidden" name="savedpath-design" id="savedpath-design" value="{{ old('savedpath-design') }}">
                             </div>
                             <hr/>
                             <div class="form-group">
@@ -80,7 +75,7 @@
                                 <div class="file-loading">
                                     <input id="file-complete" name="file-complete[]" type="file" multiple>
                                 </div>
-                                <input type="hidden" name="savedpath-complete" id="savedpath-complete" value="">
+                                <input type="hidden" name="savedpath-complete" id="savedpath-complete" value="{{ old('savedpath-complete') }}">
                             </div>
                             <hr/>
                             <div class="panel panel-default">
@@ -210,9 +205,9 @@
 
       });
 
-    $('#degree').select2({
+    $('#property').select2({
         minimumResultsForSearch: Infinity,
-                placeholder: '请选择市',
+        placeholder: '请选择物业公司',
     });
 
     $('#file-design').fileinput({
@@ -228,6 +223,7 @@
         uploadExtraData: {
             _token: '{{ csrf_token() }}',
         },
+        showClose: false,
         allowedFileExtensions: ['jpg', 'png', 'gif']
     });
 
@@ -256,6 +252,7 @@
         uploadExtraData: {
             _token: '{{ csrf_token() }}',
         },
+        showClose: false,
         allowedFileExtensions: ['jpg', 'png', 'gif']
     });
 

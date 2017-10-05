@@ -79,7 +79,7 @@
         {{--</div>--}}
       {{--</div>--}}
       <div class="item-list">
-        <a class="list-group-item text-center" href="{{ url("/list") }}"><strong>小区列表</strong></a>
+        <a class="list-group-item text-center" href="{{ url("/list") }}"><strong>{{ __('archive.sidebar.list') }}</strong></a>
         <div id="treeview-selectable"></div>
       </div>
       <div class="form-group">

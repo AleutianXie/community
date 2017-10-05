@@ -175,7 +175,7 @@
                                     </div>
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a href='{{ '/map/'.$archive->id }}' target="_blank">查看小区位置</a>
+                                            <a href='{{ '/map/'.$archive->id }}'>查看小区位置</a>
                                         </h4>
                                     </div>
                                 </div>
@@ -218,6 +218,24 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
+                                                                                                <div class="form-group">
+                                <label>设计图纸</label>
+                                <div class="file-loading">
+                                    <input id="file-design" name="file-design[]" type="file" multiple>
+                                </div>
+                                <input type="hidden" name="savedpath-design" id="savedpath-design" value="{{ old('savedpath-design') }}">
+                            </div>
+                            <hr/>
+                            <div class="form-group">
+                                <label>竣工图纸</label>
+                                <div class="file-loading">
+                                    <input id="file-complete" name="file-complete[]" type="file" multiple>
+                                </div>
+                                <input type="hidden" name="savedpath-complete" id="savedpath-complete" value="{{ old('savedpath-complete') }}">
+                            </div>
+                            <hr/>
                             </div>
                             <div class="row">
                             <div class="panel panel-default">
@@ -385,6 +403,55 @@
                 return response.responseJSON.errors.mobile[0];
             }
         });
+
+            $('#file-design').fileinput({
+        theme: 'fa',
+        language: 'zh',
+        fileActionSettings: {
+            showUpload: false,
+            showRemove: false,
+        },
+        minFileCount: 1,
+        uploadAsync: false,
+        uploadUrl: '/upload/image/design',
+        uploadExtraData: {
+            _token: '{{ csrf_token() }}',
+            id: '{{ $archive->id }}',
+        },
+        showClose: false,
+        allowedFileExtensions: ['jpg', 'png', 'gif']
+    });
+
+    $('#file-design').on('filebatchuploadsuccess', function(event, data, previewId, index) {
+        var form = data.form, files = data.files, extra = data.extra,
+            response = data.response, reader = data.reader;
+            location.reload() 
+    });
+
+    $('#file-complete').fileinput({
+        theme: 'fa',
+        language: 'zh',
+        fileActionSettings: {
+            showUpload: false,
+            showRemove: false,
+        },
+        minFileCount: 1,
+        uploadAsync: false,
+        uploadUrl: '/upload/image/complete',
+        uploadExtraData: {
+            _token: '{{ csrf_token() }}',
+            id: '{{ $archive->id }}',
+        },
+        showClose: false,
+        allowedFileExtensions: ['jpg', 'png', 'gif']
+    });
+
+    $('#file-complete').on('filebatchuploadsuccess', function(event, data, previewId, index) {
+        var form = data.form, files = data.files, extra = data.extra,
+            response = data.response, reader = data.reader;
+            location.reload() 
+    });
+
     });
 </script>
 
