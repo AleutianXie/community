@@ -8,7 +8,9 @@
                 <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar">
                     <div class="list-group">
                     <a href="/list" class="list-group-item active">{{ __('archive.sidebar.list') }}</a>
+                    @role('admin')
                     <a href="/create" class="list-group-item">{{ __('archive.sidebar.add') }}</a>
+                    @endrole
                     <a href="/map" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
                     </div>
                 </div>

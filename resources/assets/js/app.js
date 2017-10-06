@@ -7,8 +7,8 @@
 
 require('./bootstrap');
 require('jquery-json');
-require('select2');
-require('X-editable/dist/bootstrap3-editable/js/bootstrap-editable.min');
+require('select2/dist/js/select2.full');
+require('X-editable/dist/bootstrap3-editable/js/bootstrap-editable');
 require('bootstrap-treeview/dist/bootstrap-treeview.min');
 require('./jssor.slider-25.2.0.min');
 require('bootstrap-fileinput');

@@ -7,12 +7,12 @@
     "require": {
         "php": ">=5.6.4",
         "caouecs/laravel-lang": "~3.0",
-        "kartik-v/bootstrap-fileinput": "@dev",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
         "peinhu/aetherupload-laravel": "^1.0",
-        "rap2hpoutre/laravel-log-viewer": "^0.10.4"
+        "rap2hpoutre/laravel-log-viewer": "^0.10.4",
+        "spatie/laravel-permission": "^2.7"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

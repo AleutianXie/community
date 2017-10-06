@@ -7,6 +7,7 @@ use App\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Spatie\Permission\Models\Role;
 
 class ArchiveController extends Controller
 {
@@ -66,6 +67,11 @@ class ArchiveController extends Controller
      */
     public function create(Request $request)
     {
+        //$role = Role::create(['name' => 'admin']);
+        //dd($role->save());
+        //$user = Auth::user();
+        //dd($user->assignRole('admin'));
+
         if ($request->isMethod('POST'))
         {
             $this->validate(
@@ -145,8 +151,20 @@ class ArchiveController extends Controller
     public function detail(Request $request, $id)
     {
         $archive = Archive::findOrFail($id);
+        $properties = Property::all();
+        $propertyList = [];
+        foreach ($properties as $property) {
+            if ($property->id == $archive->pid) {
+                $propertyList[] = ['id' => $property->id, 'text' => $property->name, 'selected' => true];
+            }
+            else {
+                $propertyList[] = ['id' => $property->id, 'text' => $property->name];
+            }
+        }
+        $properties = array_pluck($properties->toArray(), 'name', 'id');
+        //dd($properties);
 //dd($archive->geometry->rings);
-        return view('archive.detail', compact('archive'));
+        return view('archive.detail', compact('archive', 'propertyList'));
     }
 
     public function edit(Request $request)
