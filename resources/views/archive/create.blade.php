@@ -50,7 +50,7 @@
                             <br/>
                             <div class="input-group">
                                 {!! Form::label('property', __('archive.property'), ['class' => 'input-group-addon']) !!}
-                                {!! Form::select('property', array_prepend($properties, '', ''), old('property')) !!}
+                                {!! Form::select('property', array_prepend($properties, '', ''), old('property'), ['class' => 'form-control']) !!}
                                 <div class="alert-danger">{{ __($errors->first('property')) }}</div>
                             </div>
                             <br/>
@@ -112,17 +112,6 @@
 @endsection
 
 @section('scripts')
-<script src="{{ URL::asset('js/spark-md5.min.js') }}"></script><!--need to have spark-md5.js for md5 calculation-->
-<script src="{{ URL::asset('js/aetherupload.js') }}"></script><!--need to have aetherupload.js-->
-<script>
-    // this function will be called after file is uploaded successfully
-    // you can get fileName,fileSize,uploadExt,chunkCount,chunkSize,subDir,group,savedPath of the uploaded file
-    AetherUpload.success = function () {
-        // Example
-        $('#savedpath').val(this.savedPath);
-    };
-
-</script>
 <script type="text/javascript">
     dojoConfig = {
         parseOnLoad: true,

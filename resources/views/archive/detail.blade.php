@@ -54,6 +54,7 @@
 @endsection
 
 @section('content')
+@if (Auth::user()->hasRole('Admin') || $archive->pid == Auth::user()->user_property->pid)
     <div id="module">
         <a class="module_close" href="javascript:hideModule();"></a>
         <canvas id="canvas"></canvas>
@@ -268,9 +269,12 @@
             </div>
         </div>
     </div>
+@else
+Access Deny!
+@endif
 @endsection
 
-
+@if (Auth::user()->hasRole('Admin') || $archive->pid == Auth::user()->user_property->pid)
 @section('scripts')
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
@@ -825,3 +829,4 @@ require(
     });
 </script>
 @endsection
+@endif

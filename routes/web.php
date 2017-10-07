@@ -29,4 +29,14 @@ Route::group(['prefix' => 'property'], function ()
     Route::post('/edit', 'PropertyController@edit');
 });
 
+Route::group(['prefix' => 'admin'], function ()
+{
+    Route::get('/', 'AdminController@index')->name('admin');
+    Route::get('/index', 'AdminController@index');
+    Route::match(['get', 'post'], '/user/create', 'AdminController@createUser')->name('admin.user.create');
+    Route::post('/user/edit', 'AdminController@editUser')->name('admin.user.create');
+});
+
+Route::match(['get', 'post'], '/reset/{id}', 'AdminController@resetpassword')->where('id', '[0-9]+')->name('password.reset');
+
 Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

@@ -1,8 +1,8 @@
 {{-- 成功提示 --}}
-@if (Session::has('success'))
+@if (Session::has('succeed'))
 <div class="alert alert-block alert-success">
     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-    {{ Session::get('success') }}
+    {{ Session::get('succeed') }}
 </div>
 @endif
 {{-- 失败提示 --}}

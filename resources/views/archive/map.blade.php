@@ -67,6 +67,7 @@
   </style>
 @endsection
 @section('content')
+@role('admin|property')
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-3 col-lg-2 hidden-xs" id="list">
@@ -103,10 +104,13 @@
     </div>
   </div>
 </div>
-
+@else
+Access Deny!
+@endrole
 @endsection
 
 @section('scripts')
+@role('admin|property')
 <script type="text/javascript">
     dojoConfig = {
         parseOnLoad: true,
@@ -446,4 +450,5 @@ require(
   });
 
 </script>
+@endrole
 @endsection
