@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
         echo "Create property Role.\n";
         Role::Create(['name' => 'property']);
         echo "Assign admin Role to Administrator.\n";
-        $user = User::where(['name' => 'Administrator'])->get();
+        $user = User::where(['name' => 'Administrator'])->first();
         $user->assignRole('admin');
         echo "OK!"
     }
