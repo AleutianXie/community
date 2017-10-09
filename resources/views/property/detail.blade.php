@@ -8,9 +8,11 @@
             <div class="row row-offcanvas row-offcanvas-right">
                 <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar">
                     <div class="list-group">
-                    <a href="/" class="list-group-item active">{{ __('archive.sidebar.list') }}</a>
+                    <a href="/list" class="list-group-item">{{ __('archive.sidebar.list') }}</a>
                     <a href="/create" class="list-group-item">{{ __('archive.sidebar.add') }}</a>
                     <a href="/map" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
+                    <a href="/admin" class="list-group-item">{{ __('admin.sidebar.usermanage') }}</a>
+                    <a href="/property" class="list-group-item active">{{ __('admin.sidebar.propertymanage') }}</a>
                     </div>
                 </div>
 
@@ -19,7 +21,7 @@
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">{{ __('archive.go') }}</button>
                     </p>
                     <div class="panel panel-default">
-                        <div class="panel-heading">{{ __('archive.sidebar.list') }} / {{ __('archive.sidebar.detail') }}</div>
+                        <div class="panel-heading">{{ __('property.sidebar.list') }} / {{ __('property.sidebar.detail') }}</div>
 
                         <div class="panel-body">
                             @include('messages')
@@ -27,7 +29,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="profile-user-info profile-user-info-striped">
                                         <div class="profile-info-row">
-                                            <div class="profile-info-name"> {{ __('archive.property.name') }} </div>
+                                            <div class="profile-info-name"> {{ __('property.name') }} </div>
 
                                             <div class="profile-info-value">
                                                 <span class="editable editable-click" id="name">{{ $property->name }}</span>

@@ -2,9 +2,9 @@
 
 # 部署（Windows）
 1. 安装composer
-2. 安装依赖库
+2. 安装依赖库 or 升级依赖库
 ```shell
-composer install
+composer install or composer update
 ```
 3. 创建数据库(community)
 4. 导入数据表
