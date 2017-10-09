@@ -28,9 +28,9 @@ class PhotosTableSeeder extends Seeder
       {
         $aName = $subDir;
         // for windows
-        //$archive = Archive::where(['name' => mb_convert_encoding($aName,'UTF-8','GBK')])->get()->toArray();
+        $archive = Archive::where(['name' => mb_convert_encoding($aName,'UTF-8','GBK')])->get()->toArray();
         // for mac
-        $archive = Archive::where(['name' => $aName])->get()->toArray();
+        //$archive = Archive::where(['name' => $aName])->get()->toArray();
         //var_dump($archive);exit;
         //var_dump($aName);
         //var_dump($archive[0]['id']);exit;
@@ -40,9 +40,9 @@ class PhotosTableSeeder extends Seeder
           if (!in_array($type, ['.', '..']))
           {
             // for windows
-            // $aType = substr($type, 2, 4);
+             $aType = substr($type, 2, 4);
             // for mac
-            $aType = substr($type, 2, 6);
+//            $aType = substr($type, 2, 6);
 
             $files = scandir($dir . '/' . $subDir . '/' . $type);
             foreach ($files as $file)
@@ -64,9 +64,9 @@ class PhotosTableSeeder extends Seeder
                     'aid' => $archive[0]['id'],
                     'path' => 'file/' . date("Ym", time()) . '/' . $md5 . '.' . $extension,
                     //for winodws
-                    //'type' => mb_convert_encoding($aType,'UTF-8','GBK'),
+                    'type' => mb_convert_encoding($aType,'UTF-8','GBK'),
                     // for mac
-                    'type' => $aType,
+//                    'type' => $aType,
                     'creater' => 1,
                     'modifier' => 1,
                     'created_at' => date('Y-m-d H:i:s', time()),

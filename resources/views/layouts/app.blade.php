@@ -57,6 +57,11 @@
                                         <a href="/reset/{{ Auth::id() }}">
                                             {{ __('auth.reset') }}
                                         </a>
+                                        @role('admin')
+                                        <a href="/admin/">
+                                            {{ __('admin.sidebar.usermanage') }}
+                                        </a>
+                                        @endrole
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

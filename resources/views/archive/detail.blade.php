@@ -54,7 +54,7 @@
 @endsection
 
 @section('content')
-@if (Auth::user()->hasRole('Admin') || $archive->pid == Auth::user()->user_property->pid)
+@if (Auth::user()->hasRole('admin') || $archive->pid == Auth::user()->user_property->pid)
     <div id="module">
         <a class="module_close" href="javascript:hideModule();"></a>
         <canvas id="canvas"></canvas>
@@ -76,7 +76,7 @@
                         <a href="#" class="list-group-item active">{{ __('archive.sidebar.design') }} <span class="badge">{{ count($archive->designPhotos) }}</span></a>
                             @foreach ($archive->designPhotos as $photo)
                             <div>
-                                <img data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                                <img data-u="image" src="{{ $photo->path }}" style="width: 100%;" >
                             </div>
                             @endforeach
                         @endif
@@ -258,7 +258,7 @@
                                         <button id="clear" data-dojo-type="dijit/form/Button">清除</button>
                                         <button id="save" data-dojo-type="dijit/form/Button">保存</button>
                                         @endrole
-                                        <div id="mapDiv" style="width:100%; height:500px; solid #000;"></div>
+                                        <div id="mapDiv" style="width:100%; height:500px;"></div>
                                     </div>
                                 </div>
                                 </div>
@@ -274,7 +274,7 @@ Access Deny!
 @endif
 @endsection
 
-@if (Auth::user()->hasRole('Admin') || $archive->pid == Auth::user()->user_property->pid)
+@if (Auth::user()->hasRole('admin') || $archive->pid == Auth::user()->user_property->pid)
 @section('scripts')
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
@@ -772,6 +772,7 @@ require(
             map.graphics.clear();
             //清除graphiclayer图层的数据
             map.getLayer("xiaoqu").clear();
+            $("#geometry").val("");
         });
         @endrole
         tb = new Draw(map);
@@ -783,9 +784,10 @@ require(
         registry.byId("save").on("click", function() {
             //清除所有绘制的面数据
             var geometry = $('#geometry').val();
-            if(geometry != '{!! $archive->geometry !!}')
+            if(geometry != '{!! $archive->geometry !!}'&&geometry!="")
             {
-                saveGraphic(geometry);
+              saveGraphic(geometry);
+              alert("重新绘制成功");
             }
         });
         @endrole
