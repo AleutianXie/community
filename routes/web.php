@@ -18,6 +18,7 @@ Route::get('/list', 'ArchiveController@index')->name('list');
 Route::match(['get', 'post'], '/create', 'ArchiveController@create')->name('archive.create');
 Route::get('/{id}', 'ArchiveController@detail')->where('id', '[0-9]+')->name('archive.detail');
 Route::post('/edit', 'ArchiveController@edit');
+Route::post('/upload/image/{type}', 'ArchiveController@uploadimage')->where('type', 'design|complete');
 Route::get('/map', 'ArchiveController@map')->name('archive.map');
 Route::get('/map/{id}', 'ArchiveController@map')->where('id', '[0-9]+')->name('archive.map.detail');
 Route::group(['prefix' => 'property'], function ()
@@ -27,3 +28,15 @@ Route::group(['prefix' => 'property'], function ()
     Route::get('/{id}', 'PropertyController@detail')->where('id', '[0-9]+')->name('property.detail');
     Route::post('/edit', 'PropertyController@edit');
 });
+
+Route::group(['prefix' => 'admin'], function ()
+{
+    Route::get('/', 'AdminController@index')->name('admin');
+    Route::get('/index', 'AdminController@index');
+    Route::match(['get', 'post'], '/user/create', 'AdminController@createUser')->name('admin.user.create');
+    Route::post('/user/edit', 'AdminController@editUser')->name('admin.user.create');
+});
+
+Route::match(['get', 'post'], '/reset/{id}', 'AdminController@resetpassword')->where('id', '[0-9]+')->name('password.reset');
+
+Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

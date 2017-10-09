@@ -26,7 +26,7 @@ return [
     'shape_area' => '小区面积',
     'submit' => '提交',
     'reset' => '重置',
-    'sidebar' => ['list' => '档案列表', 'add' => '新建档案', 'detail' => '档案详情', 'map' => '小区分布'],
+    'sidebar' => ['list' => '物业管理项目列表', 'add' => '新建项目', 'detail' => '项目详情', 'map' => '小区分布', 'design' => '设计图纸', 'complete' => '竣工图纸'],
     'go' => '前往',
     'create_succeed' => '创建成功！',
     'create_error' => '创建失败！',

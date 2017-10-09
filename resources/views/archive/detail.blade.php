@@ -7,7 +7,6 @@
             padding:0;
             width:100%;
             height:100%;
-            overflow: hidden;
         }
         #module{
             position:absolute;
@@ -55,174 +54,214 @@
 @endsection
 
 @section('content')
-
+@if (Auth::user()->hasRole('Admin') || $archive->pid == Auth::user()->user_property->pid)
     <div id="module">
         <a class="module_close" href="javascript:hideModule();"></a>
         <canvas id="canvas"></canvas>
     </div>
     <input type="range" id="scale-range" min="0.2" max="2" step="0.05" value="1">
-<div class="container">
-    <div class="row">
-        <div class="container">
-            <div class="row row-offcanvas row-offcanvas-right">
-                <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar">
-                    <div class="list-group">
-                    <a href="/list" class="list-group-item active">{{ __('archive.sidebar.list') }}</a>
-                    <a href="/create" class="list-group-item">{{ __('archive.sidebar.add') }}</a>
-                    <a href="/map" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="row row-offcanvas row-offcanvas-right">
+                    <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar">
+                        <div class="list-group">
+                        <a href="/list" class="list-group-item active">{{ __('archive.sidebar.list') }}</a>
+                        @role('admin')
+                        <a href="/create" class="list-group-item">{{ __('archive.sidebar.add') }}</a>
+                        @endrole
+                        <a href="/map" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
+                        </div>
+                        @if (count($archive->designPhotos) != 0)
+                        <a href="#" class="list-group-item active">{{ __('archive.sidebar.design') }} <span class="badge">{{ count($archive->designPhotos) }}</span></a>
+                            @foreach ($archive->designPhotos as $photo)
+                            <div>
+                                <img data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                            </div>
+                            @endforeach
+                        @endif
+                        @if (count($archive->completePhotos) != 0)
+                        <a href="#" class="list-group-item active">{{ __('archive.sidebar.complete') }} <span class="badge">{{ count($archive->completePhotos) }}</span></a>
+                            @foreach ($archive->completePhotos as $photo)
+                            <div>
+                                <img data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                            </div>
+                            @endforeach
+                        @endif
                     </div>
-                </div>
 
-                <div class="col-xs-12 col-sm-10">
-                    <p class="pull-right visible-xs">
-                        <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">{{ __('archive.go') }}</button>
-                    </p>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">{{ __('archive.sidebar.list') }} / {{ __('archive.sidebar.detail') }}</div>
+                    <div class="col-xs-12 col-sm-10">
+                        <p class="pull-right visible-xs">
+                            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">{{ __('archive.go') }}</button>
+                        </p>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{ __('archive.sidebar.list') }} / {{ __('archive.sidebar.detail') }}</div>
 
-                        <div class="panel-body">
-                            @include('messages')
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-4">
-                                    <div class="profile-user-info profile-user-info-striped">
-                                        <div class="profile-info-row">
-                                            <div class="profile-info-name"> {{ __('archive.name') }} </div>
+                            <div class="panel-body">
+                                @include('messages')
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-5">
+                                        <div class="profile-user-info profile-user-info-striped">
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> {{ __('archive.name') }} </div>
 
-                                            <div class="profile-info-value">
-                                                <span class="editable editable-click" id="name">{{ $archive->name }}</span>
+                                                <div class="profile-info-value">
+                                                    <span class="editable editable-click" id="name">{{ $archive->name }}</span>
+                                                </div>
                                             </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> {{ __('archive.address') }} </div>
+
+                                                <div class="profile-info-value">
+                                                    <i class="fa fa-map-marker light-orange bigger-110"></i>
+                                                    <span class="editable editable-click" id="address">{{ $archive->address }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> {{ __('archive.unit') }} </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable editable-click" id="unit">{{ $archive->unit }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> {{ __('archive.building') }} </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable editable-click" id="building">{{ $archive->building }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> {{ __('archive.lift') }} </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable editable-click" id="lift">{{ $archive->lift }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> {{ __('archive.shape_area') }} </div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable editable-click" id="shape_area">{{ $archive->shape_area }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> {{ __('archive.property') }}</div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable editable-click" id="pid">{{ $archive->property->name }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> {{ __('archive.principal') }}</div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable editable-click" id="principal">{{ $archive->principal }}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name"> {{ __('archive.mobile') }}</div>
+
+                                                <div class="profile-info-value">
+                                                    <span class="editable editable-click" id="mobile">{{ $archive->mobile }}</span>
+                                                </div>
+                                            </div>
+                                                <input type="hidden" name="geometry" id="geometry" value="{{ $archive->geometry }}"></input>
                                         </div>
-
-                                        <div class="profile-info-row">
-                                            <div class="profile-info-name"> {{ __('archive.address') }} </div>
-
-                                            <div class="profile-info-value">
-                                                <i class="fa fa-map-marker light-orange bigger-110"></i>
-                                                <span class="editable editable-click" id="address">{{ $archive->address }}</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="profile-info-row">
-                                            <div class="profile-info-name"> {{ __('archive.unit') }} </div>
-
-                                            <div class="profile-info-value">
-                                                <span class="editable editable-click" id="unit">{{ $archive->unit }}</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="profile-info-row">
-                                            <div class="profile-info-name"> {{ __('archive.building') }} </div>
-
-                                            <div class="profile-info-value">
-                                                <span class="editable editable-click" id="building">{{ $archive->building }}</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="profile-info-row">
-                                            <div class="profile-info-name"> {{ __('archive.lift') }} </div>
-
-                                            <div class="profile-info-value">
-                                                <span class="editable editable-click" id="lift">{{ $archive->lift }}</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="profile-info-row">
-                                            <div class="profile-info-name"> {{ __('archive.shape_area') }} </div>
-
-                                            <div class="profile-info-value">
-                                                <span class="editable editable-click" id="shape_area">{{ $archive->shape_area }}</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="profile-info-row">
-                                            <div class="profile-info-name"> {{ __('archive.property') }}</div>
-
-                                            <div class="profile-info-value">
-                                                <span class="editable editable-click" id="property">{{ $archive->property->name }}</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="profile-info-row">
-                                            <div class="profile-info-name"> {{ __('archive.principal') }}</div>
-
-                                            <div class="profile-info-value">
-                                                <span class="editable editable-click" id="principal">{{ $archive->principal }}</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="profile-info-row">
-                                            <div class="profile-info-name"> {{ __('archive.mobile') }}</div>
-
-                                            <div class="profile-info-value">
-                                                <span class="editable editable-click" id="mobile">{{ $archive->mobile }}</span>
-                                            </div>
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a href='{{ '/map/'.$archive->id }}'>查看小区位置</a>
+                                            </h4>
                                         </div>
                                     </div>
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a href='{{ '/map/'.$archive->id }}' target="_blank">查看小区位置</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-8">
-                                    <div id="jssor_1" style="margin:0 auto;top:0px;left:0px;width:980px;height:580px;overflow:hidden;visibility:hidden;">
-                                        <!-- Loading Screen -->
-                                        <div data-u="loading" class="jssorl-004-double-tail-spin" style="position:absolute;top:0px;left:0px;text-align:center;background-color:rgba(0,0,0,0.7);">
-                                            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="{{ asset('img/double-tail-spin.svg') }}" />
-                                        </div>
-                                        <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:580px;overflow:hidden;">
-                                        @foreach ($archive->photos as $photo)
-                                            <div>
-                                                <img data-u="image" src="{{ $photo->path }}" >
+                                    <div class="col-xs-12 col-sm-12 col-md-7">
+                                        <div id="jssor_1" style="margin:0 auto;top:0px;left:0px;width:980px;height:580px;overflow:hidden;visibility:hidden;">
+                                            <!-- Loading Screen -->
+                                            <div data-u="loading" class="jssorl-004-double-tail-spin" style="position:absolute;top:0px;left:0px;text-align:center;background-color:rgba(0,0,0,0.7);">
+                                                <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="{{ asset('img/double-tail-spin.svg') }}" />
+                                            </div>
+                                            <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:580px;overflow:hidden;">
+                                            @foreach ($archive->photos as $photo)
+                                                <div>
+                                                    <img data-u="image" src="{{ $photo->path }}" >
+                                                </div>
+                                            @endforeach
                                             </div>
 
-
-                                        @endforeach
-
-
-                                        </div>
-
-                                        <!-- Bullet Navigator -->
-                                        <div data-u="navigator" class="jssorb053" style="position:absolute;bottom:12px;right:12px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
-                                            <div data-u="prototype" class="i" style="width:20px;height:20px;">
+                                            <!-- Bullet Navigator -->
+                                            <div data-u="navigator" class="jssorb053" style="position:absolute;bottom:12px;right:12px;" data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
+                                                <div data-u="prototype" class="i" style="width:20px;height:20px;">
+                                                    <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                                        <path class="b" style="fill:#00C0F3;" d="M11400,13800H4600c-1320,0-2400-1080-2400-2400V4600c0-1320,1080-2400,2400-2400h6800 c1320,0,2400,1080,2400,2400v6800C13800,12720,12720,13800,11400,13800z"></path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <!-- Arrow Navigator -->
+                                            <div data-u="arrowleft" class="jssora093" style="width:50px;height:50px;top:0px;left:30px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
                                                 <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                                                    <path class="b" style="fill:#00C0F3;" d="M11400,13800H4600c-1320,0-2400-1080-2400-2400V4600c0-1320,1080-2400,2400-2400h6800 c1320,0,2400,1080,2400,2400v6800C13800,12720,12720,13800,11400,13800z"></path>
+                                                    <circle class="c" cx="8000" cy="8000" r="5920" style="stroke: orange"></circle>
+                                                    <polyline class="a" points="7777.8,6080 5857.8,8000 7777.8,9920" style="stroke: orange"></polyline>
+                                                    <line class="a" x1="10142.2" y1="8000" x2="5857.8" y2="8000" style="stroke: orange"></line>
+                                                </svg>
+                                            </div>
+                                            <div data-u="arrowright" class="jssora093" style="width:50px;height:50px;top:0px;right:30px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
+                                                <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                                                    <circle class="c" cx="8000" cy="8000" r="5920" style="stroke: orange"></circle>
+                                                    <polyline class="a" points="8222.2,6080 10142.2,8000 8222.2,9920" style="stroke: orange"></polyline>
+                                                    <line class="a" x1="5857.8" y1="8000" x2="10142.2" y2="8000" style="stroke: orange"></line>
                                                 </svg>
                                             </div>
                                         </div>
-                                        <!-- Arrow Navigator -->
-                                        <div data-u="arrowleft" class="jssora093" style="width:50px;height:50px;top:0px;left:30px;" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
-                                            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                                                <circle class="c" cx="8000" cy="8000" r="5920" style="stroke: orange"></circle>
-                                                <polyline class="a" points="7777.8,6080 5857.8,8000 7777.8,9920" style="stroke: orange"></polyline>
-                                                <line class="a" x1="10142.2" y1="8000" x2="5857.8" y2="8000" style="stroke: orange"></line>
-                                            </svg>
-                                        </div>
-                                        <div data-u="arrowright" class="jssora093" style="width:50px;height:50px;top:0px;right:30px;" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
-                                            <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                                                <circle class="c" cx="8000" cy="8000" r="5920" style="stroke: orange"></circle>
-                                                <polyline class="a" points="8222.2,6080 10142.2,8000 8222.2,9920" style="stroke: orange"></polyline>
-                                                <line class="a" x1="5857.8" y1="8000" x2="10142.2" y2="8000" style="stroke: orange"></line>
-                                            </svg>
-                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                        {{ __('archive.update.geometry') }}
-                                        </a>
-                                    </h4>
+                                <hr/>
+                                @role('admin')
+                                <div class="row">
+                                <div class="form-group">
+                                    <label>设计图纸</label>
+                                    <div class="file-loading">
+                                        <input id="file-design" name="file-design[]" type="file" multiple>
+                                    </div>
+                                    <input type="hidden" name="savedpath-design" id="savedpath-design" value="{{ old('savedpath-design') }}">
                                 </div>
-                                <div id="collapseOne" class="panel-collapse collapse">
-                                    <button id="Polygon" data-dojo-type="dijit/form/Button">绘制</button>
-                                    <button id="clear" data-dojo-type="dijit/form/Button">清除</button>
-                                    <div id="mapDiv" style="width:100%; height:500px; solid #000;"></div>
+                                <hr/>
+                                <div class="form-group">
+                                    <label>竣工图纸</label>
+                                    <div class="file-loading">
+                                        <input id="file-complete" name="file-complete[]" type="file" multiple>
+                                    </div>
+                                    <input type="hidden" name="savedpath-complete" id="savedpath-complete" value="{{ old('savedpath-complete') }}">
                                 </div>
-                            </div>
+                                <hr/>
+                                </div>
+                                @endrole
+                                <div class="row">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                            {{ __('archive.update.geometry') }}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse">
+                                        @role('admin')
+                                        <button id="Polygon" data-dojo-type="dijit/form/Button">绘制</button>
+                                        <button id="clear" data-dojo-type="dijit/form/Button">清除</button>
+                                        <button id="save" data-dojo-type="dijit/form/Button">保存</button>
+                                        @endrole
+                                        <div id="mapDiv" style="width:100%; height:500px; solid #000;"></div>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -230,10 +269,12 @@
             </div>
         </div>
     </div>
-</div>
+@else
+Access Deny!
+@endif
 @endsection
 
-
+@if (Auth::user()->hasRole('Admin') || $archive->pid == Auth::user()->user_property->pid)
 @section('scripts')
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
@@ -286,93 +327,184 @@
         $.fn.editableform.loading = "<div class='editableform-loading'><i class='ace-icon fa fa-spinner fa-spin fa-2x light-blue'></i></div>";
 
         $('#name').editable({
+            @role('admin')
+            @else
+            disabled: true,
+            @endrole
             type: 'text',
             url: '/edit',
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.name[0];
+                return response.responseJSON.errors.name[0];
             }
         });
 
         $('#address').editable({
+            @role('admin')
+            @else
+            disabled: true,
+            @endrole
             type: 'text',
             url: '/edit',
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.address[0];
+                return response.responseJSON.errors.address[0];
             }
         });
 
         $('#unit').editable({
+            @role('admin')
+            @else
+            disabled: true,
+            @endrole
             type: 'text',
             url: '/edit',
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.unit[0];
+                return response.responseJSON.errors.unit[0];
             }
         });
         $('#building').editable({
+            @role('admin')
+            @else
+            disabled: true,
+            @endrole
             type: 'text',
             url: '/edit',
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.building[0];
+                return response.responseJSON.errors.building[0];
             }
         });
 
-      $('#shape_area').editable({
-        type: 'text',
-        url: '/edit',
-        params: {'_token' : '{{ csrf_token() }}'},
-        pk: {{ $archive->id }},
-        error: function(response){
-          return response.responseJSON.building[0];
-        }
-      });
+        $('#shape_area').editable({
+            @role('admin')
+            @else
+            disabled: true,
+            @endrole
+            type: 'text',
+            url: '/edit',
+            params: {'_token' : '{{ csrf_token() }}'},
+            pk: {{ $archive->id }},
+            error: function(response){
+              return response.responseJSON.errors.shape_area[0];
+            }
+        });
 
         $('#lift').editable({
+            @role('admin')
+            @else
+            disabled: true,
+            @endrole
             type: 'text',
             url: '/edit',
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.lift[0];
+                return response.responseJSON.errors.lift[0];
             }
         });
+    var provinces = [{"id":1, "text":"name"},{"id":2, "text": "name2"}];
 
-        $('#property').editable({
-            type: 'text',
+        $('#pid').editable({
+            @role('admin')
+            @else
+            disabled: true,
+            @endrole
+            type: 'select2',
             url: '/edit',
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
+            source: {!! json_encode($propertyList) !!},
+            select2: {
+                minimumResultsForSearch: Infinity,
+                'value': {{ empty(old('pid')) ? $archive->id : old('pid') }},
+                'width': 180,
+            },
             error: function(response){
-                return response.responseJSON.property[0];
+                return response.responseJSON.errors.pid[0];
             }
         });
-
         $('#principal').editable({
+            @role('admin')
+            @else
+            disabled: true,
+            @endrole
             type: 'text',
             url: '/edit',
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.principal[0];
+                return response.responseJSON.errors.principal[0];
             }
         });
 
         $('#mobile').editable({
+            @role('admin')
+            @else
+            disabled: true,
+            @endrole
             type: 'text',
             url: '/edit',
             params: {'_token' : '{{ csrf_token() }}'},
             pk: {{ $archive->id }},
             error: function(response){
-                return response.responseJSON.mobile[0];
+                return response.responseJSON.errors.mobile[0];
             }
         });
+        @role('admin')
+        $('#file-design').fileinput({
+            theme: 'fa',
+            language: 'zh',
+            fileActionSettings: {
+                showUpload: false,
+                showRemove: false,
+            },
+            minFileCount: 1,
+            uploadAsync: false,
+            uploadUrl: '/upload/image/design',
+            uploadExtraData: {
+                _token: '{{ csrf_token() }}',
+                id: '{{ $archive->id }}',
+            },
+            showClose: false,
+            allowedFileExtensions: ['jpg', 'png', 'gif']
+        });
+
+        $('#file-design').on('filebatchuploadsuccess', function(event, data, previewId, index) {
+            var form = data.form, files = data.files, extra = data.extra,
+                response = data.response, reader = data.reader;
+                location.reload() 
+        });
+
+        $('#file-complete').fileinput({
+            theme: 'fa',
+            language: 'zh',
+            fileActionSettings: {
+                showUpload: false,
+                showRemove: false,
+            },
+            minFileCount: 1,
+            uploadAsync: false,
+            uploadUrl: '/upload/image/complete',
+            uploadExtraData: {
+                _token: '{{ csrf_token() }}',
+                id: '{{ $archive->id }}',
+            },
+            showClose: false,
+            allowedFileExtensions: ['jpg', 'png', 'gif']
+        });
+
+        $('#file-complete').on('filebatchuploadsuccess', function(event, data, previewId, index) {
+            var form = data.form, files = data.files, extra = data.extra,
+                response = data.response, reader = data.reader;
+                location.reload() 
+        });
+        @endrole
     });
 </script>
 
@@ -405,7 +537,7 @@ $("img[data-u=image]").on('click',function(e) {
   var canvas = document.getElementById("canvas");
   var context = canvas.getContext("2d");
   var slider = document.getElementById("scale-range");
-  var scale = slider.value;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  scale = slider.value;
+  var scale = slider.value;
   var w = $(window).width();
   var h = $(window).height();
   var dw = 0;
@@ -522,165 +654,179 @@ require(
   ["esri/map","esri/dijit/Popup","esri/dijit/PopupTemplate","esri/toolbars/draw","esri/symbols/SimpleMarkerSymbol","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/renderers/ClassBreaksRenderer","tdlib/ClusterLayer","esri/geometry/webMercatorUtils", "esri/graphic","esri/Color","esri/layers/GraphicsLayer", "esri/SpatialReference","tdlib/TDTLayer","tdlib/TDTAnnoLayer","esri/geometry/Point","dojo/parser","dijit/registry","dijit/form/Button", "dojo/domReady!"],
   function(Map,Popup, PopupTemplate,Draw,SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, ClassBreaksRenderer,ClusterLayer,webMercatorUtils,Graphic,Color,GraphicsLayer,SpatialReference,TDTLayer,TDTAnnoLayer,Point,parser,registry,Button)
   {
-    parser.parse();
-    var popupOptions = {
-        titleInBody: false,
-        highlight: true,
-        marginTop: 60,
-        width: 100
-    };
-    var popup = new esri.dijit.Popup(popupOptions, dojo.create("div"));
-    map=new Map("mapDiv",{ logo:false,infoWindow: popup});
-    map.on('load', function() {
-        @if (!empty($archive->geometry))
-            requestData();
-        @endif
-    });
-    var nhbasemap = new TDTLayer();
-    map.addLayer(nhbasemap);
-    var nhannolayer=  new TDTAnnoLayer();
-    map.addLayer(nhannolayer);
-
-    map.centerAndZoom(new Point({"x": 121.42018376109351, "y": 29.291107035766274, "spatialReference": {"wkid": 4490 } }),11);
-    var graLayer = new GraphicsLayer({id:"xiaoqu"});
-    map.addLayer(graLayer);
-
-    function requestData(){
-      dojo.addOnLoad(function(resp){
-        @if (!empty($archive->geometry))
-        var geo = $.parseJSON('{!! $archive->geometry !!}');
-
-        var polygon = new esri.geometry.Polygon(new SpatialReference({wkid:4490}));
-        polygon.rings = geo.rings;
-        @endif
-
-        @if (!empty($id) && $archive->id == $id)
-        var symbol = new SimpleFillSymbol(
-          SimpleFillSymbol.STYLE_SOLID,
-          new SimpleLineSymbol(
-            SimpleLineSymbol.STYLE_DASHDOT,
-              new Color([255,0,0]),
-              2
-            ),
-            new Color([255,255,0,0.25])
-        );
-        @else
-          var symbol = new SimpleFillSymbol(
-            SimpleFillSymbol.STYLE_SOLID,
-            new SimpleLineSymbol(
-              SimpleLineSymbol.STYLE_SOLID,
-                new Color([255,25,0]),
-                0.5
-              ),
-              new Color([0,255,0,0.25]));
-        @endif
-
-        var popupTemplate = esri.dijit.PopupTemplate({
-          title: "{{ $archive->name }}",
-          fieldInfos: [
-            {
-              fieldName: "address",
-              label: "{{ __('archive.address') }}",
-              visible: true
-            },
-            {
-              fieldName: "unit",
-              label: "{{ __('archive.unit') }}",
-              visible: true
-            },
-            {
-              fieldName: "building",
-              label: "{{ __('archive.building') }}",
-              visible: true
-            },
-            {
-              fieldName: "lift",
-              label: "{{ __('archive.lift') }}",
-              visible: true
-            },
-            {
-              fieldName: "property",
-              label: "{{ __('archive.property') }}",
-              visible: true
-            },
-            {
-              fieldName: "principal",
-              label: "{{ __('archive.principal') }}",
-              visible: true
-            },
-            {
-              fieldName: "mobile",
-              label: "{{ __('archive.mobile') }}",
-              visible: true
-            },
-            {
-              fieldName: "link",
-              label: "更多",
-              visible: true
-            }
-          ]
+        parser.parse();
+        var popupOptions = {
+            titleInBody: false,
+            highlight: true,
+            marginTop: 60,
+            width: 100
+        };
+        var popup = new esri.dijit.Popup(popupOptions, dojo.create("div"));
+        var map = new Map("mapDiv",{ logo:false,infoWindow: popup});
+        map.on('load', function() {
+            @if (!empty($archive->geometry))
+                requestData();
+            @endif
         });
+        var nhbasemap = new TDTLayer();
+        map.addLayer(nhbasemap);
+        var nhannolayer=  new TDTAnnoLayer();
+        map.addLayer(nhannolayer);
 
-        var attributes = new Array();
-        attributes["address"]="{{ $archive->address }}";
-        attributes["unit"]="{{ $archive->unit }}";
-        attributes["building"]="{{ $archive->building }}";
-        attributes["lift"]="{{ $archive->lift }}";
-        attributes["property"]="{{ $archive->property }}";
-        attributes["principal"]="{{ $archive->principal }}";
-        attributes["mobile"]="{{ $archive->mobile }}";
+        map.centerAndZoom(new Point({"x": 121.42018376109351, "y": 29.291107035766274, "spatialReference": {"wkid": 4490 } }),11);
+        var graLayer = new GraphicsLayer({id:"xiaoqu"});
+        map.addLayer(graLayer);
 
-        attributes["link"]="{{ url('/'.$archive->id) }}";
-        var graphic = new Graphic(polygon, symbol, attributes, popupTemplate);
-        graLayer.add(graphic);
+        function requestData(){
+            dojo.addOnLoad(function(resp){
+                @if (!empty($archive->geometry))
+                    var geo = $.parseJSON('{!! $archive->geometry !!}');
 
-        @if (!empty($id) && $archive->id == $id)
-          map.centerAndZoom(graphic.geometry.getCentroid(),15);
-          var symbol = new esri.symbol.PictureMarkerSymbol("{{ asset('js/nh/images/grn_pushpin_48px.png') }}", 48, 48);
-          ptgraphic = new esri.Graphic(graphic.geometry.getCentroid(),symbol, attributes, popupTemplate);
-          graLayer.add(ptgraphic);
-        @endif
-      });
-    }
+                var polygon = new esri.geometry.Polygon(new SpatialReference({wkid:4490}));
+                polygon.rings = geo.rings;
+                @endif
 
-            registry.byId("clear").on("click", function() {
-                //清除所有绘制的面数据
+                @if (!empty($id) && $archive->id == $id)
+                    var symbol = new SimpleFillSymbol(
+                        SimpleFillSymbol.STYLE_SOLID,
+                        new SimpleLineSymbol(
+                            SimpleLineSymbol.STYLE_DASHDOT,
+                            new Color([255,0,0]),
+                            2
+                        ),
+                        new Color([255,255,0,0.25]));
+                @else
+                var symbol = new SimpleFillSymbol(
+                    SimpleFillSymbol.STYLE_SOLID,
+                    new SimpleLineSymbol(
+                        SimpleLineSymbol.STYLE_SOLID,
+                        new Color([255,25,0]),
+                        0.5
+                    ),
+                    new Color([0,255,0,0.25]));
+                @endif
+
+                var popupTemplate = esri.dijit.PopupTemplate({
+                title: "{{ $archive->name }}",
+                fieldInfos: [
+                {
+                    fieldName: "address",
+                    label: "{{ __('archive.address') }}",
+                    visible: true
+                },
+                {
+                    fieldName: "unit",
+                    label: "{{ __('archive.unit') }}",
+                    visible: true
+                },
+                {
+                    fieldName: "building",
+                    label: "{{ __('archive.building') }}",
+                    visible: true
+                },
+                {
+                    fieldName: "lift",
+                    label: "{{ __('archive.lift') }}",
+                    visible: true
+                },
+                {
+                    fieldName: "property",
+                    label: "{{ __('archive.property') }}",
+                    visible: true
+                },
+                {
+                    fieldName: "principal",
+                    label: "{{ __('archive.principal') }}",
+                    visible: true
+                },
+                {
+                    fieldName: "mobile",
+                    label: "{{ __('archive.mobile') }}",
+                    visible: true
+                },
+                {
+                    fieldName: "link",
+                    label: "更多",
+                    visible: true
+                }
+                ]
+            });
+
+            var attributes = new Array();
+            attributes["address"]="{{ $archive->address }}";
+            attributes["unit"]="{{ $archive->unit }}";
+            attributes["building"]="{{ $archive->building }}";
+            attributes["lift"]="{{ $archive->lift }}";
+            attributes["property"]="{{ $archive->property->name }}";
+            attributes["principal"]="{{ $archive->principal }}";
+            attributes["mobile"]="{{ $archive->mobile }}";
+
+            attributes["link"]="{{ url('/'.$archive->id) }}";
+            var graphic = new Graphic(polygon, symbol, attributes, popupTemplate);
+            graLayer.add(graphic);
+            });
+        }
+        @role('admin')
+        registry.byId("clear").on("click", function() {
+            //清除所有绘制的面数据
             map.graphics.clear();
             //清除graphiclayer图层的数据
             map.getLayer("xiaoqu").clear();
-
         });
-
-                    tb = new Draw(map);
+        @endrole
+        tb = new Draw(map);
+        @role('admin')
         tb.on("draw-end", addGraphic);
-            registry.byId("Polygon").on("click", function() {
+        registry.byId("Polygon").on("click", function() {
             tb.activate(this.id.toLowerCase());
         });
+        registry.byId("save").on("click", function() {
+            //清除所有绘制的面数据
+            var geometry = $('#geometry').val();
+            if(geometry != '{!! $archive->geometry !!}')
+            {
+                saveGraphic(geometry);
+            }
+        });
+        @endrole
 
-
-    function addGraphic(evt){
-        var r = Math.floor(Math.random() * 255);
-        var g = Math.floor(Math.random() * 255);
-        var b = Math.floor(Math.random() * 255);
+        @role('admin')
+        function addGraphic(evt){
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
             //alert(evt.geometry.type);
-             tb.deactivate();
-         //map.enableMapNavigation();
-         var symbol = new SimpleFillSymbol(
-          SimpleFillSymbol.STYLE_SOLID,
-          new SimpleLineSymbol(
+            tb.deactivate();
+            //map.enableMapNavigation();
+            var symbol = new SimpleFillSymbol(
+            SimpleFillSymbol.STYLE_SOLID,
+            new SimpleLineSymbol(
             SimpleLineSymbol.STYLE_SOLID,
             new Color([r,g,b,0.9]),
             4
-          ),new Color([r,g,b,0.5]));
-                    map.graphics.add(new Graphic(evt.geometry, symbol));
-                    $('#geometry').val($.toJSON(evt.geometry));
-                    console.log($.toJSON(evt.geometry));
-                    //evt.geometry.rings[0] 坐标串
-                    //evt.geometry.spatialReference.wkid 参考系
-                    //evt.geometry.type  图形类型
-                    //
-                    //https://developers.arcgis.com/javascript/3/jssamples/toolbar_draw.html
-    }
-  });
+            ),new Color([r,g,b,0.5]));
+            map.graphics.add(new Graphic(evt.geometry, symbol));
+            $('#geometry').val($.toJSON(evt.geometry));
+            console.log($.toJSON(evt.geometry));
+            //evt.geometry.rings[0] 坐标串
+            //evt.geometry.spatialReference.wkid 参考系
+            //evt.geometry.type  图形类型
+            //
+            //https://developers.arcgis.com/javascript/3/jssamples/toolbar_draw.html
+        }
+
+        function saveGraphic(geometry)
+        {
+            $.post({
+            url: '/edit',
+            data: {'pk': {{ $archive->id }}, '_token' : '{{ csrf_token() }}', 'value': geometry, 'name': 'geometry'},
+            error: function(response){
+                return response.responseJSON.errors.geometry[0];
+            }
+            });
+        }
+        @endrole
+    });
 </script>
 @endsection
+@endif

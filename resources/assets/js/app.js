@@ -6,9 +6,13 @@
  */
 
 require('./bootstrap');
-require('../../../node_modules/X-editable/dist/bootstrap3-editable/js/bootstrap-editable');
-require('../../../node_modules/jquery-json/dist/jquery.json.min');
+require('jquery-json');
+require('select2/dist/js/select2.full');
+require('X-editable/dist/bootstrap3-editable/js/bootstrap-editable');
+require('bootstrap-treeview/dist/bootstrap-treeview.min');
 require('./jssor.slider-25.2.0.min');
+require('bootstrap-fileinput');
+require('bootstrap-fileinput/js/locales/zh');
 
 window.Vue = require('vue');
 

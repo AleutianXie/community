@@ -8,11 +8,21 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+// select2
+@import "~select2/dist/css/select2.min";
+
 // x-editable
-@import "node_modules/X-editable/dist/bootstrap3-editable/css/bootstrap-editable";
+@import "~X-editable/dist/bootstrap3-editable/css/bootstrap-editable";
 
 @import "offcanvas";
 
 @import "slider";
 
 @import "archive";
+
+// bootstrap-treeview
+@import "~bootstrap-treeview/dist/bootstrap-treeview.min";
+
+// bootstrap-fileinput
+@import "~bootstrap-fileinput/scss/fileinput";
+@import "~bootstrap-fileinput/scss/themes/explorer-fa/theme";

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@role('admin')
 <div class="container">
     <div class="row">
         <div class="container">
@@ -49,7 +50,7 @@
                             <br/>
                             <div class="input-group">
                                 {!! Form::label('property', __('archive.property'), ['class' => 'input-group-addon']) !!}
-                                {!! Form::text('property', old('property'), ['class' => 'form-control']) !!}
+                                {!! Form::select('property', array_prepend($properties, '', ''), old('property'), ['class' => 'form-control']) !!}
                                 <div class="alert-danger">{{ __($errors->first('property')) }}</div>
                             </div>
                             <br/>
@@ -60,6 +61,22 @@
                                 {!! Form::label('mobile', __('archive.mobile'), ['class' => 'input-group-addon']) !!}
                                 {!! Form::text('mobile', old('mobile'), ['class' => 'form-control']) !!}
                                 <div class="alert-danger">{{ __($errors->first('mobile')) }}</div>
+                            </div>
+                            <hr/>
+                            <div class="form-group">
+                                <label>设计图纸</label>
+                                <div class="file-loading">
+                                    <input id="file-design" name="file-design[]" type="file" multiple>
+                                </div>
+                                <input type="hidden" name="savedpath-design" id="savedpath-design" value="{{ old('savedpath-design') }}">
+                            </div>
+                            <hr/>
+                            <div class="form-group">
+                                <label>竣工图纸</label>
+                                <div class="file-loading">
+                                    <input id="file-complete" name="file-complete[]" type="file" multiple>
+                                </div>
+                                <input type="hidden" name="savedpath-complete" id="savedpath-complete" value="{{ old('savedpath-complete') }}">
                             </div>
                             <hr/>
                             <div class="panel panel-default">
@@ -76,19 +93,6 @@
                                     <div id="mapDiv" style="width:100%; height:500px; border:1px solid #000;"></div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>文件：</label>
-                                <div class="controls">
-                                    <input type="file" id="aetherupload-file" onchange="AetherUpload.upload('file')"/><!--need to have an id "aetherupload-file" here for the file to be uploaded, 'file' is the default group name in config/aetherupload.php-->
-                                    <div class="progress" style="height: 6px;margin-bottom: 2px;margin-top: 10px;width: 200px;">
-                                        <div id="aetherupload-progressbar" style="background:blue;height:6px;width:0;"></div><!--need to have an id "aetherupload-progressbar" here for the progress bar-->
-                                        <input type="hidden" name="geometry" id="geometry"></input>
-                                    </div>
-                                    <span style="font-size:12px;color:#aaa;" id="aetherupload-output">等待上传</span><!--need to have an id "aetherupload-output" here for the prompt message-->
-                                </div>
-                            </div>
-
-                            <input type="hidden" name="savedpath" id="aetherupload-savedpath" value=""><!--need to have an id "aetherupload-savedpath"  and a name "savedpath" here for the saved path of the uploaded file-->
                             <hr/>
                             <div class="text-center">
                                 {!! Form::submit(__('archive.submit'), ['class' => 'btn btn-primary']) !!}
@@ -102,20 +106,12 @@
         </div>
     </div>
 </div>
+@else
+    Access Deny!
+@endrole
 @endsection
 
 @section('scripts')
-<script src="{{ URL::asset('js/spark-md5.min.js') }}"></script><!--need to have spark-md5.js for md5 calculation-->
-<script src="{{ URL::asset('js/aetherupload.js') }}"></script><!--need to have aetherupload.js-->
-<script>
-    // this function will be called after file is uploaded successfully
-    // you can get fileName,fileSize,uploadExt,chunkCount,chunkSize,subDir,group,savedPath of the uploaded file
-    AetherUpload.success = function () {
-        // Example
-        $('#savedpath').val(this.savedPath);
-    };
-
-</script>
 <script type="text/javascript">
     dojoConfig = {
         parseOnLoad: true,
@@ -201,5 +197,77 @@
     }
 
       });
+
+    $('#property').select2({
+        minimumResultsForSearch: Infinity,
+        placeholder: '请选择物业公司',
+    });
+
+    $('#file-design').fileinput({
+        theme: 'fa',
+        language: 'zh',
+        fileActionSettings: {
+            showUpload: false,
+            showRemove: false,
+        },
+        minFileCount: 1,
+        uploadAsync: false,
+        uploadUrl: '/upload/image/design',
+        uploadExtraData: {
+            _token: '{{ csrf_token() }}',
+        },
+        showClose: false,
+        allowedFileExtensions: ['jpg', 'png', 'gif']
+    });
+
+    $('#file-design').on('filebatchuploadsuccess', function(event, data, previewId, index) {
+        var form = data.form, files = data.files, extra = data.extra,
+            response = data.response, reader = data.reader;
+        $('#savedpath-design').val($.toJSON(data.response));
+        //console.log('File batch upload success');
+    });
+
+    $('#file-design').on('filecleared', function(event) {
+        $('#savedpath-design').val('');
+        console.log("filecleared");
+    });
+
+    $('#file-complete').fileinput({
+        theme: 'fa',
+        language: 'zh',
+        fileActionSettings: {
+            showUpload: false,
+            showRemove: false,
+        },
+        minFileCount: 1,
+        uploadAsync: false,
+        uploadUrl: '/upload/image/complete',
+        uploadExtraData: {
+            _token: '{{ csrf_token() }}',
+        },
+        showClose: false,
+        allowedFileExtensions: ['jpg', 'png', 'gif']
+    });
+
+    $('#file-complete').on('filebatchuploadsuccess', function(event, data, previewId, index) {
+        var form = data.form, files = data.files, extra = data.extra,
+            response = data.response, reader = data.reader;
+        $('#savedpath-complete').val($.toJSON(data.response));
+        console.log('File batch upload success');
+    });
+
+    $('#file-complete').on('filecleared', function(event) {
+        $('#savedpath-complete').val('');
+        console.log("filecleared");
+    });
+
+//         $('#file-fr').on('fileuploaderror', function(event, data, msg) {
+//     var form = data.form, files = data.files, extra = data.extra,
+//         response = data.response, reader = data.reader;
+//         console.log(data);
+//     console.log('File upload error');
+//    // get message
+//    alert(msg);
+// })
     </script>
 @endsection

@@ -67,6 +67,7 @@
   </style>
 @endsection
 @section('content')
+@role('admin|property')
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-3 col-lg-2 hidden-xs" id="list">
@@ -79,7 +80,7 @@
         {{--</div>--}}
       {{--</div>--}}
       <div class="item-list">
-        <a class="list-group-item text-center" href="{{ url("/list") }}"><strong>小区列表</strong></a>
+        <a class="list-group-item text-center" href="{{ url("/list") }}"><strong>{{ __('archive.sidebar.list') }}</strong></a>
         <div id="treeview-selectable"></div>
       </div>
       <div class="form-group">
@@ -103,10 +104,13 @@
     </div>
   </div>
 </div>
-
+@else
+Access Deny!
+@endrole
 @endsection
 
 @section('scripts')
+@role('admin|property')
 <script type="text/javascript">
     dojoConfig = {
         parseOnLoad: true,
@@ -125,8 +129,6 @@
 </script>
 <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/dijit/themes/claro/claro.css') }}">
  <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/esri/css/esri.css') }}">
-<link rel="stylesheet" href="{{asset('css/bootstrap-treeview.css')}}">
-<script src="{{asset('js/bootstrap-treeview.js')}}"></script>
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
   //树
@@ -274,10 +276,6 @@ require(
           break;
         }
       }
-
-
-
-
     }
 
     gsvc.on("lengths-complete",outputLength);
@@ -452,4 +450,5 @@ require(
   });
 
 </script>
+@endrole
 @endsection

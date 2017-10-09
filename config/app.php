@@ -12,8 +12,7 @@ return [
     | any other location as required by the application or its packages.
      */
 
-    'name' => env('APP_NAME', '宁海县住宅小区数字档案管理系统
- '),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -182,7 +181,8 @@ return [
         //Peinhu\AetherUpload\AetherUploadServiceProvider::class,
         AetherUpload\AetherUploadServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*

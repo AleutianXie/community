@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@role('admin|property')
 <div class="container">
     <div class="row">
         <div class="container">
@@ -8,7 +9,9 @@
                 <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar">
                     <div class="list-group">
                     <a href="/list" class="list-group-item active">{{ __('archive.sidebar.list') }}</a>
+                    @role('admin')
                     <a href="/create" class="list-group-item">{{ __('archive.sidebar.add') }}</a>
+                    @endrole
                     <a href="/map" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
                     </div>
                 </div>
@@ -52,4 +55,7 @@
         </div>
     </div>
 </div>
+@else
+Access Deny!
+@endrole
 @endsection
