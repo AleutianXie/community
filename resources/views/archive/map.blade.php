@@ -139,7 +139,7 @@
           @foreach ($archiveList[$item] as $element)
         {
           text: '{{ $element['name'] }}',
-          href: "../map/{{$element['id']}}"
+          href: "../map/{{$element['id']}}",
         },
         @endforeach
       ]
@@ -154,20 +154,16 @@
       enableLinks:true,
       searchResultColor:"orange"
     })
-  };
+  }
   var $selectableTree = initSelectableTree();
   var findSelectableNodes = function(){
-    return $selectableTree.treeview('search',[$('#input-select-node').val(), { ignoreCase: false}]);
-  };
+    return $selectableTree.treeview('search',[$('#input-select-node').val(), { ignoreCase: true}]);
+  }
   var selectableNodes = findSelectableNodes();
 
   $('#input-select-node').on('keyup', function (e) {
     selectableNodes = findSelectableNodes();
     $('.select-node').prop('disabled', !(selectableNodes.length >= 1));
-    if($('#input-select-node').val()){
-      $('.glyphicon-plus').parent("li:not(.search-result)").css("display","none");
-    }else
-      $('#treeview-selectable').treeview('collapseAll', { silent: true });
   });
 
   //加载地图和地图控件
