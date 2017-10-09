@@ -1,38 +1,9 @@
 @extends('layouts.app')
 
-@section('style')
-    <style>
-        body{
-            height:100%;
-        }
-        nav{
-            display:none;
-        }
-        .container{
-            padding-top:10%;
-            height:100%;
-        }
-        .container h1{
-            margin-bottom:5%;
-            color:#fff;
-        }
-        .copyright{
-            /*position:absolute;*/
-            /*bottom:30px;*/
-            margin-top:20%;
-            color:#999;
-        }
-        .copyright span{
-            display:inline-block;
-        }
-    </style>
-@endsection
-
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1 class="text-center">宁海县物业管理项目</h1>
             <div class="panel panel-default">
                 <div class="panel-heading">{{ __('auth.login') }}</div>
                 <div class="panel-body">
@@ -91,19 +62,7 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
-    <div class="copyright text-center">
-        <span>主办单位：宁海县住房和城乡建设局</span>&nbsp;&nbsp;&nbsp;&nbsp;
-        <span>技术支持：宁海县规划设计院</span>
-    </div>
 </div>
-@endsection
-@section('scripts')
-    <script>
-        $(function($){
-          $('body').height($(window).height()).css({"background":"url({{ asset('img/timg.jpg') }}) no-repeat","background-size":"cover"});
-        })
-    </script>
 @endsection

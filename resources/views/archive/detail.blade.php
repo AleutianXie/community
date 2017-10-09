@@ -7,6 +7,7 @@
             padding:0;
             width:100%;
             height:100%;
+            overflow: hidden;
         }
         #module{
             position:absolute;
@@ -69,21 +70,6 @@
                     <a href="/list" class="list-group-item active">{{ __('archive.sidebar.list') }}</a>
                     <a href="/create" class="list-group-item">{{ __('archive.sidebar.add') }}</a>
                     <a href="/map" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
-                    </div>
-
-                    <div class="list-group">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#design" class="list-group-item">设计图</a>
-                        <div id="design"  class="panel-collapse collapse">
-                            <a href="" class="list-group-item">图纸名1</a>
-                            <a href="" class="list-group-item">图纸名2</a>
-                        </div>
-                        <a data-toggle="collapse" data-parent="#accordion" href="#complete"  class="list-group-item">竣工图</a>
-                        <div id="complete"  class="panel-collapse collapse">
-                            <a href="" class="list-group-item">竣工图1</a>
-                            <a href="" class="list-group-item">竣工图2</a>
-                            <a href="" class="list-group-item">竣工图3</a>
-                        </div>
-                        <a href="" class="list-group-item">图纸上传</a>
                     </div>
                 </div>
 
@@ -174,7 +160,7 @@
                                     </div>
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a href='{{ '/map/'.$archive->id }}'>查看小区位置</a>
+                                            <a href='{{ '/map/'.$archive->id }}' target="_blank">查看小区位置</a>
                                         </h4>
                                     </div>
                                 </div>
@@ -234,8 +220,7 @@
                                 <div id="collapseOne" class="panel-collapse collapse">
                                     <button id="Polygon" data-dojo-type="dijit/form/Button">绘制</button>
                                     <button id="clear" data-dojo-type="dijit/form/Button">清除</button>
-                                    <button id="save" data-dojo-type="dijit/form/Button">保存绘制</button>
-                                    <div id="mapDiv" style="width:100%; height:500px; "></div>
+                                    <div id="mapDiv" style="width:100%; height:500px; solid #000;"></div>
                                 </div>
                             </div>
                             </div>
@@ -411,7 +396,7 @@
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
 var map,tb;
-//canvas图片画布
+//图片放大功能
 
 $("img[data-u=image]").on('click',function(e) {
   src = $(this).prop("src");
