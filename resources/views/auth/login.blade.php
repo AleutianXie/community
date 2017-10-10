@@ -1,9 +1,46 @@
 @extends('layouts.app')
+@section('style')
+    <style>
+        body{
+            height:100%;
+        }
+        nav{
+            display:none;
+        }
+        .container{
+            padding-top:10%;
+            height:100%;
+        }
+        .container h1{
+            margin-bottom:5%;
+            font-size:40px;
+            color:#0C86AF;
+            font-family:  'Helvetica Neue', 'Helvetica', 'Microsoft Yahei', sans-serif;
+            font-weight: 800;
+        }
+        @media (max-width: 710px) {
+            .container h1{
+                font-size:16px;
+                margin-bottom:30px;
+            }
+        }
 
+        /*.copyright{*/
+            /*!*position:absolute;*!*/
+            /*!*bottom:30px;*!*/
+            /*margin-top:20%;*/
+            /*color:#999;*/
+        /*}*/
+        /*.copyright span{*/
+            /*display:inline-block;*/
+        /*}*/
+    </style>
+@endsection
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+            <h1 class="text-center">宁海县物业管理项目数字档案管理系统</h1>
             <div class="panel panel-default">
                 <div class="panel-heading">{{ __('auth.login') }}</div>
                 <div class="panel-body">
@@ -25,7 +62,7 @@
                         </div> --}}
 
                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">{{ __('auth.name') }}</label>
+                            <label for="name" class="col-md-4 control-label">用户名</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
@@ -75,10 +112,17 @@
                     </form>
                 </div>
                 <div class="panel-footer">
-<p class="text-center"><strong>主办单位：</strong><mark>宁海县住房和城乡建设局</mark>&nbsp; &nbsp; &nbsp; &nbsp;<strong>技术支持：</strong><mark>宁海县规划设计院</mark></p>
+<p class="text-center"><strong>主办单位：</strong>宁海县住房和城乡建设局&nbsp; &nbsp; &nbsp; &nbsp;<strong>技术支持：</strong>宁海县规划设计院</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+    <script>
+      $(function($){
+        $('body').height($(window).height()).css({"background":"url({{ asset('img/loginbg.jpg') }}) no-repeat","background-size":"cover"});
+      })
+    </script>
 @endsection

@@ -54,7 +54,7 @@
     #treeview-selectable ul{
       margin-bottom:0;
     }
-    #treeview-selectable ul li a{
+    #list a{
       text-decoration: none;
     }
     .item-list{
@@ -64,6 +64,9 @@
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
     }
+    /*.item-list>a{*/
+      /*padding-left:30px;*/
+    /*}*/
   </style>
 @endsection
 @section('content')
@@ -81,8 +84,11 @@
       {{--</div>--}}
       <div class="item-list">
         <a class="list-group-item text-center" href="{{ url("/list") }}"><strong>{{ __('archive.sidebar.list') }}</strong></a>
+
         <div id="treeview-selectable"></div>
+
       </div>
+      <a class="form-control text-center" href="javascript:hiddenList()"><strong>折 叠 列 表</strong></a>
       <div class="form-group">
         <label for="input-select-node" class="sr-only">搜索</label>
         <input type="input" class="form-control" id="input-select-node" placeholder="输入关键字搜索">
@@ -129,6 +135,8 @@ Access Deny!
 </script>
 <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/dijit/themes/claro/claro.css') }}">
  <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/esri/css/esri.css') }}">
+<link rel="stylesheet" href="{{asset('css/bootstrap-treeview.css')}}">
+<script src="{{asset('js/bootstrap-treeview.js')}}"></script>
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
   //树
@@ -167,6 +175,10 @@ Access Deny!
     selectableNodes = findSelectableNodes();
     $('.select-node').prop('disabled', !(selectableNodes.length >= 1));
   });
+
+  function hiddenList(){
+    $('#treeview-selectable').treeview('collapseAll',{silent:true});
+  }
 
   //加载地图和地图控件
 var map,tb;

@@ -7,6 +7,7 @@
             padding:0;
             width:100%;
             height:100%;
+            overflow-x: hidden;
         }
         #module{
             position:absolute;
@@ -20,12 +21,13 @@
             width: 30px;
             height: 30px;
             display: block;
-            position: absolute;
+            position: fixed;
             top: 70px;
             right: 30px;
             background: url({{ asset('js/nh/images/close_def.png') }})  no-repeat;
             background-size:cover;
             cursor: pointer;
+            z-index: 500;
         }
         .module_close:hover{
             background:url({{ asset('js/nh/images/close_hov.png') }}) no-repeat;
@@ -34,14 +36,12 @@
         #canvas{
             margin:0;
             padding:0;
+            position:fixed;
+            top:0;
         }
-        input[type=range]{
-            /*position:absolute;*/
-            /*width:20%;*/
-            /*bottom:5%;*/
-            /*left:1%;*/
+        input[type=range] {
             display: none;
-            opacity:0;
+            opacity: 0;
         }
         .profile-info-name{
             min-width: 70px;
@@ -49,6 +49,23 @@
         }
         img[data-u=image]:hover{
             cursor:pointer;
+        }
+        #design,#complete{
+            margin:0;
+            padding:0;
+            /*max-height:300px;*/
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+       #sidebar img+img{
+           margin:0;
+           border-top: 1px solid #aaa;
+       }
+        #xiaoqutuzhi .panel{
+            padding:0;
+            margin-bottom:20px;
+
+            border:none;
         }
     </style>
 @endsection
@@ -72,22 +89,29 @@
                         @endrole
                         <a href="/map" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
                         </div>
+                        <div id="xiaoqutuzhi">
+                        <div class="panel">
                         @if (count($archive->designPhotos) != 0)
-                        <a href="#" class="list-group-item active">{{ __('archive.sidebar.design') }} <span class="badge">{{ count($archive->designPhotos) }}</span></a>
-                            @foreach ($archive->designPhotos as $photo)
-                            <div>
-                                <img data-u="image" src="{{ $photo->path }}" style="width: 100%" >
-                            </div>
-                            @endforeach
+                                <a data-toggle="collapse"  href="#design" data-parent="#xiaoqutuzhi" class="list-group-item active">{{ __('archive.sidebar.design') }} <span class="badge">{{ count($archive->designPhotos) }}</span></a>
+                                <div id="design" class="panel-collapse collapse" >
+                                    @foreach ($archive->designPhotos as $photo)
+                                        <img  data-u="image" src="{{ $photo->path }}" style="width: 100%;" >
+                                    @endforeach
+                                </div>
                         @endif
+                        </div>
+
+                        <div class="panel">
                         @if (count($archive->completePhotos) != 0)
-                        <a href="#" class="list-group-item active">{{ __('archive.sidebar.complete') }} <span class="badge">{{ count($archive->completePhotos) }}</span></a>
-                            @foreach ($archive->completePhotos as $photo)
-                            <div>
-                                <img data-u="image" src="{{ $photo->path }}" style="width: 100%" >
-                            </div>
-                            @endforeach
+                                <a data-toggle="collapse" data-parent="#xiaoqutuzhi"  href="#complete" class="list-group-item active">{{ __('archive.sidebar.complete') }} <span class="badge">{{ count($archive->completePhotos) }}</span></a>
+                                <div id="complete" class="panel-collapse collapse">
+                                    @foreach ($archive->completePhotos as $photo)
+                                        <img   data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                                    @endforeach
+                                </div>
                         @endif
+                        </div>
+                        </div>
                     </div>
 
                     <div class="col-xs-12 col-sm-10">
@@ -258,7 +282,7 @@
                                         <button id="clear" data-dojo-type="dijit/form/Button">清除</button>
                                         <button id="save" data-dojo-type="dijit/form/Button">保存</button>
                                         @endrole
-                                        <div id="mapDiv" style="width:100%; height:500px; solid #000;"></div>
+                                        <div id="mapDiv" style="width:100%; height:500px;"></div>
                                     </div>
                                 </div>
                                 </div>
@@ -278,6 +302,7 @@ Access Deny!
 @section('scripts')
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
+
 
         var jssor_1_SlideshowTransitions = [
           {$Duration:500,$Delay:30,$Cols:8,$Rows:4,$Clip:15,$SlideOut:true,$Formation:$JssorSlideshowFormations$.$FormationStraightStairs,$Assembly:2049,$Easing:$Jease$.$OutQuad},
@@ -527,11 +552,22 @@ Access Deny!
 <link rel="stylesheet" href="{{ asset('js/nh/arcgis_js_api/library/3.21compact/esri/css/esri.css') }}">
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
-var map,tb;
-//图片放大功能
+  //控制图片及图片列表高度
+    window.onload =  function(){
+      var maxH = $(window).height()*0.5;
+      var imgH = $("#xiaoqutuzhi").width();
+//      console.log(imgH);
+//      console.log(maxH);
+      $("#design,#complete").css("max-height",maxH);
+      $("#design img,#complete img").css("height",imgH);
+    }
+
+  var map,tb;
+  //图片放大功能
 
 $("img[data-u=image]").on('click',function(e) {
   src = $(this).prop("src");
+  $("body").css("overflow","hidden");
   showModule();
 })
   var canvas = document.getElementById("canvas");
@@ -559,9 +595,9 @@ $("img[data-u=image]").on('click',function(e) {
     $("input[type=range]").css({display:"block"});
     image.onload = function(){
 //    drawImageByScale();
-//    slider.onmousemove = function(){
-//      drawImageByScale();
-//    };
+    slider.onmousemove = function(){
+      drawImageByScale();
+    };
       context.drawImage(image,dw,dh,imageWidth,imageHeight);
       move();
     };
@@ -571,21 +607,26 @@ $("img[data-u=image]").on('click',function(e) {
     // 当滚轮事件发生时，执行onMouseWheel这个函数
     function onMouseWheel(e) {
       e = e || window.event;
+//      e.stopPropagation();
       if(e.wheelDelta){
-        console.log(e.wheelDelta);
-        if(e.wheelDelta>0){
-          slider.value +=0.05;
+//        console.log(e.wheelDelta);
+        if(e.wheelDelta<0){
+          slider.value -=0.1;
           drawImageByScale();
         }else{
-          slider.value -= 0.05;
+          slider.value =1.4;
+//          console.log(slider.value);
           drawImageByScale();
+//          alert("dd");
         }
+        e.preventDefault();
+        e.stopPropagation();
       }else if(e.detail){
-        if(e.detail>0){
-          slider.value +=0.05;
+        if(e.detail<0){
+          slider.value -=0.1;
           drawImageByScale();
         }else{
-          slider.value -=0.05;
+          slider.value +=0.1;
           drawImageByScale();
         }
       }
@@ -602,7 +643,9 @@ $("img[data-u=image]").on('click',function(e) {
 
   function drawImageByScale(){
     var oldScale = scale;
+    console.log(oldScale);
     scale = slider.value;
+    console.log(scale);
     imageWidth = image.width*scale;
     imageHeight = image.height*scale;
     dw = dw+image.width*(oldScale-scale)/2;
@@ -613,11 +656,13 @@ $("img[data-u=image]").on('click',function(e) {
 
   function hideModule(){
     $("#module").css({display:"none"});
+    $("body").css("overflow","auto");
   }
   function move(){
     var canMove = false;
     var startX = 0;
     var startY = 0;
+    var t;
     canvas.onmousedown = function(e){
       e = e || window.event;
       this.style.cursor = "move";
@@ -628,6 +673,7 @@ $("img[data-u=image]").on('click',function(e) {
     }
     canvas.onmouseup = function(){
       this.style.cursor = "default";
+      clearInterval(t);
       canMove = false;
       dw += cx-startX;
       dh += cy-startY;
@@ -637,12 +683,14 @@ $("img[data-u=image]").on('click',function(e) {
         e = e || window.event;
         cx = e.clientX;
         cy = e.clientY;
-        setInterval(function(){
+        t = setInterval(function(){
           if(canMove){
             context.clearRect(0,0,w,h);
             context.drawImage(image,dw+cx-startX,dh+cy-startY,imageWidth,imageHeight);
           }
-        },50)
+        },200);
+        e.preventDefault();
+        e.stopPropagation();
       }
     }
   }
@@ -772,6 +820,7 @@ require(
             map.graphics.clear();
             //清除graphiclayer图层的数据
             map.getLayer("xiaoqu").clear();
+            $("#geometry").val("");
         });
         @endrole
         tb = new Draw(map);
@@ -783,9 +832,10 @@ require(
         registry.byId("save").on("click", function() {
             //清除所有绘制的面数据
             var geometry = $('#geometry').val();
-            if(geometry != '{!! $archive->geometry !!}')
+            if(geometry != '{!! $archive->geometry !!}'&&geometry!="")
             {
-                saveGraphic(geometry);
+              saveGraphic(geometry);
+              alert("重新绘制成功");
             }
         });
         @endrole
