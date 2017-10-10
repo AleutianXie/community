@@ -8,11 +8,11 @@
             <div class="row row-offcanvas row-offcanvas-right">
                 <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar">
                     <div class="list-group">
-                        <a href="/list" class="list-group-item">{{ __('archive.sidebar.list') }}</a>
-                        <a href="/create" class="list-group-item">{{ __('archive.sidebar.add') }}</a>
-                        <a href="/map" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
-                        <a href="/admin" class="list-group-item">{{ __('admin.sidebar.usermanage') }}</a>
-                        <a href="/property" class="list-group-item active">{{ __('admin.sidebar.propertymanage') }}</a>
+                    <a href="/list" class="list-group-item">{{ __('archive.sidebar.list') }}</a>
+                    <a href="/create" class="list-group-item">{{ __('archive.sidebar.add') }}</a>
+                    <a href="/map" class="list-group-item">{{ __('archive.sidebar.map') }}</a>
+                    <a href="/admin" class="list-group-item">{{ __('admin.sidebar.usermanage') }}</a>
+                    <a href="/property" class="list-group-item active">{{ __('admin.sidebar.propertymanage') }}</a>
                     </div>
                 </div>
 
