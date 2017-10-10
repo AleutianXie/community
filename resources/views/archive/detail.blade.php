@@ -18,20 +18,16 @@
             z-index: 10;
         }
         .module_close{
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
             display: block;
             position: fixed;
             top: 70px;
             right: 30px;
-            background: url({{ asset('js/nh/images/close_def.png') }})  no-repeat;
+            background: url({{ asset('img/close.png') }})  no-repeat;
             background-size:cover;
             cursor: pointer;
             z-index: 500;
-        }
-        .module_close:hover{
-            background:url({{ asset('js/nh/images/close_hov.png') }}) no-repeat;
-            background-size:cover;
         }
         #canvas{
             margin:0;
