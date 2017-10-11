@@ -21,6 +21,7 @@ Route::post('/edit', 'ArchiveController@edit');
 Route::post('/upload/image/{type}', 'ArchiveController@uploadimage')->where('type', 'design|complete');
 Route::get('/map', 'ArchiveController@map')->name('archive.map');
 Route::get('/map/{id}', 'ArchiveController@map')->where('id', '[0-9]+')->name('archive.map.detail');
+Route::get('/attach/{id}', 'AttachController@list')->where('id', '[0-9]+')->name('archive.attach.list');
 Route::group(['prefix' => 'property'], function ()
 {
     Route::get('/', 'PropertyController@index')->name('property');

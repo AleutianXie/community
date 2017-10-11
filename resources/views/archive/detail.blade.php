@@ -269,9 +269,15 @@
                                                 <input type="hidden" name="geometry" id="geometry" value="{{ $archive->geometry }}"></input>
                                         </div>
                                         <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a href='{{ '/map/'.$archive->id }}'>查看小区位置</a>
-                                            </h4>
+                                            <!-- Single button -->
+                                            <div class="btn-group btn-group-justified">
+                                                <div class="btn-group">
+                                                <a href="{{ '/map/'.$archive->id }}" class="btn btn-primary" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ __('archive.map_marker') }} </a>
+                                                </div>
+                                                <div class="btn-group">
+                                                <a  href="{{ '/attach/'.$archive->id }}" class="btn btn-success" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span> {{ __('archive.attach') }} </a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-7">
