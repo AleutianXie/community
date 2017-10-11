@@ -562,12 +562,12 @@ Access Deny!
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
   //控制图片及图片列表高度
-    window.onload =  function(){
+     $(function($){
       var maxH = $(window).height()*0.5;
       var imgH = $("#xiaoqutuzhi").width();
       $("#design,#complete").css("max-height",maxH);
       $("#design img,#complete img").css("height",imgH);
-    }
+    })
 
   var map,tb;
   //图片放大功能
