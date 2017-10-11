@@ -92,6 +92,7 @@
                                 <div id="design" class="panel-collapse collapse" >
                                     @foreach ($archive->designPhotos as $photo)
                                         <img  data-u="image" src="{{ $photo->path }}" style="width: 100%;" >
+                                        <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
                                     @endforeach
                                 </div>
                         @endif
@@ -103,6 +104,7 @@
                                 <div id="complete" class="panel-collapse collapse">
                                     @foreach ($archive->completePhotos as $photo)
                                         <img   data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                                        <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
                                     @endforeach
                                 </div>
                         @endif
@@ -525,6 +527,17 @@ Access Deny!
                 response = data.response, reader = data.reader;
                 location.reload() 
         });
+
+        $("span[id^=photo_name_]").each(function(){
+            $(this).editable ({
+                type: 'text',
+                url: '/photo/changename',
+                params: {'_token' : '{{ csrf_token() }}'},
+                error: function(response){
+                    return response.responseJSON.errors.name[0];
+                }
+            });
+        });
         @endrole
     });
 </script>
@@ -552,8 +565,6 @@ Access Deny!
      $(function($){
       var maxH = $(window).height()*0.5;
       var imgH = $("#xiaoqutuzhi").width();
-//      console.log(imgH);
-//      console.log(maxH);
       $("#design,#complete").css("max-height",maxH);
       $("#design img,#complete img").css("height",imgH);
     })

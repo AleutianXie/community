@@ -103,10 +103,10 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('auth.login') }}
                                 </button>
-
+{{-- 
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     {{ __('auth.forget') }}
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     </form>
