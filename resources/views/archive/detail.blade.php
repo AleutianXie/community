@@ -103,8 +103,13 @@
                                 <a data-toggle="collapse" data-parent="#xiaoqutuzhi"  href="#complete" class="list-group-item active">{{ __('archive.sidebar.complete') }} <span class="badge">{{ count($archive->completePhotos) }}</span></a>
                                 <div id="complete" class="panel-collapse collapse">
                                     @foreach ($archive->completePhotos as $photo)
-                                        <img   data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                                    <div class="thumbnail">
+                                        @role('admin')
+                                        <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" role="menuitem"></span>
+                                        @endrole
+                                        <img data-u="image" src="{{ $photo->path }}" style="width: 100%" >
                                         <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
+                                    </div>
                                     @endforeach
                                 </div>
                         @endif
