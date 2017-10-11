@@ -88,13 +88,47 @@
                         <div id="xiaoqutuzhi">
                         <div class="panel">
                         @if (count($archive->designPhotos) != 0)
-                                <a data-toggle="collapse"  href="#design" data-parent="#xiaoqutuzhi" class="list-group-item active">{{ __('archive.sidebar.design') }} <span class="badge">{{ count($archive->designPhotos) }}</span></a>
-                                <div id="design" class="panel-collapse collapse" >
-                                    @foreach ($archive->designPhotos as $photo)
-                                        <img  data-u="image" src="{{ $photo->path }}" style="width: 100%;" >
-                                        <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
-                                    @endforeach
-                                </div>
+                            <a data-toggle="collapse"  href="#design" data-parent="#xiaoqutuzhi" class="list-group-item active">{{ __('archive.sidebar.design') }} <span class="badge">{{ count($archive->designPhotos) }}</span></a>
+                            <div id="design" class="panel-collapse collapse" >
+                                @foreach ($archive->designPhotos as $photo)
+                                    @role('admin')
+                                        <a data-toggle="modal" data-target="#modal-delete-{{ $photo->id }}"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" role="menuitem"></span></a>
+                                    @endrole
+                                    <img  data-u="image" src="{{ $photo->path }}" style="width: 100%;" >
+                                    <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
+                                    @role('admin')
+                                        {{-- 确认删除 --}}
+                                        <div class="modal fade" id="modal-delete-{{ $photo->id }}" tabIndex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">
+                                                        ×
+                                                        </button>
+                                                        <h4 class="modal-title">确认删除</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="lead">
+                                                            <i class="fa fa-question-circle fa-lg"></i>
+                                                            确认删除该图纸？
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <form method="POST" action="{{ route('admin.photo.delete', $photo->id) }}">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        <input type="hidden" name="id" value="{{ $photo->id }}">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                                                        <button type="submit" class="btn btn-danger">
+                                                            <i class="fa fa-times-circle"></i> 是
+                                                        </button>
+                                                    </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endrole
+                                @endforeach
+                            </div>
                         @endif
                         </div>
 
@@ -105,11 +139,42 @@
                                     @foreach ($archive->completePhotos as $photo)
                                     <div class="thumbnail">
                                         @role('admin')
-                                        <span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" role="menuitem"></span>
+                                        <a data-toggle="modal" data-target="#modal-delete-{{ $photo->id }}"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" role="menuitem"></span></a>
                                         @endrole
                                         <img data-u="image" src="{{ $photo->path }}" style="width: 100%" >
                                         <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
                                     </div>
+                                    @role('admin')
+                                    {{-- 确认删除 --}}
+                                    <div class="modal fade" id="modal-delete-{{ $photo->id }}" tabIndex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">
+                                                    ×
+                                                    </button>
+                                                    <h4 class="modal-title">确认删除</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="lead">
+                                                        <i class="fa fa-question-circle fa-lg"></i>
+                                                        确认删除该图纸？
+                                                    </p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                <form method="POST" action="{{ route('admin.photo.delete', $photo->id) }}">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="hidden" name="id" value="{{ $photo->id }}">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="fa fa-times-circle"></i> 是
+                                                    </button>
+                                                </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endrole
                                     @endforeach
                                 </div>
                         @endif
@@ -436,7 +501,6 @@ Access Deny!
                 return response.responseJSON.errors.lift[0];
             }
         });
-    var provinces = [{"id":1, "text":"name"},{"id":2, "text": "name2"}];
 
         $('#pid').editable({
             @role('admin')

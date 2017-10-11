@@ -22,4 +22,5 @@ return [
     'create_succeed' => '创建成功！',
     'update_succeed' => '更新成功！',
     'update_failed' => '更新失败！',
+    'photo' => ['delete_succeed' => '删除成功！', 'delete_failed' => '删除失败！'],
 ];

@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin'], function ()
     Route::get('/index', 'AdminController@index');
     Route::match(['get', 'post'], '/user/create', 'AdminController@createUser')->name('admin.user.create');
     Route::post('/user/edit', 'AdminController@editUser')->name('admin.user.create');
+    Route::post('/photo/delete/{id}', 'PhotoController@delete')->name('admin.photo.delete')->where('id', '[0-9]+');
 });
 
 Route::match(['get', 'post'], '/reset/{id}', 'AdminController@resetpassword')->where('id', '[0-9]+')->name('password.reset');
