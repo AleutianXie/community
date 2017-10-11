@@ -33,4 +33,5 @@ return [
     'draw' => '绘制小区区域坐标',
     'look' => '查看小区分布',
     'update' => ['geometry' => '更新小区区域坐标'],
+    'photo' => ['name' => '图片名称'],
 ];

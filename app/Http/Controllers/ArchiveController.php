@@ -118,7 +118,8 @@ class ArchiveController extends Controller
                         foreach ($savedimages as $image) {
                             $photo = new Photo();
                             $photo->aid = $archive->id;
-                            $photo->path = 'file/' . date("Ym", time()) . '/'.$image;
+                            $photo->name = $image['ori_name'];
+                            $photo->path = 'file/' . date("Ym", time()) . '/'.$image['name'];
                             $photo->type = '竣工';
                             $photo->creater = Auth::id();
                             $photo->modifier = Auth::id();
@@ -213,13 +214,15 @@ class ArchiveController extends Controller
         foreach ($_FILES["file-".$type]["error"] as $key => $error) {
             if ($error == UPLOAD_ERR_OK) {
                 $path_parts = pathinfo($_FILES["file-".$type]["name"][$key]);
+                $ori_name = $path_parts['filename'];
                 $tmp_name = $_FILES["file-".$type]["tmp_name"][$key];
                 $name = md5_file($_FILES["file-".$type]["tmp_name"][$key]).'.'.$path_parts['extension'];
                 if (move_uploaded_file($tmp_name, "$uploads_dir/$name")) {
-                    $saveFileNames[] = $name;
+                    $saveFileNames[] = compact('ori_name', 'name');
                     if (!empty($data['id'])) {
                             $photo = new Photo();
                             $photo->aid = $data['id'];
+                            $photo->name = $ori_name;
                             $photo->path = 'file/' . date("Ym", time()) . '/'.$name;
                             $photo->type = $type == 'design' ? '设计' : '竣工';
                             $photo->creater = Auth::id();
