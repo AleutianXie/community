@@ -53,14 +53,15 @@
             overflow-y: scroll;
             overflow-x: hidden;
         }
-       #sidebar img+img{
+       #sidebar img{
+           width:100%;
            margin:0;
+           padding:0;
            border-top: 1px solid #aaa;
        }
         #xiaoqutuzhi .panel{
             padding:0;
             margin-bottom:20px;
-
             border:none;
         }
     </style>
@@ -91,7 +92,12 @@
                                 <a data-toggle="collapse"  href="#design" data-parent="#xiaoqutuzhi" class="list-group-item active">{{ __('archive.sidebar.design') }} <span class="badge">{{ count($archive->designPhotos) }}</span></a>
                                 <div id="design" class="panel-collapse collapse" >
                                     @foreach ($archive->designPhotos as $photo)
+<<<<<<< HEAD
+                                        <img  data-u="image" src="{{ $photo->path }}" >
+=======
                                         <img  data-u="image" src="{{ $photo->path }}" style="width: 100%;" >
+                                        <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
+>>>>>>> 69062e4f8845034e150e376b5230fcabea1ecedf
                                     @endforeach
                                 </div>
                         @endif
@@ -102,7 +108,12 @@
                                 <a data-toggle="collapse" data-parent="#xiaoqutuzhi"  href="#complete" class="list-group-item active">{{ __('archive.sidebar.complete') }} <span class="badge">{{ count($archive->completePhotos) }}</span></a>
                                 <div id="complete" class="panel-collapse collapse">
                                     @foreach ($archive->completePhotos as $photo)
+<<<<<<< HEAD
+                                        <img   data-u="image" src="{{ $photo->path }}" >
+=======
                                         <img   data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                                        <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
+>>>>>>> 69062e4f8845034e150e376b5230fcabea1ecedf
                                     @endforeach
                                 </div>
                         @endif
@@ -307,7 +318,6 @@ Access Deny!
           {$Duration:2000,y:-1,$Delay:60,$Cols:15,$SlideOut:true,$Formation:$JssorSlideshowFormations$.$FormationStraight,$Easing:$Jease$.$OutJump,$Round:{$Top:1.5}},
           {$Duration:1200,x:0.2,y:-0.1,$Delay:20,$Cols:8,$Rows:4,$Clip:15,$During:{$Left:[0.3,0.7],$Top:[0.3,0.7]},$Formation:$JssorSlideshowFormations$.$FormationStraightStairs,$Assembly:260,$Easing:{$Left:$Jease$.$InWave,$Top:$Jease$.$InWave,$Clip:$Jease$.$OutQuad},$Round:{$Left:1.3,$Top:2.5}}
         ];
-
         var jssor_1_options = {
           $AutoPlay: 1,
           $SlideshowOptions: {
@@ -525,6 +535,17 @@ Access Deny!
                 response = data.response, reader = data.reader;
                 location.reload() 
         });
+
+        $("span[id^=photo_name_]").each(function(){
+            $(this).editable ({
+                type: 'text',
+                url: '/photo/changename',
+                params: {'_token' : '{{ csrf_token() }}'},
+                error: function(response){
+                    return response.responseJSON.errors.name[0];
+                }
+            });
+        });
         @endrole
     });
 </script>
@@ -549,11 +570,9 @@ Access Deny!
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
   //控制图片及图片列表高度
-     $(function($){
+     jQuery(document).ready(function($){
       var maxH = $(window).height()*0.5;
       var imgH = $("#xiaoqutuzhi").width();
-//      console.log(imgH);
-//      console.log(maxH);
       $("#design,#complete").css("max-height",maxH);
       $("#design img,#complete img").css("height",imgH);
     })

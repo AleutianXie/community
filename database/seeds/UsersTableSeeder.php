@@ -29,6 +29,6 @@ class UsersTableSeeder extends Seeder
         echo "Assign admin Role to Administrator.\n";
         $user = User::where(['name' => 'Administrator'])->first();
         $user->assignRole('admin');
-        echo "OK!";
+        echo "OK!\n";
     }
 }

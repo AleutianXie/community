@@ -29,6 +29,10 @@ Route::group(['prefix' => 'property'], function ()
     Route::post('/edit', 'PropertyController@edit');
 });
 
+Route::group(['prefix' => 'photo'], function ()
+{
+    Route::post('/changename', 'PhotoController@changename');
+});
 Route::group(['prefix' => 'admin'], function ()
 {
     Route::get('/', 'AdminController@index')->name('admin');

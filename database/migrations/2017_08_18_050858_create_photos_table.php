@@ -19,6 +19,7 @@ class CreatePhotosTable extends Migration
             $table->unsignedInteger('aid');
             $table->foreign('aid')->references('id')->on('archives');
             $table->enum('type', ['1' => '设计', '2' => '竣工']);
+            $table->string('name', 255);
             $table->string('path', 255);
             $table->boolean('show')->default(1);
             $table->unsignedInteger('creater');
