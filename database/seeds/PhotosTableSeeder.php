@@ -27,14 +27,15 @@ class PhotosTableSeeder extends Seeder
             if (!in_array($subDir, ['.', '..']))
             {
                 $aName = $subDir;
-                echo mb_convert_encoding($aName, 'UTF-8') . "\n";
-                $archive = Archive::where(['name' => mb_convert_encoding($aName, 'UTF-8')])->get()->toArray();
+                $charset =  mb_detect_encoding($aName,"UTF-8, ISO-8859-1, GBK")
+                echo mb_convert_encoding($aName, 'UTF-8', $charset) . "\n";
+                $archive = Archive::where(['name' => mb_convert_encoding($aName, 'UTF-8', $charset)])->get()->toArray();
                 $types = scandir($dir . '/' . $subDir);
                 foreach ($types as $type)
                 {
                     if (!in_array($type, ['.', '..']))
                     {
-                        $aType = mb_substr($type, 2, 2);
+                        $aType = mb_substr($type, 2, 2, $charset);
                         echo $aType . "\n";
 
                         $files = scandir($dir . '/' . $subDir . '/' . $type);
@@ -50,12 +51,12 @@ class PhotosTableSeeder extends Seeder
                                 if (isset($archive[0]['id']))
                                 {
                                     $arr[] = [$aName, $aType, $file, $md5, $archive[0]['id'], 'file/' . date("Ym", time()) . '/' . $md5 . '.' . $extension];
-                                    echo "insert " . mb_convert_encoding($file, 'UTF-8') . "\n";
+                                    echo "insert " . mb_convert_encoding($file, 'UTF-8', $charset) . "\n";
                                     DB::table('photos')->insert([
                                         'aid' => $archive[0]['id'],
                                         'path' => 'file/' . date("Ym", time()) . '/' . $md5 . '.' . $extension,
-                                        'name' => mb_convert_encoding($filename, 'UTF-8'),
-                                        'type' => mb_convert_encoding($aType, 'UTF-8'),
+                                        'name' => mb_convert_encoding($filename, 'UTF-8', $charset),
+                                        'type' => mb_convert_encoding($aType, 'UTF-8', $charset),
                                         'creater' => 1,
                                         'modifier' => 1,
                                         'created_at' => date('Y-m-d H:i:s', time()),
