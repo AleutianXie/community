@@ -237,8 +237,8 @@ require(
     var lineSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 0]), 2);
     var polygonSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, polygonSymbol, new Color([0, 0, 0, 0.25]));
     on(dom.byId("line"),"click",function(){
-
       map.graphics.clear();
+      $("path").css("pointer-events","none");
       $("#result").html("");
       //激活画线工具
       measureToolbar.activate(Draw.POLYLINE, {
@@ -247,6 +247,7 @@ require(
     });
     on(dom.byId("polygon"),"click",function(){
       map.graphics.clear();
+      $("path").css("pointer-events","none");
       $("#result").html("");
       //激活画面工具
       measureToolbar.activate(Draw.POLYGON,{
@@ -320,6 +321,8 @@ require(
       $("#result").html(data+" "+unit);
       $("#infoclose").click(function(){
         map.graphics.clear();
+//        $(".esriPopup").css("display","block");
+        $("path").css("pointer-events","auto");
         measureToolbar.deactivate();
         measureDiv.css("display","none");
         isShow = false;

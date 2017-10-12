@@ -27,7 +27,8 @@ class PhotosTableSeeder extends Seeder
             if (!in_array($subDir, ['.', '..']))
             {
                 $aName = $subDir;
-                $charset =  mb_detect_encoding($aName,"UTF-8, ISO-8859-1, GBK")
+                $charset =  mb_detect_encoding($aName,"GBK");
+//              $charset =  mb_detect_encoding($aName,"UTF-8, ISO-8859-1, GBK")
                 echo mb_convert_encoding($aName, 'UTF-8', $charset) . "\n";
                 $archive = Archive::where(['name' => mb_convert_encoding($aName, 'UTF-8', $charset)])->get()->toArray();
                 $types = scandir($dir . '/' . $subDir);
