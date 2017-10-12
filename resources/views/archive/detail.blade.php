@@ -57,7 +57,7 @@
            width:100%;
            margin:0;
            padding:0;
-           border-top: 1px solid #aaa;
+           /*border-bottom: 1px solid #aaa;*/
        }
         #xiaoqutuzhi .panel{
             padding:0;
@@ -103,7 +103,10 @@
                                     @role('admin')
                                         <a data-toggle="modal" data-target="#modal-delete-{{ $photo->id }}"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" role="menuitem"></span></a>
                                     @endrole
-                                    <img  data-u="image" src="{{ $photo->path }}" style="width: 100%;" >
+                                    <div>
+                                        <img  data-u="image" src="{{ $photo->path }}" style="width: 100%;" >
+                                    </div>
+
                                     <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
                                     @role('admin')
                                         {{-- 确认删除 --}}
@@ -150,7 +153,10 @@
                                         @role('admin')
                                         <a data-toggle="modal" data-target="#modal-delete-{{ $photo->id }}"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" role="menuitem"></span></a>
                                         @endrole
-                                        <img data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                                        <div>
+                                            <img data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                                        </div>
+
                                         <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
                                     </div>
                                     @role('admin')
@@ -649,11 +655,10 @@ Access Deny!
   //控制图片及图片列表高度
      jQuery(document).ready(function($){
       var maxH = $(window).height()*0.5;
-      var imgH = $("#xiaoqutuzhi").width();
+      var imgH = $("#xiaoqutuzhi").width()*0.8;
       $("#design,#complete").css("max-height",maxH);
       $("#design img,#complete img").css("height",imgH);
     })
-
   var map,tb;
   //图片放大功能
 
@@ -684,7 +689,7 @@ $("img[data-u=image]").on('click',function(e) {
     dh = h/2-imageHeight/2;
     $("#module").height(h).width(w);
     $("#module").css({display:"block"});
-    $("input[type=range]").css({display:"block"});
+//    $("input[type=range]").css({display:"block"});
     image.onload = function(){
 //    drawImageByScale();
     slider.onmousemove = function(){
