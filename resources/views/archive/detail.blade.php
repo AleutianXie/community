@@ -285,7 +285,7 @@
                                                     <span class="editable editable-click" id="mobile">{{ $archive->mobile }}</span>
                                                 </div>
                                             </div>
-                                                <input type="hidden" name="geometry" id="geometry" value="{{ $archive->geometry }}"></input>
+                                                <input type="hidden" name="geometry" id="geometry" value="{{ $archive->geometry }}">
                                         </div>
                                         <div class="panel-heading">
                                             <!-- Single button -->
@@ -786,18 +786,15 @@ $("img[data-u=image]").on('click',function(e) {
         e = e || window.event;
         cx = e.clientX;
         cy = e.clientY;
-        t = setInterval(function(){
           if(canMove){
             context.clearRect(0,0,w,h);
             context.drawImage(image,dw+cx-startX,dh+cy-startY,imageWidth,imageHeight);
           }
-        },200);
         e.preventDefault();
         e.stopPropagation();
       }
     }
   }
-
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 
