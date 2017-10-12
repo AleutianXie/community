@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class PhotoController extends Controller
@@ -55,6 +56,20 @@ class PhotoController extends Controller
             {
                 return '更新失败';
             }
+        }
+    }
+
+    public function delete(Request $request, $id)
+    {
+        if ($request->isMethod('POST')) 
+        {
+            $photo = Photo::find($id);
+            if (Storage::delete(str_replace('/display/', '/', $photo->path))) {
+                if ($photo->delete()) {
+                    return redirect()->back()->with('succeed', __('admin.photo.delete_succeed'));
+                }
+            }
+            return redirect()->back()->with('error', __('admin.photo.delete_failed'));
         }
     }
 }
