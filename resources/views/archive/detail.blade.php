@@ -108,7 +108,7 @@
                                         <a data-toggle="modal" data-target="#modal-delete-{{ $photo->id }}"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" role="menuitem"></span></a>
                                     @endrole
                                     <div>
-                                        <img name="{{ $photo->name }}" data-u="image" src="{{ $photo->path }}" style="width: 100%;" >
+                                        <img alt="{{ $photo->name }}" data-u="image" src="{{ $photo->path }}" style="width: 100%;" >
                                     </div>
 
                                     <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
@@ -158,7 +158,7 @@
                                         <a data-toggle="modal" data-target="#modal-delete-{{ $photo->id }}"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" role="menuitem"></span></a>
                                         @endrole
                                         <div>
-                                            <img name="{{ $photo->name }}" data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                                            <img alt="{{ $photo->name }}" data-u="image" src="{{ $photo->path }}" style="width: 100%" >
                                         </div>
 
                                         <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
@@ -308,7 +308,7 @@
                                             <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:580px;overflow:hidden;">
                                             @foreach ($archive->photos as $photo)
                                                 <div>
-                                                    <img name="{{$photo->name}}" data-u="image" src="{{ $photo->path }}" >
+                                                    <img alt="{{$photo->name}}" data-u="image" src="{{ $photo->path }}" >
                                                 </div>
                                             @endforeach
                                             </div>
@@ -668,7 +668,7 @@ Access Deny!
 
 $("img[data-u=image]").on('click',function(e) {
   src = $(this).prop("src");
-  var name = $(this).attr("name");
+  var name = $(this).attr("alt");
   $(".photo-name").html(name);
   $("body").css("overflow","hidden");
   showModule();
