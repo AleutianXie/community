@@ -51,17 +51,25 @@
             padding:0;
             /*max-height:300px;*/
             overflow-y: scroll;
-            overflow-x: hidden;
+            /*overflow-x: hidden;*/
         }
-       #sidebar img+img{
+       #sidebar img{
+           width:100%;
            margin:0;
+           padding:0;
            border-top: 1px solid #aaa;
        }
         #xiaoqutuzhi .panel{
             padding:0;
             margin-bottom:20px;
-
             border:none;
+        }
+        .photo-name{
+            position: fixed;
+            top:100px;
+            left:100px;
+            z-index: 500;
+            font-size:24px;
         }
     </style>
 @endsection
@@ -71,6 +79,7 @@
     <div id="module">
         <a class="module_close" href="javascript:hideModule();"></a>
         <canvas id="canvas"></canvas>
+        <span class="photo-name">图图图图图图纸名称</span>
     </div>
     <input type="range" id="scale-range" min="0.2" max="2" step="0.05" value="1">
     <div class="container">
@@ -352,6 +361,8 @@
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse">
                                         @role('admin')
+                                        <button id="baselayer" data-dojo-type="dijit/form/Button">电子</button>
+                                        <button id="yxlayer" data-dojo-type="dijit/form/Button">影像</button>
                                         <button id="Polygon" data-dojo-type="dijit/form/Button">绘制</button>
                                         <button id="clear" data-dojo-type="dijit/form/Button">清除</button>
                                         <button id="save" data-dojo-type="dijit/form/Button">保存</button>
@@ -385,7 +396,6 @@ Access Deny!
           {$Duration:2000,y:-1,$Delay:60,$Cols:15,$SlideOut:true,$Formation:$JssorSlideshowFormations$.$FormationStraight,$Easing:$Jease$.$OutJump,$Round:{$Top:1.5}},
           {$Duration:1200,x:0.2,y:-0.1,$Delay:20,$Cols:8,$Rows:4,$Clip:15,$During:{$Left:[0.3,0.7],$Top:[0.3,0.7]},$Formation:$JssorSlideshowFormations$.$FormationStraightStairs,$Assembly:260,$Easing:{$Left:$Jease$.$InWave,$Top:$Jease$.$InWave,$Clip:$Jease$.$OutQuad},$Round:{$Left:1.3,$Top:2.5}}
         ];
-
         var jssor_1_options = {
           $AutoPlay: 1,
           $SlideshowOptions: {
@@ -637,7 +647,7 @@ Access Deny!
 <script src="{{ asset('js/nh/arcgis_js_api/library/3.21compact/init.js') }}"></script>
 <script type="text/javascript">
   //控制图片及图片列表高度
-     $(function($){
+     jQuery(document).ready(function($){
       var maxH = $(window).height()*0.5;
       var imgH = $("#xiaoqutuzhi").width();
       $("#design,#complete").css("max-height",maxH);
@@ -705,10 +715,10 @@ $("img[data-u=image]").on('click',function(e) {
         e.stopPropagation();
       }else if(e.detail){
         if(e.detail<0){
-          slider.value -=0.1;
+          slider.value +=0.1;
           drawImageByScale();
         }else{
-          slider.value +=0.1;
+          slider.value -=0.1;
           drawImageByScale();
         }
       }
@@ -781,31 +791,39 @@ $("img[data-u=image]").on('click',function(e) {
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 
 require(
-  ["esri/map","esri/dijit/Popup","esri/dijit/PopupTemplate","esri/toolbars/draw","esri/symbols/SimpleMarkerSymbol","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/renderers/ClassBreaksRenderer","tdlib/ClusterLayer","esri/geometry/webMercatorUtils", "esri/graphic","esri/Color","esri/layers/GraphicsLayer", "esri/SpatialReference","tdlib/TDTLayer","tdlib/TDTAnnoLayer","esri/geometry/Point","dojo/parser","dijit/registry","dijit/form/Button", "dojo/domReady!"],
-  function(Map,Popup, PopupTemplate,Draw,SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, ClassBreaksRenderer,ClusterLayer,webMercatorUtils,Graphic,Color,GraphicsLayer,SpatialReference,TDTLayer,TDTAnnoLayer,Point,parser,registry,Button)
-  {
-        parser.parse();
-        var popupOptions = {
-            titleInBody: false,
-            highlight: true,
-            marginTop: 60,
-            width: 100
-        };
-        var popup = new esri.dijit.Popup(popupOptions, dojo.create("div"));
-        var map = new Map("mapDiv",{ logo:false,infoWindow: popup});
-        map.on('load', function() {
-            @if (!empty($archive->geometry))
-                requestData();
-            @endif
-        });
-        var nhbasemap = new TDTLayer();
-        map.addLayer(nhbasemap);
-        var nhannolayer=  new TDTAnnoLayer();
-        map.addLayer(nhannolayer);
-
-        map.centerAndZoom(new Point({"x": 121.42018376109351, "y": 29.291107035766274, "spatialReference": {"wkid": 4490 } }),11);
-        var graLayer = new GraphicsLayer({id:"xiaoqu"});
-        map.addLayer(graLayer);
+    ["dojo/dom","dojo/on","esri/tasks/LengthsParameters","esri/tasks/AreasAndLengthsParameters","esri/toolbars/draw", "esri/graphic","dojo/keys","esri/config","esri/sniff","esri/SnappingManager","esri/dijit/Measurement","esri/layers/FeatureLayer","esri/renderers/SimpleRenderer","esri/tasks/GeometryService","esri/map","esri/dijit/Popup","esri/dijit/PopupTemplate","esri/toolbars/draw","esri/symbols/SimpleMarkerSymbol","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/renderers/ClassBreaksRenderer","tdlib/ClusterLayer","esri/geometry/webMercatorUtils", "esri/graphic","esri/Color","esri/layers/GraphicsLayer", "esri/SpatialReference","tdlib/TDTLayer","tdlib/TDTAnnoLayer","tdlib/TDTYXLayer","esri/geometry/Point","dojo/parser","dijit/registry","dijit/form/Button", "dojo/domReady!"],
+    function(dom,on,LengthsParameters,AreasAndLengthsParameters,draw,graphic,keys,esriConfig,has,SnappingManager,Measurement,FeatureLayer,SimpleRenderer,GeometryService,Map,Popup, PopupTemplate,Draw,SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, ClassBreaksRenderer,ClusterLayer,webMercatorUtils,Graphic,Color,GraphicsLayer,SpatialReference,TDTLayer,TDTAnnoLayer,TDTYXLayer,Point,parser,registry,Button)
+    {
+      parser.parse();
+      var popupOptions = {
+        titleInBody: false,
+        highlight: true,
+        marginTop: 60,
+        width: 100
+      };
+      var popup = new esri.dijit.Popup(popupOptions, dojo.create("div"));
+      map=new Map("mapDiv",{ logo:false,infoWindow: popup});
+      map.on('load', function() {
+        requestData();
+      });
+      var nhyxmap = new TDTYXLayer();
+      map.addLayer(nhyxmap);
+      nhyxmap.setVisibility(false);
+      var nhbasemap = new TDTLayer();
+      map.addLayer(nhbasemap);
+      var nhannolayer=  new TDTAnnoLayer();
+      map.addLayer(nhannolayer);
+      $("#baselayer").click(function(){
+        nhbasemap.setVisibility(true);
+        nhyxmap.setVisibility(false);
+      });
+      $("#yxlayer").click(function(){
+        nhbasemap.setVisibility(false);
+        nhyxmap.setVisibility(true);
+      });
+      map.centerAndZoom(new Point({"x": 121.42018376109351, "y": 29.291107035766274, "spatialReference": {"wkid": 4490 } }),11);
+      var graLayer = new GraphicsLayer({id:"xiaoqu"});
+      map.addLayer(graLayer);
 
         function requestData(){
             dojo.addOnLoad(function(resp){
