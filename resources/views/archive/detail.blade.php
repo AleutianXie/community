@@ -67,9 +67,13 @@
         .photo-name{
             position: fixed;
             top:100px;
-            left:100px;
+            left:80px;
             z-index: 500;
             font-size:24px;
+            color:orange;
+            padding:5px 10px;
+            background: #999;
+            border-radius: 5px;
         }
     </style>
 @endsection
@@ -79,7 +83,7 @@
     <div id="module">
         <a class="module_close" href="javascript:hideModule();"></a>
         <canvas id="canvas"></canvas>
-        <span class="photo-name">图图图图图图纸名称</span>
+        <span class="photo-name">未发现图纸名称</span>
     </div>
     <input type="range" id="scale-range" min="0.2" max="2" step="0.05" value="1">
     <div class="container">
@@ -104,7 +108,7 @@
                                         <a data-toggle="modal" data-target="#modal-delete-{{ $photo->id }}"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" role="menuitem"></span></a>
                                     @endrole
                                     <div>
-                                        <img  data-u="image" src="{{ $photo->path }}" style="width: 100%;" >
+                                        <img name="{{ $photo->name }}" data-u="image" src="{{ $photo->path }}" style="width: 100%;" >
                                     </div>
 
                                     <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
@@ -154,7 +158,7 @@
                                         <a data-toggle="modal" data-target="#modal-delete-{{ $photo->id }}"><span class="glyphicon glyphicon-remove pull-right" aria-hidden="true" role="menuitem"></span></a>
                                         @endrole
                                         <div>
-                                            <img data-u="image" src="{{ $photo->path }}" style="width: 100%" >
+                                            <img name="{{ $photo->name }}" data-u="image" src="{{ $photo->path }}" style="width: 100%" >
                                         </div>
 
                                         <span @role('admin') id="photo_name_{{$photo->id}}" name="photo_name_{{$photo->id}}" class="editable editable-click" data-pk="{{ $photo->id }}" @endrole>{{ $photo->name }}</span>
@@ -304,7 +308,7 @@
                                             <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:580px;overflow:hidden;">
                                             @foreach ($archive->photos as $photo)
                                                 <div>
-                                                    <img data-u="image" src="{{ $photo->path }}" >
+                                                    <img name="{{$photo->name}}" data-u="image" src="{{ $photo->path }}" >
                                                 </div>
                                             @endforeach
                                             </div>
@@ -664,6 +668,8 @@ Access Deny!
 
 $("img[data-u=image]").on('click',function(e) {
   src = $(this).prop("src");
+  var name = $(this).attr("name");
+  $(".photo-name").html(name);
   $("body").css("overflow","hidden");
   showModule();
 })
