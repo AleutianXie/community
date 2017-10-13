@@ -22,6 +22,9 @@ Route::post('/upload/image/{type}', 'ArchiveController@uploadimage')->where('typ
 Route::get('/map', 'ArchiveController@map')->name('archive.map');
 Route::get('/map/{id}', 'ArchiveController@map')->where('id', '[0-9]+')->name('archive.map.detail');
 Route::get('/attach/{id}', 'AttachController@list')->where('id', '[0-9]+')->name('archive.attach.list');
+Route::post('/attach/create', 'AttachController@create')->name('archive.attach.create');
+Route::post('/attach/delete/{id}', 'AttachController@delete')->where('id', '[0-9]+')->name('attach.delete');
+Route::get('/attach/download/{id}', 'AttachController@download')->where('id', '[0-9]+')->name('attach.download');
 Route::group(['prefix' => 'property'], function ()
 {
     Route::get('/', 'PropertyController@index')->name('property');

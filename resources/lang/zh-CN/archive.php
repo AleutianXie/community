@@ -35,4 +35,8 @@ return [
     'photo' => ['name' => '图片名称'],
     'map_marker' => '小区位置',
     'attach' => '附件中心',
+    'uploadattach' => '上传附件',
+    'attachname' => '附件名',
+    'download' => '下载',
+    'delete' => '删除',
 ];

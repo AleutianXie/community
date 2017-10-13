@@ -209,6 +209,10 @@ class ArchiveController extends Controller
     {
         $data = $request->input();
         $uploads_dir = storage_path('app/aetherupload/file/' . date("Ym", time()));
+        if (!file_exists($uploads_dir))
+        {
+            mkdir($uploads_dir, 0777, true);
+        }
         $saveFileNames = [];
         //dd($_FILES);
         foreach ($_FILES["file-".$type]["error"] as $key => $error) {
